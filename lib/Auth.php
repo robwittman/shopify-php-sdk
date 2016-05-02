@@ -39,7 +39,7 @@ class Auth
             'scope'         => self::$permissions
         );
         if(!is_null(self::$nonce)) $params['nonce'] = self::$nonce;
-        return sprintf("https://%s/%s?%s", self::$store, self::$auth_uri, http_build_query($params));
+        return sprintf("https://%s/admin/%s?%s", self::$store, self::$auth_uri, http_build_query($params));
     }
 
     public static function accessToken()

@@ -34,7 +34,7 @@ class Auth
     public static function authorizationUrl()
     {
         $params = array(
-            'redirect_url'  => self::$redirect_uri,
+            'redirect_uri'  => self::$redirect_uri,
             'client_id'     => self::$api_key,
             'scope'         => self::$permissions
         );

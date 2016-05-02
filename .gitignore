@@ -1,0 +1,11 @@
+# Ignore test directory
+/test/simpletest
+
+# Ignore vendor
+/vendor
+
+# Ignore compser.lock
+composer.lock
+
+# Ignore PHPUnit coverage file
+clover.xml

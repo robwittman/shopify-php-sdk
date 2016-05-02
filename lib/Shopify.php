@@ -10,8 +10,8 @@ class Shopify
     public static $permissions;
     public static $store;
     public static $nonce = NULL;
-    public static $auth_uri = '/admin/oauth/authorize';
-    public static $token_uri = '/admin/oauth/access_token';
+    public static $auth_uri = 'admin/oauth/authorize';
+    public static $token_uri = 'admin/oauth/access_token';
 
     public static function init(array $opts)
     {

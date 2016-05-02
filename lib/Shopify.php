@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This is the core handler for all Shopify API requests.
+ *
+ * The only metadata that this class needs to start executing requests is
+ * a store to request on, and an access token to authenticate with. The API
+ * key and secret are only used to get these access tokens
+ *
+ * 
+ */
 namespace Shopify;
 
 class Shopify
@@ -41,6 +50,7 @@ class Shopify
      * @var array
      */
     public static $api_options = array();
+
     /**
      * Retrieve our API Key
      * @return string
@@ -51,12 +61,22 @@ class Shopify
     }
 
     /**
+     * Retrieve the API Key used to instantiate our API Handler
+     * @return string
+     */
+    public static function getApiSecret()
+    {
+        return self::$api_secret;
+    }
+
+    /**
      * Set our API Ket
      * @param void
      */
-    public static function setApiKey($key)
+    public static function setApiCreds($key, $secret)
     {
         self::$api_key = $key;
+        self::$api_secret = $secret;
     }
 
     /**

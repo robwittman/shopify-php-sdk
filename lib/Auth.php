@@ -4,127 +4,46 @@ namespace Shopify;
 
 class Auth
 {
-    /**
-     * Authorzation Code for OAuth
-     * @var string
-     */
-    public static $code;
+    public static $api_key;
+    public static $api_secret;
+    public static $redirect_uri;
+    public static $permissions;
+    public static $store;
+    public static $nonce = NULL;
+    public static $auth_uri = 'oauth/authorize';
+    public static $token_uri = 'oauth/access_token';
 
-    /**
-     * Nonce for validating requests to OAuth
-     * @var string
-     */
-    public static $nonce;
-
-    /**
-     * Array of permissions our application is going to requests
-     * @var array
-     */
-    public static $permissions = array();
-
-    /**
-     * Reidrect URL for POST OAtuh
-     * @var string
-     */
-    public static $redirect_url;
-
-    /**
-     * Get the link we need to send a store owner to for authentication
-     * @return string
-     */
-    public static function authorizationUrl($redirect_url = NULL, $permissions = array())
+    public static function init(array $opts)
     {
-        if(is_null($redirect_url) && is_null(self::$redirect_url))
+        if(!array_key_exists('api_key', $opts) ||
+           !array_key_exists('api_secret', $opts) ||
+           !array_key_exists('redirect_uri', $opts) ||
+           !array_key_exists('permissions', $opts) ||
+           !array_key_exists('store', $opts))
         {
-            throw new Exception("You have not specified a redirect URL");
+            throw new Exception("Initialization options missing for \Shopify\Auth::init()");
         }
+        self::$api_key = $opts['api_key'];
+        self::$api_secret = $opts['api_secret'];
+        self::$redirect_uri = $opts['redirect_uri'];
+        self::$permissions = $opts['permissions'];
+        self::$store = $opts['store'];
+        if(array_key_exists('nonce', $opts)) self::$nonce = $opts['nonce'];
+    }
+
+    public static function authorizationUrl()
+    {
         $params = array(
-            'redirect_url' => is_null($redirect_url) ? self::$redirect_url : $redirect_url,
-            'client_id' => Shopify::getApiKey(),
-            'state' => self::generateNonce(),
+            'redirect_url'  => self::$redirect_uri,
+            'client_id'     => self::$api_key,
+            'scope'         => self::$permissions
         );
-
-        if($perms = self::getPermissions()) $params['scope'] =  implode(',',$perms);
-
-        return Shopify::baseUrl().'oauth/authorize?'.http_build_query($params);
+        if(!is_null(self::$nonce)) $params['nonce'] = self::$nonce;
+        return sprintf("https://%s/%s?%s", self::$store, self::$auth_uri, http_build_query($params));
     }
 
-    /**
-     * Get the access token from a successful OAuth requests
-     * @param  string $nonce This is the nonce you want to validate against
-     * @return string|boolean
-     */
-    public static function accessToken($nonce = NULL)
+    public static function accessToken()
     {
-        if(!is_null($nonce) && !self::$validateNonce($nonce))
-        {
-            throw new InvalidNonceException("Request did not pass the required nonce check");
-        }
         
-    }
-
-    /**
-     * Set the application Redirect URL
-     * @param string
-     */
-    public static function setRedirectUrl($redirect_url)
-    {
-        self::$redirect_url = $redirect_url;
-    }
-
-    /**
-     * Get the redirect URL
-     * @return string
-     */
-    public static function getRedirecturl()
-    {
-        return self::$redirect_url;
-    }
-
-    /**
-     * Get permissions we've set for the application
-     * @return array
-     */
-    public static function getPermissions()
-    {
-        return self::$permissions;
-    }
-
-    /**
-     * Set the permissions for our application
-     * @param array $permissions
-     */
-    public static function setPermissions($permissions))
-    {
-        self::$permissions = $permissions;
-    }
-
-    /**
-     * Set the nonce for auth requests.
-     * @param string $nonce
-     */
-    public static function setNonce($nonce)
-    {
-        self::$nonce = $nonce;
-    }
-
-    /**
-     * Retrieve the nonce used for OAuth request
-     * @return string
-     */
-    public static function getNonce()
-    {
-        return self::$nonce;
-    }
-
-    /**
-     * Generate a nonce to use in auth requests
-     * Not recommended to use, but allows qick and dirty nonce generation
-     *
-     * @return string
-     */
-    public static function generateNonce()
-    {
-        return hash('sha256', uniqid());
     }
 }

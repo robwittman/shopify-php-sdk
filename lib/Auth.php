@@ -21,7 +21,7 @@ class Auth
            !array_key_exists('permissions', $opts) ||
            !array_key_exists('store', $opts))
         {
-            throw new Exception("Initialization options missing for \Shopify\Auth::init()");
+            throw new \Exception("Initialization options missing for \Shopify\Auth::init()");
         }
         self::$api_key = $opts['api_key'];
         self::$api_secret = $opts['api_secret'];
@@ -44,6 +44,6 @@ class Auth
 
     public static function accessToken()
     {
-        
+
     }
 }

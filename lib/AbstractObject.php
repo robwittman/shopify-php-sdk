@@ -17,6 +17,6 @@ abstract class AbstractObject extends AbstractResource
 
     public static function getHandle()
     {
-        return self::$handle;
+        return static::$handle;
     }
 }

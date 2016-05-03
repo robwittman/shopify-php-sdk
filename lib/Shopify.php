@@ -4,19 +4,47 @@ namespace Shopify;
 
 class Shopify
 {
+    protected static $instance;
+    protected $client;
+
     public static $api_key;
     public static $api_secret;
     public static $redirect_uri;
     public static $permissions;
     public static $store;
-    public static $nonce = FALSE;
-    public static $auth_uri = 'admin/oauth/authorize';
-    public static $token_uri = 'admin/oauth/access_token';
     public static $strict = TRUE;
+
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
 
     public static function init(array $opts = array())
     {
-        self::setOpt($opts);
+        $api = new static(new Client());
+        static::setInstance($api);
+        return $api;
+    }
+
+    public static function instance()
+    {
+        return static::$instance;
+    }
+
+    public static function setInstance(Shopify $instance)
+    {
+        static::$instance = $api;
+    }
+
+    public function call($path, $method, array $params = array())
+    {
+        $request = $this->prepareRequest();
+        $response = $request->execute();
+    }
+
+    public static function test($url)
+    {
+        return self::instance()->client->request('GET', $url);
     }
 
     public static function setOpt($key, $value = NULL)
@@ -42,5 +70,10 @@ class Shopify
         {
             return self::$$method;
         }
+    }
+
+    public static function baseUrl()
+    {
+        return sprintf('https://%s/admin/', self::$store);
     }
 }

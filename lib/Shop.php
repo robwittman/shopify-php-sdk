@@ -19,6 +19,7 @@ class Shop extends AbstractObject
 
     public function __construct($data = array())
     {
+        var_dump($data);
         foreach($data as $key => $value)
         {
             $this->key = $value;

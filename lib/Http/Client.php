@@ -113,6 +113,7 @@ class Client
         }
         $rbody = json_decode($res_body);
 
+        var_dump($rbody);
         if(!is_null($rbody) && isset($rbody->errors))
         {
             var_dump($rbody->errors);
@@ -133,8 +134,13 @@ class Client
                 case 404:
                     $msg = "That resource does not exist";
                 break;
+                case 406:
+                    $msg = "406 error occured";
                 case 422:
                     $msg = "The body of your request was malformed";
+                break;
+                case 429:
+                    $msg = "You have hit your request limit";
                 break;
                 case 500:
                     $msg = "There was an error comunicating with Shopify";

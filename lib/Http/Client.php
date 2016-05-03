@@ -114,10 +114,10 @@ class Client
         }
         $rbody = json_decode($res_body);
 
-        // if(!is_null($rbody) && isset($rbody->errors))
-        // {
-        //     throw new Exception\Api()
-        // }
+        if(!is_null($rbody) && isset($rbody->errors))
+        {
+            throw new Exception\Api()
+        }
 
         $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);

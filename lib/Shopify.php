@@ -48,9 +48,9 @@ class Shopify
         $response = $request->execute();
     }
 
-    public static function test($url)
+    public static function test($url, $method = 'GET')
     {
-        return self::instance()->client->request('GET', $url);
+        return self::instance()->client->request($method, $url);
     }
 
     public static function setOpt($key, $value = NULL)

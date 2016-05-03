@@ -124,6 +124,7 @@ class Client
 
         if($rcode !== 200)
         {
+            var_dump($rcode);
             switch($rcode)
             {
                 case 401:

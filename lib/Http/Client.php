@@ -30,28 +30,16 @@ class Client
         return $this->options;
     }
 
-    public function setHeader($key, $value = NULL)
-    {
-        if(is_array($key))
-        {
-            foreach($key as $k => $v)
-            {
-                $this->setHeader($k, $v);
-            }
-        } else {
-            $this->headers[$key] = $value;
-        }
-    }
-
     public function getResponse()
     {
         return $this->response();
     }
 
-    public function request($method, $url, $headers = null, $params = null)
+    public function request($method, $url, $params = null)
     {
         $this->headers['X-Shopify-Access-Token']    = \Shopify\Shopify::access_token();
         $this->headers['Content-type']              = 'application/json';
+
         $curl = curl_init();
         $method = strtolower($method);
         $opts = array();

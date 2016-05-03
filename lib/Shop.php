@@ -19,7 +19,6 @@ class Shop extends AbstractObject
 
     public function __construct($data = array())
     {
-        echo "Constructing";
-        var_dump($data);
+        
     }
 }

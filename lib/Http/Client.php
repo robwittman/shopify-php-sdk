@@ -113,7 +113,6 @@ class Client
         }
         $rbody = json_decode($res_body);
 
-        var_dump($rbody);
         if(!is_null($rbody) && isset($rbody->errors))
         {
             var_dump($rbody->errors);
@@ -125,7 +124,6 @@ class Client
 
         if($rcode !== 200)
         {
-            var_dump($rcode);
             switch($rcode)
             {
                 case 401:

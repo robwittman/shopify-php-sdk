@@ -104,7 +104,7 @@ class Client
 
         // Let's attempt our curl request
         $res_body = curl_exec($curl);
-
+        var_dump($res_body);
         $errno = curl_errno($curl);
 
         if($res_body === false)
@@ -113,13 +113,13 @@ class Client
             curl_close($curl);
             $this->handleCurlError($url, $errno, $message);
         }
-        $rbody = json_decode($res_body)
-        {
-            if(!is_null($rbody) && isset($rbody->errors))
-            {
-                throw new Exception\Api()
-            }
-        }
+        $rbody = json_decode($res_body);
+
+        // if(!is_null($rbody) && isset($rbody->errors))
+        // {
+        //     throw new Exception\Api()
+        // }
+
         $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 

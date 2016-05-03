@@ -131,7 +131,7 @@ class Client
                 $msg = "nUnexpected error communicating with Shopify";
         }
         $msg .= "\n\n(Network error [errno $errno]: $message)";
-        throw new
+        throw new Exception\ConnectionException($msg);
     }
 
     public static function prepareHeaders($headers)

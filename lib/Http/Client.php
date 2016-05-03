@@ -37,6 +37,7 @@ class Client
 
     public function request($method, $url, $params = null)
     {
+        print_r(func_get_args());
         $this->headers['X-Shopify-Access-Token']    = \Shopify\Shopify::access_token();
         $this->headers['Content-type']              = 'application/json';
 
@@ -79,7 +80,7 @@ class Client
                 }
             }
         } else {
-            throw new Error\Api("Unrecognized method {$method}");
+            throw new Exception\Api("Unrecognized method {$method}");
         }
         $opts[CURLOPT_URL]              = $url;
         $opts[CURLOPT_RETURNTRANSFER]   = TRUE;

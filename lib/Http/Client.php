@@ -135,7 +135,8 @@ class Client
                     $msg = "That resource does not exist";
                 break;
                 case 406:
-                    $msg = "406 error occured";
+                    $msg = "Request Information was Not Acceptable";
+                break;
                 case 422:
                     $msg = "The body of your request was malformed";
                 break;

@@ -88,7 +88,7 @@ class Client
                     $q_string = self::encode($params);
                     $url = "$url?$q_string";
                 } else {
-                    $opts[CURLOPT_POSTFIELDS] = self::jsonEncode($params)
+                    $opts[CURLOPT_POSTFIELDS] = self::jsonEncode($params);
                 }
             }
         } else {

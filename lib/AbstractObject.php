@@ -7,8 +7,5 @@ use Shopify\Util;
 
 abstract class AbstractObject extends AbstractResource
 {
-    public static function call()
-    {
-
-    }
+    
 }

@@ -46,8 +46,8 @@ class Shopify
     public function call($path, $method = 'GET', array $params = array())
     {
         $path = self::baseUrl().$path.'.json';
-        $res = self::instance()->getClient()->request($method, $path, $params);
-        $instance = new static($res[0]);
+        return self::instance()->getClient()->request($method, $path, $params);
+
     }
 
     public function getClient()

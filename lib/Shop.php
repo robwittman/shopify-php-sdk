@@ -14,11 +14,12 @@ class Shop extends AbstractObject
      */
     public static function get()
     {
-        return \Shopify\Shopify::call(self::$classUrl);
+        return self::call(self::$classUrl);
     }
 
     public function __construct($data = array())
     {
+        echo "Constructing";
         var_dump($data);
     }
 }

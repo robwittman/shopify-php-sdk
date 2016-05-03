@@ -76,6 +76,7 @@ class Shopify
         {
             return self::$$method;
         }
+        throw new \Exception("Call to undefined function {$method}");
     }
 
     public static function baseUrl()

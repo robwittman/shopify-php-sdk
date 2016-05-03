@@ -103,7 +103,6 @@ class Client
 
         // Let's attempt our curl request
         $res_body = curl_exec($curl);
-        var_dump($res_body);
         $errno = curl_errno($curl);
 
         if($res_body === false)
@@ -116,9 +115,10 @@ class Client
 
         if(!is_null($rbody) && isset($rbody->errors))
         {
-            throw new Exception\Api()
+            var_dump($rbody->errors);
+            throw new Exception\Api($rbody->errors[0]);
         }
-
+        
         $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 

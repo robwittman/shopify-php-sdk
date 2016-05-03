@@ -2,6 +2,10 @@
 
 namespace Shopify;
 
+use Shopify\Http;
+use Shopify\Exception;
+use Shopify\Util;
+
 class Shopify
 {
     protected static $instance;

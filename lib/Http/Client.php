@@ -21,8 +21,8 @@ class Client
     public function __construct($options = NULL)
     {
         $this->options = $options;
-        $this->request = new Request();
-        $this->response = new Response();
+        // $this->request = new Request();
+        // $this->response = new Response();
     }
 
     public function getOpt()

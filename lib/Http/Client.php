@@ -135,7 +135,7 @@ class Client
             }
             throw new Exception\Api($msg);
         }
-        return array($res_body, $rcode, $rheaders);
+        return array($rbody, $rcode, $rheaders);
     }
 
     private function handleCurlError($url, $errno, $message)

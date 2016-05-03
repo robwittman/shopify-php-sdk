@@ -52,7 +52,6 @@ class Client
     {
         $this->headers['X-Shopify-Access-Token']    = \Shopify\Shopify::access_token();
         $this->headers['Content-type']              = 'application/json';
-        var_dump($this->headers);
         $curl = curl_init();
         $method = strtolower($method);
         $opts = array();

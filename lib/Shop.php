@@ -5,6 +5,7 @@ namespace Shopify;
 class Shop extends AbstractObject
 {
     protected static $classUrl = 'shop';
+    protected static $handle = 'shop';
 
     /**
      * This is overridden since the shop is a singleton

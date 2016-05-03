@@ -7,14 +7,7 @@ use Shopify\Util;
 class Product extends AbstractObject
 {
     protected static $classUrl = 'products';
-
-    public function __construct($data = array())
-    {
-        foreach($data->product as $key => $value)
-        {
-            $this->{$key} = $value;
-        }
-    }
+    protected static $handle = 'product';
 
     public function all()
     {

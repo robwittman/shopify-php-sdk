@@ -37,7 +37,7 @@ class Shopify
 
     public static function setInstance(Shopify $instance)
     {
-        static::$instance = $api;
+        static::$instance = $instance;
     }
 
     public function call($path, $method, array $params = array())

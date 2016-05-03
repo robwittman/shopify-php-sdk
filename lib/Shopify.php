@@ -36,7 +36,7 @@ class Shopify
         }
     }
 
-    public static function __callStatic($method)
+    public static function __callStatic($method, $args)
     {
         if(property_exists(self, $method))
         {

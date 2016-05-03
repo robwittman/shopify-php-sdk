@@ -113,8 +113,35 @@ class Client
             curl_close($curl);
             $this->handleCurlError($url, $errno, $message);
         }
+        $rbody = json_decode($res_body)
+        {
+            if(!is_null($rbody) && isset($rbody->errors))
+            {
+                throw new Exception\Api()
+            }
+        }
         $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
+
+        if($rcode !== 200)
+        {
+            switch($rcode)
+            {
+                case 401:
+                    $msg = "Invalid API key or wrong password";
+                break;
+                case 404:
+                    $msg = "That resource does not exist";
+                break;
+                case 422:
+                    $msg = "The body of your request was malformed";
+                break;
+                case 500:
+                    $msg = "There was an error comunicating with Shopify";
+                break;
+            }
+            throw new Exception\Api($msg);
+        }
         return array($res_body, $rcode, $rheaders);
     }
 

@@ -28,7 +28,7 @@ class Shopify
                 self::setOpt($k, $v);
             }
         } else {
-            if(!property_exists(self, $key))
+            if(!property_exists(__CLASS__, $key))
             {
                 return;
             }
@@ -38,7 +38,7 @@ class Shopify
 
     public static function __callStatic($method, $args)
     {
-        if(property_exists(self, $method))
+        if(property_exists(__CLASS__, $method))
         {
             return self::$$method;
         }

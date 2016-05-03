@@ -59,15 +59,16 @@ class Client
         $headers = self::prepareHeaders($this->headers);
 
         $rheaders = array();
-        $headerCallback = function($curl, $header_line) use(&$rheaders) {
-            if(strpos($header_line, ':') === FALSE)
-            {
+        $headerCallback = function ($curl, $header_line) use (&$rheaders) {
+            // Ignore the HTTP request line (HTTP/1.1 200 OK)
+            if (strpos($header_line, ":") === false) {
                 return strlen($header_line);
             }
             list($key, $value) = explode(":", trim($header_line), 2);
             $rheaders[trim($key)] = trim($value);
             return strlen($header_line);
-        }
+        };
+
         if($method == 'get')
         {
             $opts[CURLOPT_HTTPGET] = 1;
@@ -97,7 +98,8 @@ class Client
         $opts[CURLOPT_RETURNTRANSFER]   = TRUE;
         $opts[CURLOPT_CONNECTTIMEOUT]   = $this->connect_timeout;
         $opts[CURLOPT_TIMEOUT]          = $this->timeout;
-        $opts[CURLOPT_HTTPHEADER]        = $headers;
+        $opts[CURLOPT_HEADERFUNCTION]   = $headerCallback;
+        $opts[CURLOPT_HTTPHEADER]       = $headers;
         curl_setopt_array($curl, $opts);
 
         // Let's attempt our curl request

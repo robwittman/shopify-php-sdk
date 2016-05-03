@@ -21,4 +21,9 @@ class Shop extends AbstractObject
     {
         return \Shopify\Shopify::call(self::$classUrl);
     }
+
+    public function __construct($data = array())
+    {
+        var_dump($data);
+    }
 }

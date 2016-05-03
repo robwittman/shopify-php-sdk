@@ -2,7 +2,7 @@
 
 namespace Shopify;
 
-use Shopify\Http;
+use Shopify\Http\Client;
 use Shopify\Exception;
 use Shopify\Util;
 

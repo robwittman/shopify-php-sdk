@@ -17,7 +17,7 @@ class Client
 
     public function __construct($options = NULL)
     {
-        $this->options = $options
+        $this->options = $options;
     }
 
     public function getOpt()

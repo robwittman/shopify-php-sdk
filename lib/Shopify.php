@@ -9,20 +9,38 @@ class Shopify
     public static $redirect_uri;
     public static $permissions;
     public static $store;
-    public static $nonce = NULL;
+    public static $nonce = FALSE;
     public static $auth_uri = 'admin/oauth/authorize';
     public static $token_uri = 'admin/oauth/access_token';
+    public static $strict = TRUE;
 
-    public static function init(array $opts)
+    public static function init(array $opts = array())
     {
-        self::setOpts($opts);
+        self::setOpt($opts);
     }
 
-    public static function setOpts(array $opts)
+    public static function setOpt($key, $value = NULL)
     {
-        foreach($opts as $key => $value)
+        if(is_array($key))
         {
+            foreach($key as $k => $v)
+            {
+                self::setOpt($k, $v);
+            }
+        } else {
+            if(!property_exists(self, $key))
+            {
+                return;
+            }
             self::$$key = $value;
+        }
+    }
+
+    public static function __callStatic($method)
+    {
+        if(property_exists(self, $method))
+        {
+            return self::$$method;
         }
     }
 }

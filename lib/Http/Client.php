@@ -35,7 +35,7 @@ class Client
         //     }
         // }
     }
-    public function request($method, $url, $headers, $params)
+    public function request($method, $url, $headers = null, $params = null)
     {
         return file_get_contents($url);
     }

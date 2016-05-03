@@ -21,12 +21,15 @@ abstract class AbstractResource
         $classHandle = $class::getHandle();
 
         var_dump($data);
-        // Only the first object in the response contains object data
-        if(is_array($data[0]))
+        if(isset($data[0])->{$classHandle})
         {
-            return ObjectSet::createArrayFromJson(get_called_class(), $data[0]->{$classHandle.'s'});
+            $instance = new static($data[0]->{$classHandle});
+            return $instance;
+        } else if(isset($data[0]->{$classHandle.'s'}) {
+            return ObjectSet::createArrayFromJson($class, $data[0]->{$classHandle.'s'});
+        } else {
+            throw new Exception("Unable to instantiate response from $path.json");
         }
-        $instance = new static($data[0]->{$classHandle});
-        return $instance;
+        // Only the first object in the response contains object data
     }
 }

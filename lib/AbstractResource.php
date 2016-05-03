@@ -21,7 +21,7 @@ abstract class AbstractResource
         $classHandle = $class::getHandle();
 
         var_dump($data);
-        if(isset($data[0])->{$classHandle})
+        if(isset($data[0]->{$classHandle}))
         {
             $instance = new static($data[0]->{$classHandle});
             return $instance;

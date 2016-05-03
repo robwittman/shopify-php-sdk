@@ -20,12 +20,12 @@ abstract class AbstractResource
         $class = get_called_class();
         $classHandle = $class::getHandle();
 
+        var_dump($data);
         // Only the first object in the response contains object data
         if(is_array($data[0]))
         {
             return ObjectSet::createArrayFromJson(get_called_class(), $data[0]->{$classHandle.'s'});
         }
-
         $instance = new static($data[0]->{$classHandle});
         return $instance;
     }

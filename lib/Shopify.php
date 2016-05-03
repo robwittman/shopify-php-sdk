@@ -18,6 +18,7 @@ class Shopify
     public static $store;
     public static $access_token;
     public static $strict = TRUE;
+    public static $debug = FALSE;
 
     public function __construct(Client $client)
     {
@@ -44,13 +45,18 @@ class Shopify
 
     public function call($path, $method, array $params = array())
     {
-        $request = $this->prepareRequest();
-        $response = $request->execute();
+        $path = self::baseUrl().$path.'.json';
+        return self::instance()->getClient()->request($method, $path, $params);
+    }
+
+    public function getClient()
+    {
+        return $this->client;
     }
 
     public static function test($url, $method = 'GET')
     {
-        return self::instance()->client->request($method, $url);
+        return self::instance()->getClient()->request($method, $url);
     }
 
     public static function setOpt($key, $value = NULL)

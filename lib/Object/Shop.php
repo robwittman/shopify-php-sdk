@@ -10,4 +10,15 @@ class Shop extends AbstractObject
     {
 
     }
+
+    /**
+     * This is overridden since the shop is a singleton
+     * object in Shopify's domain.
+     *
+     * @return self
+     */
+    public static function get()
+    {
+        return \Shopify\Shopify::call(self::$classUrl);
+    }
 }

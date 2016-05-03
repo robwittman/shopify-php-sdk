@@ -116,9 +116,9 @@ class Client
         if(!is_null($rbody) && isset($rbody->errors))
         {
             var_dump($rbody->errors);
-            throw new Exception\Api($rbody->errors[0]);
+            throw new Exception\Api($rbody->errors);
         }
-        
+
         $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 

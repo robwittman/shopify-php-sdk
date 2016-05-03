@@ -16,12 +16,4 @@ class Shop extends AbstractObject
     {
         return self::call(self::$classUrl, 'GET');
     }
-
-    public function __construct($data = array())
-    {
-        foreach($data->shop as $key => $value)
-        {
-            $this->{$key} = $value;
-        }
-    }
 }

@@ -17,7 +17,13 @@ abstract class AbstractResource
     public static function call($path, $method = 'GET', $params = array())
     {
         $data = \Shopify\Shopify::call($path, $method, $params);
+
         // Only the first object in the response contains object data
+        if(is_array($data[0]))
+        {
+            return ObjectSet::createArrayFromJson(get_called_class(), $data[0]);
+        }
+
         $instance = new static($data[0]);
         return $instance;
     }

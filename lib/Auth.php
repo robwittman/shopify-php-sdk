@@ -29,10 +29,10 @@ class Auth
         if(\Shopify\Shopify::strict())
         {
             if( is_null(self::$nonce) || ! isset( $_GET['state'])) throw new \Exception("Strict API execution requires a nonce for Authentication requests");
-            if(!\Shopify\Shopify::strict() && !\Shopify\Shopify::validateHmac()) throw new \Exception("Strict API execution requires a valid HMAC signature"))
+            if(!\Shopify\Shopify::strict() && !\Shopify\Shopify::validateHmac()) throw new \Exception("Strict API execution requires a valid HMAC signature");
         }
 
-        
+
     }
 
     public static function setNonce($nonce)

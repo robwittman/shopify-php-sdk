@@ -37,7 +37,6 @@ class Client
 
     public function request($method, $url, $params = null)
     {
-        print_r(func_get_args());
         $this->headers['X-Shopify-Access-Token']    = \Shopify\Shopify::access_token();
         $this->headers['Content-type']              = 'application/json';
 

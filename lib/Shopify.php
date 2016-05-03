@@ -16,6 +16,7 @@ class Shopify
     public static $redirect_uri;
     public static $permissions;
     public static $store;
+    public static $access_token;
     public static $strict = TRUE;
 
     public function __construct(Client $client)

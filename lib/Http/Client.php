@@ -8,8 +8,8 @@ use Shopify\Exception;
 
 class Client
 {
-    const TIMEOUT;
-    const CONNECT_TIMEOUT;
+    const TIMEOUT = 60;
+    const CONNECT_TIMEOUT = 60;
 
     private static $instance;
     protected $options;

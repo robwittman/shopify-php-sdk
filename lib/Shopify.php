@@ -72,10 +72,8 @@ class Shopify
 
     public static function __callStatic($method, $args)
     {
-        error_log("requesting static method {$method}");
         if(property_exists(__CLASS__, $method))
         {
-            error_log(self::$$method);
             return self::$$method;
         }
         throw new \Exception("Call to undefined function {$method}");

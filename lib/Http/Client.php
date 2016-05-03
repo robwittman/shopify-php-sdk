@@ -11,7 +11,7 @@ class Client
     const TIMEOUT = 60;
     const CONNECT_TIMEOUT = 60;
     private $timeout = self::TIMEOUT;
-    private $connnect_timeout = self::CONNECT_TIMEOUT;
+    private $connect_timeout = self::CONNECT_TIMEOUT;
 
     private static $instance;
     protected $options;
@@ -104,9 +104,9 @@ class Client
 
         // Let's attempt our curl request
         $res_body = curl_exec($curl);
-        var_dump($res_body);
+
         $errno = curl_errno($curl);
-        var_dump($errno);
+
         if($res_body === false)
         {
             $message = curl_error($curl);
@@ -115,7 +115,7 @@ class Client
         }
         $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        return array($rbody, $rcode, $rheaders);
+        return array($res_body, $rcode, $rheaders);
     }
 
     private function handleCurlError($url, $errno, $message)

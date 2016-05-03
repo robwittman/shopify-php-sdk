@@ -26,9 +26,9 @@ abstract class AbstractResource
             $instance = new static($data[0]->{$classHandle});
             return $instance;
         } elseif(isset($data[0]->{$classHandle.'s'})) {
-            return ObjectSet::createArrayFromJson($class, $data[0]->{$classHandle.'s'});
+            return Util\ObjectSet::createArrayFromJson($class, $data[0]->{$classHandle.'s'});
         } else {
-            throw new Exception("Unable to instantiate response from $path.json");
+            throw new \Exception("Unable to instantiate response from $path.json");
         }
         // Only the first object in the response contains object data
     }

@@ -14,4 +14,9 @@ abstract class AbstractObject extends AbstractResource
             $this->{$key} = $value;
         }
     }
+
+    public static function getHandle()
+    {
+        return self::$handle;
+    }
 }

@@ -14,7 +14,7 @@ class Shop extends AbstractObject
      */
     public static function get()
     {
-        return self::call(self::$classUrl);
+        return self::call(self::$classUrl, 'GET');
     }
 
     public function __construct($data = array())

@@ -14,9 +14,9 @@ abstract class AbstractResource
         return self::$classUrl;
     }
 
-    public static function call($method = 'GET', $params = array())
+    public static function call($path, $method = 'GET', $params = array())
     {
-        $data = \Shopify\Shopify::call(self::$classUrl, $method, $params);
+        $data = \Shopify\Shopify::call($path, $method, $params);
         $instance = new static($data);
         return $instance;
     }

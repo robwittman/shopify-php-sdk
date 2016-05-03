@@ -47,7 +47,6 @@ class Shopify
     {
         $path = self::baseUrl().$path.'.json';
         return self::instance()->getClient()->request($method, $path, $params);
-
     }
 
     public function getClient()

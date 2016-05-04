@@ -11,7 +11,11 @@ This SDK was created to enable rapid efiicient development using Shopify's API.
     }
 }
 ```
+then install
 
+```shell
+composer install
+```
 ## Usage / Examples
 
 Essentially, there are 2 ways to initialize this SDK.
@@ -44,7 +48,7 @@ if(isset($_GET['code']))
 ```
 
 Now that we have an access token, we can make authenticated requests to Shopify.
-Once you have an Access Token, you only need to provide the token and the store itt belongs to
+Once you have an Access Token, you only need to provide the token and the store it belongs to
 
 ```php
 $options = array(
@@ -61,7 +65,7 @@ You now have access to all the methods the SDK provides!
 The SDK uses static methods to fetch data from Shopify
 ```php
 // Basic layout
-\Shopify\<requested_object::{method}($params);
+\Shopify\<requested_object>::{method}($params);
 
 // Fetch shop info
 \Shopify\Shop::get(); // This doesn't require params, because theres only one store object
@@ -121,7 +125,7 @@ To delete an object, simply call the objects static delete() method, passing the
 
 ## Error Handling
 
-The SDK is designed to throw Exceptions when an error is encountered. Wrap calls to SHopify in try / catch statements, and use your desired exception handler.
+The SDK is designed to throw Exceptions when an error is encountered. Wrap calls to Shopify in try / catch statements, and use your desired exception handler.
 
 ```php
 try {

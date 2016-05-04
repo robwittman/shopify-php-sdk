@@ -15,6 +15,7 @@ class Shop extends AbstractObject
      */
     public static function get()
     {
-        return self::call(self::$classUrl, 'GET');
+        $resp = self::call(self::$classUrl, 'GET');
+        return Util\ObjectSet::createObjectFromJson($resp);
     }
 }

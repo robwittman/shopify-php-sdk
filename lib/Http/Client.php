@@ -12,7 +12,7 @@ class Client
     const CONNECT_TIMEOUT = 60;
     private $timeout = self::TIMEOUT;
     private $connect_timeout = self::CONNECT_TIMEOUT;
-
+    private $success_codes = array(200,201);
     private static $instance;
     protected $options;
     protected $headers;
@@ -88,7 +88,7 @@ class Client
             throw new Exception\Api("Unrecognized method {$method}");
         }
         $opts[CURLOPT_URL]              = $url;
-        echo $url;
+        //echo $url;
         $opts[CURLOPT_RETURNTRANSFER]   = TRUE;
         $opts[CURLOPT_CONNECTTIMEOUT]   = $this->connect_timeout;
         $opts[CURLOPT_TIMEOUT]          = $this->timeout;
@@ -98,7 +98,7 @@ class Client
 
         // Let's attempt our curl request
         $res_body = curl_exec($curl);
-        var_dump($res_body);
+        //var_dump($res_body);
         $errno = curl_errno($curl);
 
         if($res_body === false)
@@ -111,15 +111,22 @@ class Client
 
         if(!is_null($rbody) && isset($rbody->errors))
         {
-            throw new Exception\Api($rbody->errors);
+            if(is_string($rbody->errors))
+            {
+                throw new Exception\Api($rbody->errors);
+            } else {
+                $field = key((array) $rbody->errors);
+                $error = $rbody->errors->{$field}[0];
+                throw new Exception\Api(ucfirst($field).' '.$error);
+            }
         }
 
         $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        var_dump($rcode);
-        var_dump($rheaders);
+        //var_dump($rcode);
+        //var_dump($rheaders);
         curl_close($curl);
 
-        if($rcode !== 200)
+        if(!in_array($rcode, $this->success_codes))
         {
             switch($rcode)
             {
@@ -143,6 +150,9 @@ class Client
                 break;
                 default: $msg = "An unknown error code [{$rcode}]was returned";
             }
+            var_dump($rbody);
+            var_dump($rcode);
+            var_dump($rheaders);
             throw new Exception\Api($msg);
         }
         return array($rbody, $rcode, $rheaders);

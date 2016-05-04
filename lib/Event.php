@@ -1,6 +1,6 @@
 <?php
 
-namespace Shopify
+namespace Shopify;
 
 class Event extends AbstractObject
 {

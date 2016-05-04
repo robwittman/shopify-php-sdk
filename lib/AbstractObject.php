@@ -18,6 +18,14 @@ abstract class AbstractObject extends AbstractResource
         }
     }
 
+    public function refresh($data)
+    {
+        foreach($data as $key => $value)
+        {
+            $this->{$key} = $value;
+        }
+    }
+
     public static function all($params = array())
     {
         $resp = self::call(static::$classUrl, 'GET', $params);
@@ -49,6 +57,9 @@ abstract class AbstractObject extends AbstractResource
         {
             throw new Exception("This object already has an ID");
         }
+        $resp = self::call(static::$classUrl, 'POST', array(static::$handle => $this));
+        $this->refresh($resp->{static::$handle});
+        return $resp;
     }
 
     public function update()
@@ -57,6 +68,8 @@ abstract class AbstractObject extends AbstractResource
         {
             throw new Exception("An object must exist in order to update it");
         }
-
+        $resp = self::call(static::$classUrl.'/'.$this->id, 'PUT', array(static::$handle => $this));
+        $this->refresh($resp->{static::$handle});
+        return $resp;
     }
 }

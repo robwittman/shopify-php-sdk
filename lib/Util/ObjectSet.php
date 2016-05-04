@@ -53,11 +53,12 @@ class ObjectSet
         );
         // Find out which class we're working with based on the key of response
         $handle = key((array) $resp);
+
         if($handle == 'countries')
         {
             $key = 'country';
         } else $key = rtrim($handle, 's');
-        $key = rtrim($handle, 's');
+
         // If we're just getting the count, let's return it
         if($handle == 'count')
         {
@@ -78,7 +79,7 @@ class ObjectSet
             }
             return $mapped;
         } else {
-            return $class::createFromJson($resp, $opts);
+            return $class::createFromJson($resp->{$key}, $opts);
         }
     }
 

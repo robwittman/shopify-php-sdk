@@ -1,6 +1,6 @@
 <?php
 
-namespace Shopify
+namespace Shopify;
 
 class Fulfillment extends AbstractChildObject
 {
@@ -21,6 +21,6 @@ class Fulfillment extends AbstractChildObject
 
     public function cancel()
     {
-        
+
     }
 }

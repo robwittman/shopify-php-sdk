@@ -7,29 +7,21 @@ use Shopify\Exception;
 
 abstract class AbstractResource
 {
-    protected static $classUrl;
-
-    public static function classUrl()
+    public static function call($path, $method = 'GET', $params = array(), $jsonify = true)
     {
-        return self::$classUrl;
+        $data = \Shopify\Shopify::call($path, $method, $params, $jsonify)[0];
+        return $data;
+        // We just send the data to Util\ObjectSet, which instantiates all objects based on the response
     }
 
-    public static function call($path, $method = 'GET', $params = array())
+    /**
+     * [createFromJson description]
+     * @param  [type] $val     [description]
+     * @param  [type] $options [description]
+     * @return [type]          [description]
+     */
+    public static function createFromJson($val, $options)
     {
-        $data = \Shopify\Shopify::call($path, $method, $params);
-        $class = get_called_class();
-        $classHandle = $class::getHandle();
-
-        var_dump($data);
-        if(isset($data[0]->{$classHandle}))
-        {
-            $instance = new static($data[0]->{$classHandle});
-            return $instance;
-        } elseif(isset($data[0]->{$classHandle.'s'})) {
-            return Util\ObjectSet::createArrayFromJson($class, $data[0]->{$classHandle.'s'});
-        } else {
-            throw new \Exception("Unable to instantiate response from $path.json");
-        }
-        // Only the first object in the response contains object data
+        return new static($val, $options);
     }
 }

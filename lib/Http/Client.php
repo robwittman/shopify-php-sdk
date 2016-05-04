@@ -35,7 +35,7 @@ class Client
         return $this->response();
     }
 
-    public function request($method, $url, $params = null)
+    public function request($method, $url, $params = array(), $jsonify = true)
     {
         $this->headers['X-Shopify-Access-Token']    = \Shopify\Shopify::access_token();
         $this->headers['Content-type']              = 'application/json';
@@ -66,7 +66,13 @@ class Client
             }
         } elseif($method == 'post') {
             $opts[CURLOPT_POST] = 1;
-            $opts[CURLOPT_POSTFIELDS] = self::jsonEncode($params);
+            if($jsonify)
+            {
+                $opts[CURLOPT_POSTFIELDS] = self::jsonEncode($params);
+            } else {
+                $q_string = self::encode($params);
+                $url = "$url?$q_string";
+            }
         } elseif($method == 'delete' || $method == 'put') {
             $opts[CURLOPT_CUSTOMREQUEST] = strtoupper($method);
             if(!empty($params))
@@ -82,6 +88,7 @@ class Client
             throw new Exception\Api("Unrecognized method {$method}");
         }
         $opts[CURLOPT_URL]              = $url;
+        echo $url;
         $opts[CURLOPT_RETURNTRANSFER]   = TRUE;
         $opts[CURLOPT_CONNECTTIMEOUT]   = $this->connect_timeout;
         $opts[CURLOPT_TIMEOUT]          = $this->timeout;
@@ -91,6 +98,7 @@ class Client
 
         // Let's attempt our curl request
         $res_body = curl_exec($curl);
+        var_dump($res_body);
         $errno = curl_errno($curl);
 
         if($res_body === false)
@@ -103,11 +111,12 @@ class Client
 
         if(!is_null($rbody) && isset($rbody->errors))
         {
-            var_dump($rbody->errors);
             throw new Exception\Api($rbody->errors);
         }
 
         $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        var_dump($rcode);
+        var_dump($rheaders);
         curl_close($curl);
 
         if($rcode !== 200)
@@ -132,6 +141,7 @@ class Client
                 case 500:
                     $msg = "There was an error comunicating with Shopify";
                 break;
+                default: $msg = "An unknown error code [{$rcode}]was returned";
             }
             throw new Exception\Api($msg);
         }

@@ -1,10 +1,11 @@
 {
   "name": "robby-bugatti/shopify-php-sdk",
-  "description": "Shopify PHP Library",
+  "description": "PHP SDK for Shopify API",
   "keywords": [
     "shopify",
     "ecommerce",
-    "api"
+    "api",
+    "php"
   ],
   "homepage": "http://github.com/RobbyBugatti/shopify-php-api",
   "license": "MIT",
@@ -17,8 +18,6 @@
   },
   "require-dev": {
     "phpunit/phpunit": "5.3.*",
-    "satooshi/php-coveralls": "~0.6.1",
-    "squizlabs/php_codesniffer": "~2.0"
   },
   "autoload": {
     "psr-4": { "Shopify\\" : "lib/" }

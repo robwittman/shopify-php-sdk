@@ -16,6 +16,11 @@ then install
 ```shell
 composer install
 ```
+
+Before you can start using this SDK, you have to create a Shopify application. <a href="#">test</a>
+You can now use the API key and secret to generate access tokens, which can then access a stores data
+
+
 ## Usage / Examples
 
 Essentially, there are 2 ways to initialize this SDK.
@@ -81,13 +86,11 @@ The SDK uses static methods to fetch data from Shopify
 To create objects in the Shopify domain, simply set all the attributes you want to put on the object, and call save();
 
 ```php
-$opts = array(
+$product = new \Shopify\Product([
     'title' => 'Random title',
     'handle' => "Some Product",
     'product_type' => "Application",
-);
-
-$product = new \Shopify\Product($opts);
+]);
 $product->create();
 echo $product->id;
 // 2178508200
@@ -130,12 +133,13 @@ The SDK is designed to throw Exceptions when an error is encountered. Wrap calls
 try {
     $product = new \Shopify\Product(array());
 } catch (Exception\Connection $e) {
-    // There was an error connecting with cURL
     echo $e->getMessage();
 } catch (Exception\Api) {
-    // There was a broad API error
     echo $e->getMessage();
     // "Title cannot be blank"
 }
+
+\\ Exception\Connection => cURL failed to connect
+\\ Exception\Api        => There was an API error. [Invalid POST data, Invalid Endpoint, etc.]
 
 ```

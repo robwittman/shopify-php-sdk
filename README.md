@@ -146,6 +146,6 @@ try {
 
 ## References
 
-<a href="https://partners.shopify.com">Shopify Partner Login</a>
-<a href="https://help.shopify.com/api/reference">Shopify API Reference</a>
-<a href="#">SDK Usage Examples</a>
+[Shopify Partner Login](https://partners.shopify.com)
+[Shopify API Reference](https://help.shopify.com/api/reference)
+[SDK Usage Examples](https://github.com/RobbyBugatti/shopify-php/examples)

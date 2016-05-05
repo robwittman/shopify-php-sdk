@@ -1,11 +1,27 @@
 <?php
 
+/**
+ * lib/Util/ObjectSet
+ *
+ * Creates objects based on Shopifys API response
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ */
 namespace Shopify\Util;
 
 class ObjectSet
 {
+    /**
+     * Create objects based on our API response
+     *
+     * @param  mixed $resp JSON API response
+     * @param  array  $opts
+     * @return mixed
+     */
     public static function createObjectFromJson($resp, $opts = array())
     {
+        // This is an array of handles, and which Shopify object they ought to map to
         $types = array(
             'access_token'                          => '\\Shopify\\AccessToken',
             'application_charge'                    => '\\Shopify\\ApplicationCharge',
@@ -51,27 +67,33 @@ class ObjectSet
             'variant'                               => '\\Shopify\\ProductVariant',
             'webhook'                               => '\\Shopify\\Webhook',
         );
+
         // Find out which class we're working with based on the key of response
         $handle = key((array) $resp);
 
-        if($handle == 'countries')
-        {
-            $key = 'country';
-        } else $key = rtrim($handle, 's');
-
-        // If we're just getting the count, let's return it
+        // If count was requested, we can just return the value
         if($handle == 'count')
         {
             return $resp->{$handle};
         }
+
+        // We have to handle special cases for handles that pluralize differently
+        if($handle == 'countries')
+        {
+            $key = 'country';
+        }
+        // Default, we just trim the 's' to get the handle
+        else $key = rtrim($handle, 's');
+
         if(!array_key_exists($key, $types))
         {
             return $resp;
         }
         $class = $types[$key];
-
+        // Check if our result set is an array, or a single object
         if(self::isList($resp, $handle))
         {
+            // Fill the array with created objects, and return
             $mapped = array();
             foreach($resp->{$handle} as $item)
             {
@@ -79,10 +101,17 @@ class ObjectSet
             }
             return $mapped;
         } else {
+            // Instantiate a single object, and return it
             return $class::createFromJson($resp->{$key}, $opts);
         }
     }
 
+    /**
+     * Check if our data is a single object, or set of objects
+     * @param  mixed  $data
+     * @param  string  $handle
+     * @return boolean
+     */
     public static function isList($data, $handle)
     {
         if(is_array($data->{$handle}))

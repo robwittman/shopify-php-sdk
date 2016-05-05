@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * \Shopify\Comment
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ * @link https://help.shopify.com/api/reference/comment
+ */
 namespace Shopify;
 
 class Comment extends AbstractObject

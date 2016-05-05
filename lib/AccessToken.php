@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * \Shopify\AccessToken
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ * @link https://help.shopify.com/api/guides/authentication
+ */
 namespace Shopify;
 
 use Shopify\Util;
@@ -8,7 +15,16 @@ use Shopify\Exception;
 
 class AccessToken extends AbstractResource
 {
+    /**
+     * Access token
+     * @var string
+     */
     protected $token;
+
+    /**
+     * Comma separated string of permissions
+     * @var string
+     */
     protected $scope;
 
     public function __construct($data)
@@ -22,10 +38,20 @@ class AccessToken extends AbstractResource
         return $this->token;
     }
 
+    /**
+     * Return the scopes for this access token
+     * @return string
+     */
     public function scopes()
     {
         return $this->scope;
     }
+
+    /**
+     * Generate a new access token from our OAuth code
+     * @param  string $code
+     * @return string
+     */
     public static function createFromCode($code)
     {
         return self::call('oauth/access_token', 'POST', array(

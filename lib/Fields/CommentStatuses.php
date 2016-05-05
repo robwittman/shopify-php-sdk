@@ -1,8 +1,13 @@
 <?php
-
+/**
+ * \Shopify\Fields\CommentStatuses
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ */
 namespace Shopify\Fields;
 
-class CommentStatusFields
+class CommentStatuses
 {
     const APPROVED      = 'approved';
     const UNAPROVED     = 'unapproved';

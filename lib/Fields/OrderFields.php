@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * \Shopify\Fields\OrderFields
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ */
 namespace Shopify\Fields;
 
 class OrderFields
@@ -49,5 +54,5 @@ class OrderFields
     const TOTAL_TAX = 'total_tax';
     const TOTAL_WEIGHT = 'total_weight';
     const UPDATED_AT = 'updated_at';
-    const ORDER_STATUS_URL = 'order_status_url';
+    const ORDER_STATUS_URL = 'orde_status_url';
 }

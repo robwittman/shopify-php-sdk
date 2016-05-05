@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * \Shopify\Fields\AssetFields
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ */
 namespace Shopify\Fields;
 
 class AssetFields

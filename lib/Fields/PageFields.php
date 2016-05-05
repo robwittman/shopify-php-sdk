@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * \Shopify\Fields\PageFields
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ */
 namespace Shopify\Fields;
 
 class PageFields

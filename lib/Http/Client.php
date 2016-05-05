@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * \Shopify\Http\Client
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ */
 namespace Shopify\Http;
 
 use Shopify\Shopify;
@@ -8,31 +13,43 @@ use Shopify\Exception;
 
 class Client
 {
+    /**
+     * cURL Connection Parameters
+     */
     const TIMEOUT = 60;
     const CONNECT_TIMEOUT = 60;
     private $timeout = self::TIMEOUT;
     private $connect_timeout = self::CONNECT_TIMEOUT;
-    private $success_codes = array(200,201);
+
+    /**
+     * Singleton instance of the cURL handler
+     * @var Client
+     */
     private static $instance;
-    protected $options;
+
+    /**
+     * HTTP Codes to interpret as successful
+     * @var array
+     */
+    private $success_codes = array(200,201);
+
+    /**
+     * Request headers
+     * @var array
+     */
     protected $headers;
+
+    /**
+     * Raw response body
+     * @var string
+     */
     protected $body;
 
-    public function __construct($options = NULL)
+    public function __construct()
     {
-        $this->options = $options;
+
         // $this->request = new Request();
         // $this->response = new Response();
-    }
-
-    public function getOpt()
-    {
-        return $this->options;
-    }
-
-    public function getResponse()
-    {
-        return $this->response();
     }
 
     public function request($method, $url, $params = array(), $jsonify = true)
@@ -158,12 +175,19 @@ class Client
         return array($rbody, $rcode, $rheaders);
     }
 
+    /**
+     * We encountered an exception making cURL requests. Handle error Codes
+     * @param  string $url
+     * @param  integer $errno
+     * @param  string $message
+     * @return Exception
+     */
     private function handleCurlError($url, $errno, $message)
     {
         switch($errno) {
             case CURLE_COULDNT_CONNECT:
             case CURLE_COULDNT_RESOLVE_HOST:
-            case CURLE_OPERATION_TEIMOUTED:
+            case CURLE_OPERATION_TIMEDOUT:
                 $msg = "Could not connect to Shopify ($url). Please check your internet connection and try again. If this problem persists, you should check Shopify's service status";
                 break;
 
@@ -171,9 +195,14 @@ class Client
                 $msg = "nUnexpected error communicating with Shopify";
         }
         $msg .= "\n\n(Network error [errno $errno]: $message)";
-        throw new Exception\ConnectionException($msg);
+        throw new Exception\Connection($msg);
     }
 
+    /**
+     * Convert our key => value array to an array of single string headers
+     * @param  array $headers
+     * @return array
+     */
     public static function prepareHeaders($headers)
     {
         $res = array();
@@ -184,11 +213,21 @@ class Client
         return $res;
     }
 
+    /**
+     * Encode query string Parameters
+     * @param  array $params
+     * @return string
+     */
     public static function encode($params)
     {
         return http_build_query($params);
     }
 
+    /**
+     * Encode POST object to JSON body
+     * @param  mixed $params
+     * @return string
+     */
     public static function jsonEncode($params)
     {
         return json_encode($params);

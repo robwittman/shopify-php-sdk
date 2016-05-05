@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Core handler for the Shopify API
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ * @link https://help.shopify.com/api/reference
+ */
+
 namespace Shopify;
 
 use Shopify\Http\Client;
@@ -8,23 +16,80 @@ use Shopify\Util;
 
 class Shopify
 {
+    /**
+     * Singleton instance of the SDK
+     * @var Shopify
+     */
     protected static $instance;
+
+    /**
+     * Handle for the HTTP Client
+     * @var Client
+     */
     protected $client;
 
+    /**
+     * Shopify APP Key
+     * @var string
+     */
     public static $api_key;
+
+    /**
+     * Shopify APP Secret
+     * @var string
+     */
     public static $api_secret;
+
+    /**
+     * URL to redirect after Authentication
+     * @var string
+     */
     public static $redirect_uri;
+
+    /**
+     * Comma separated string of application permissions
+     * @var string
+     */
     public static $permissions;
+
+    /**
+     * The store we are initializing for
+     * @var string
+     */
     public static $store;
+
+    /**
+     * Access token for the given store
+     * @var string
+     */
     public static $access_token;
+
+    /**
+     * Wether the SDK runs in strict mode. Defaults to TRUE
+     * @var boolean
+     */
     public static $strict = TRUE;
+
+    /**
+     * Wether the SDK runs in debug mode. Defaults to FALSE
+     * @var boolean
+     */
     public static $debug = FALSE;
 
+    /**
+     * Instantiate our API
+     * @param Client $client
+     */
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * Set our API options
+     * @param  array  $opts
+     * @return Shopify
+     */
     public static function init(array $opts = array())
     {
         $api = new static(new Client());
@@ -33,16 +98,31 @@ class Shopify
         return $api;
     }
 
+    /**
+     * Fetch the instance of our API
+     * @return \Shopify\Shopify
+     */
     public static function instance()
     {
         return static::$instance;
     }
 
-    public static function setInstance(Shopify $instance)
+    /**
+     * Set our API instance
+     * @param \Shopify\Shopify $instance
+     */
+    public static function setInstance(\Shopify\Shopify $instance)
     {
         static::$instance = $instance;
     }
 
+    /**
+     * Make a call to our client
+     * @param  url $path
+     * @param  string $method
+     * @param  array  $params
+     * @return mixed
+     */
     public function call($path, $method = 'GET', array $params = array() ,$jsonify = true)
     {
         $path = self::baseUrl().$path.'.json';
@@ -50,16 +130,20 @@ class Shopify
         return $data;
     }
 
+    /**
+     * Fetch our client handler
+     * @return Client
+     */
     public function getClient()
     {
         return $this->client;
     }
 
-    public static function test($url, $method = 'GET')
-    {
-        return self::instance()->getClient()->request($method, $url);
-    }
-
+    /**
+     * Set options for our API SDK
+     * @param string|array $key
+     * @param mixed $value
+     */
     public static function setOpt($key, $value = NULL)
     {
         if(is_array($key))
@@ -77,6 +161,12 @@ class Shopify
         }
     }
 
+    /**
+     * Allow dynamic accessibility to static attributes
+     * @param  string $method
+     * @param  mixed $args
+     * @return mixed
+     */
     public static function __callStatic($method, $args)
     {
         if(property_exists(__CLASS__, $method))
@@ -86,6 +176,10 @@ class Shopify
         throw new \Exception("Call to undefined function {$method}");
     }
 
+    /**
+     * Return the root API url based on the authenticated store
+     * @return string
+     */
     public static function baseUrl()
     {
         return sprintf('https://%s/admin/', self::$store);

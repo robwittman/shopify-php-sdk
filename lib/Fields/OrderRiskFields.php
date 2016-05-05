@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * \Shopify\Fields\OrderRiskFields
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ */
 namespace Shopify\Fields;
 
 class OrderRiskFields

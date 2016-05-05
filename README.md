@@ -120,7 +120,6 @@ To delete an object, simply call the objects static delete() method, passing the
 ```php
 \Shopify\Product::delete(2178508200);
 // returns true
-
 ```
 
 ## Error Handling
@@ -130,10 +129,13 @@ The SDK is designed to throw Exceptions when an error is encountered. Wrap calls
 ```php
 try {
     $product = new \Shopify\Product(array());
-} catch (Exception $e) {
+} catch (Exception\Connection $e) {
+    // There was an error connecting with cURL
     echo $e->getMessage();
+} catch (Exception\Api) {
+    // There was a broad API error
+    echo $e->getMessage();
+    // "Title cannot be blank"
 }
-// "Title cannot be blank"
-```
 
-There are multiple exception types that can be encountered
+```

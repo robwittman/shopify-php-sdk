@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * \Shopify\Fields\CustomCollectionFields
+ *
+ * @author Robert Wittman <bugattiboi1k1@gmail.com>
+ * @license MIT
+ */
 namespace Shopify\Fields;
 
 class CustomCollectionFields

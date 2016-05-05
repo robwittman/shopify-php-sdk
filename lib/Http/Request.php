@@ -42,9 +42,12 @@ class Request
      */
     protected $body;
 
-    public function __construct($path, $method = 'GET', $params = array(), $headers = array())
+    public function __construct($path, $method = 'GET', $params = array(), $headers)
     {
-
+        $this->path = $path;
+        $this->method = $method;
+        $this->params = $params;
+        $this->headers = $headers;
     }
 
     /**
@@ -52,7 +55,7 @@ class Request
      * @param  string $key
      * @return mixed
      */
-    public function getHeader($key = NULL)
+    public function getHeaders($key = NULL)
     {
         if(is_null($key))
         {

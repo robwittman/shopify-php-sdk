@@ -78,6 +78,8 @@ class Client
             return strlen($header_line);
         };
 
+        $url = $request->getPath();
+        $params = $request->getParams();
         if($method == 'get')
         {
             $opts[CURLOPT_HTTPGET] = 1;
@@ -88,13 +90,7 @@ class Client
             }
         } elseif($method == 'post') {
             $opts[CURLOPT_POST] = 1;
-            if($jsonify)
-            {
-                $opts[CURLOPT_POSTFIELDS] = self::jsonEncode($params);
-            } else {
-                $q_string = self::encode($params);
-                $url = "$url?$q_string";
-            }
+            $opts[CURLOPT_POSTFIELDS] = self::jsonEncode($params);
         } elseif($method == 'delete' || $method == 'put') {
             $opts[CURLOPT_CUSTOMREQUEST] = strtoupper($method);
             if(!empty($params))
@@ -134,7 +130,7 @@ class Client
 
         // Create our response objecct
         $response = new Response($res_body, $rcode, $rheaders);
-        if(!is_null($response->getJsonBody()) && isset($response->getJsonBody()->errors)
+        if(!is_null($response->getJsonBody()) && isset($response->getJsonBody()->errors))
         {
             $errors = $response->getJsonBody()->errors();
             if(is_string($errors))

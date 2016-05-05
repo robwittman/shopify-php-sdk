@@ -33,7 +33,7 @@ class Response
      */
     protected $headers;
 
-    public function __construct($rawBody, int $code, array $headers)
+    public function __construct($rawBody, $code, array $headers)
     {
         $this->rawBody = $rawBody;
         $this->httpCode = $code;
@@ -79,12 +79,12 @@ class Response
      */
     public function getJsonBody()
     {
-        return json_decode($this->body);
+        return json_decode($this->rawBody);
     }
 
     /**
      * Get the Shopify Request ID
-     * @return string 
+     * @return string
      */
     public function getRequestId()
     {

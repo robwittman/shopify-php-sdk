@@ -123,11 +123,15 @@ class Shopify
      * @param  array  $params
      * @return mixed
      */
-    public function call($path, $method = 'GET', array $params = array() ,$jsonify = true)
+    public function call($path, $method = 'GET', $params)
     {
         $path = self::baseUrl().$path.'.json';
-        $data = self::instance()->getClient()->request($method, $path, $params, $jsonify);
-        return $data;
+        $req = new \Shopify\Http\Request($path, $method, $params, [
+            'X-Shopify-Access-Token' => self::access_token(),
+            'Content-Type' => 'application/json'
+        ]);
+        $data = self::instance()->getClient()->request($req);
+        return $data->getJsonBody();
     }
 
     /**

@@ -17,7 +17,7 @@ abstract class AbstractResource
      */
     public static function call($path, $method = 'GET', $params = array(), $jsonify = true)
     {
-        $data = \Shopify\Shopify::call($path, $method, $params, $jsonify)[0];
+        $data = \Shopify\Shopify::call($path, $method, $params);
         return $data;
         // We just send the data to Util\ObjectSet, which instantiates all objects based on the response
     }

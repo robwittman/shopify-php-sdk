@@ -52,15 +52,20 @@ class Client
         // $this->response = new Response();
     }
 
-    public function request($method, $url, $params = array(), $jsonify = true)
+    /**
+     * Execute an API Request
+     * @param  Request $request
+     * @return Response $response
+     */
+    public function request(Request $request)//$method, $url, $params = array(), $jsonify = true)
     {
         $this->headers['X-Shopify-Access-Token']    = \Shopify\Shopify::access_token();
         $this->headers['Content-type']              = 'application/json';
 
         $curl = curl_init();
-        $method = strtolower($method);
+        $method = strtolower($request->getMethod());
         $opts = array();
-        $headers = self::prepareHeaders($this->headers);
+        $headers = self::prepareHeaders($request->getHeaders());
 
         $rheaders = array();
         $headerCallback = function ($curl, $header_line) use (&$rheaders) {
@@ -111,38 +116,38 @@ class Client
         $opts[CURLOPT_TIMEOUT]          = $this->timeout;
         $opts[CURLOPT_HEADERFUNCTION]   = $headerCallback;
         $opts[CURLOPT_HTTPHEADER]       = $headers;
+
+        // Execute our curl request
         curl_setopt_array($curl, $opts);
-
-        // Let's attempt our curl request
         $res_body = curl_exec($curl);
-        //var_dump($res_body);
         $errno = curl_errno($curl);
+        $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
 
+        // Check if curl instantiated, or throw an error
         if($res_body === false)
         {
             $message = curl_error($curl);
             curl_close($curl);
             $this->handleCurlError($url, $errno, $message);
         }
-        $rbody = json_decode($res_body);
 
-        if(!is_null($rbody) && isset($rbody->errors))
+        // Create our response objecct
+        $response = new Response($res_body, $rcode, $rheaders);
+        if(!is_null($response->getJsonBody()) && isset($response->getJsonBody()->errors)
         {
-            if(is_string($rbody->errors))
+            $errors = $response->getJsonBody()->errors();
+            if(is_string($errors))
             {
-                throw new Exception\Api($rbody->errors);
+                throw new Exception\Api($errors);
             } else {
-                $field = key((array) $rbody->errors);
-                $error = $rbody->errors->{$field}[0];
+                $field = key((array) $errors);
+                $error = $errors->{$field}[0];
                 throw new Exception\Api(ucfirst($field).' '.$error);
             }
         }
 
-        $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        //var_dump($rcode);
-        //var_dump($rheaders);
-        curl_close($curl);
-
+        // Check if we have successful codes
         if(!in_array($rcode, $this->success_codes))
         {
             switch($rcode)
@@ -165,14 +170,11 @@ class Client
                 case 500:
                     $msg = "There was an error comunicating with Shopify";
                 break;
-                default: $msg = "An unknown error code [{$rcode}]was returned";
+                default: $msg = "An unknown error code [{$rcode}] was returned";
             }
-            var_dump($rbody);
-            var_dump($rcode);
-            var_dump($rheaders);
             throw new Exception\Api($msg);
         }
-        return array($rbody, $rcode, $rheaders);
+        return $response;
     }
 
     /**
@@ -208,7 +210,7 @@ class Client
         $res = array();
         foreach($headers as $key => $value)
         {
-            $res[] = $key . ': ' . $value;
+            $res[] = "{$key}: {$value}";
         }
         return $res;
     }

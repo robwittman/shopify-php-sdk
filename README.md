@@ -17,7 +17,7 @@ then install
 composer install
 ```
 
-Before you can start using this SDK, you have to create a Shopify application. <a href="#">test</a>
+Before you can start using this SDK, you have to create a <a href="https://partners.shopify.com/">Shopify Application</a>
 You can now use the API key and secret to generate access tokens, which can then access a stores data
 
 
@@ -143,3 +143,9 @@ try {
 \\ Exception\Api        => There was an API error. [Invalid POST data, Invalid Endpoint, etc.]
 
 ```
+
+## References
+
+<a href="https://partners.shopify.com">Shopify Partner Login</a>
+<a href="https://help.shopify.com/api/reference">Shopify API Reference</a>
+<a href="#">SDK Usage Examples</a>

@@ -11,6 +11,7 @@
 namespace Shopify;
 
 use Shopify\Http\Client;
+use SHopify\Http\TestClient;
 use Shopify\Exception;
 use Shopify\Util;
 
@@ -56,7 +57,7 @@ class Shopify
      * The store we are initializing for
      * @var string
      */
-    public static $store;
+    public static $store = 'test-shop.myshopify.com';
 
     /**
      * Access token for the given store
@@ -77,10 +78,18 @@ class Shopify
     public static $debug = FALSE;
 
     /**
+     * Wether the SDK is loaded in test functionality
+     *
+     * This loads the TestClient instead of our API Client
+     * @var boolean
+     */
+    public static $test = FALSE;
+
+    /**
      * Instantiate our API
      * @param Client $client
      */
-    public function __construct(Client $client)
+    public function __construct($client)
     {
         $this->client = $client;
     }
@@ -92,7 +101,8 @@ class Shopify
      */
     public static function init(array $opts = array())
     {
-        $api = new static(new Client());
+        $client = ((isset($opts['test']) && $opts['test']) || self::test()) ? new TestClient() : new Client();
+        $api = new static($client);
         $api::setOpt($opts);
         static::setInstance($api);
         return $api;

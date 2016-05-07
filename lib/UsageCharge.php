@@ -6,7 +6,7 @@
  * @license MIT
  * @link https://help.shopify.com/api/reference/usagecharge
  */
-namespace Shopify
+namespace Shopify;
 
 class UsageCharge extends AbstractChildObject
 {

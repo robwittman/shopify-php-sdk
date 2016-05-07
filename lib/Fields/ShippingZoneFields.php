@@ -5,7 +5,7 @@
  * @author Robert Wittman <bugattiboi1k1@gmail.com>
  * @license MIT
  */
-namespace Shopify\Fields
+namespace Shopify\Fields;
 
 class ShippingZoneFields
 {

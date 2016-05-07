@@ -24,5 +24,5 @@ class GiftCardFields
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
     const DISABLED_AT = 'disabled_at';
-    const EXPIRES_AT = 'expires_at'
+    const EXPIRES_AT = 'expires_at';
 }

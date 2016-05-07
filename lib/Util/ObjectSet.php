@@ -29,6 +29,7 @@ class ObjectSet
             'blog'                                  => '\\Shopify\\Blog',
             'carrier_service'                       => '\\Shopify\\CarrierService',
             'checkout'                              => '\\Shopify\\AbandonedCheckout',
+            'checkouts'                             => '\\Shopify\\AbandonedCheckout',
             'collect'                               => '\\Shopify\\Collect',
             'comment'                               => '\\Shopify\\Comment',
             'country'                               => '\\Shopify\\Country',
@@ -70,7 +71,6 @@ class ObjectSet
 
         // Find out which class we're working with based on the key of response
         $handle = key((array) $resp);
-
         // If count was requested, we can just return the value
         if($handle == 'count')
         {

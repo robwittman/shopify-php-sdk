@@ -8,7 +8,7 @@
  */
 namespace Shopify;
 
-class ProductVariant extends AbstractChildObject
+class Province extends AbstractChildObject
 {
     protected static $parentUrl = 'countries';
     protected static $parentIdField = 'country_id';

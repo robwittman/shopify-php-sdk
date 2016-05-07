@@ -16,7 +16,7 @@ class BlogFields
     const HANDLE                = 'handle';
     const ID                    = 'id';
     const METAFIELD             = 'metafield';
-    const TAGS                  = 'tags'
+    const TAGS                  = 'tags';
     const TEMPLATE_SUFFIX       = 'template_suffix';
     const TITLE                 = 'title';
     const UPDATED_AT            = 'updated_at';

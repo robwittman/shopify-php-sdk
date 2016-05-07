@@ -9,7 +9,7 @@ namespace Shopify\Http;
 
 use Shopify\Shopify;
 use Shopify\Util;
-use Shopify\Exception;
+use Shopify\Exception\Api;
 
 class Client
 {
@@ -64,6 +64,7 @@ class Client
 
         $curl = curl_init();
         $method = strtolower($request->getMethod());
+
         $opts = array();
         $headers = self::prepareHeaders($request->getHeaders());
 
@@ -106,7 +107,6 @@ class Client
             throw new Exception\Api("Unrecognized method {$method}");
         }
         $opts[CURLOPT_URL]              = $url;
-        //echo $url;
         $opts[CURLOPT_RETURNTRANSFER]   = TRUE;
         $opts[CURLOPT_CONNECTTIMEOUT]   = $this->connect_timeout;
         $opts[CURLOPT_TIMEOUT]          = $this->timeout;
@@ -132,7 +132,7 @@ class Client
         $response = new Response($res_body, $rcode, $rheaders);
         if(!is_null($response->getJsonBody()) && isset($response->getJsonBody()->errors))
         {
-            $errors = $response->getJsonBody()->errors();
+            $errors = $response->getJsonBody()->errors;
             if(is_string($errors))
             {
                 throw new Exception\Api($errors);

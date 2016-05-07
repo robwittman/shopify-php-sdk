@@ -15,4 +15,8 @@ class FulfillmentStatuses
     const CANCELLED = 'cancelled';
     const ERROR = 'error';
     const FAILURE = 'failure';
+    const SHIPPED = 'shipped';
+    const PARTIAL = 'partial';
+    const UNSHIPPED = 'unshipped';
+    const ANY = 'any';
 }

@@ -33,7 +33,7 @@ class Response
      */
     protected $headers;
 
-    public function __construct($rawBody, $code, array $headers)
+    public function __construct($rawBody, $code, array $headers = array())
     {
         $this->rawBody = $rawBody;
         $this->httpCode = $code;

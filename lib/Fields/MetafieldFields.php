@@ -13,7 +13,7 @@ class MetafieldFields
     const DSECRIPTION = 'description';
     const ID = 'id';
     const KEY = 'key';
-    const NAMESPACE = 'namespace';
+    const META_NAMESPACE = 'namespace';
     const OWNER_ID = 'owner_id';
     const OWNER_RESOURCE = 'owner_resource';
     const VALUE = 'value';

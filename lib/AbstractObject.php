@@ -42,19 +42,6 @@ abstract class AbstractObject extends AbstractResource
     }
 
     /**
-     * Refresh the object's attributes from response
-     * @param  object $data API Response
-     * @return void
-     */
-    public function refresh($data)
-    {
-        foreach($data as $key => $value)
-        {
-            $this->{$key} = $value;
-        }
-    }
-
-    /**
      * Retrieve array of objects in namespace
      * @param  array  $params URL Params to pass
      * @return array Created Shopify Objects
@@ -86,16 +73,6 @@ abstract class AbstractObject extends AbstractResource
         return Util\ObjectSet::createObjectFromJson($resp);
     }
 
-    /**
-     * Delete a resource
-     * @param  integer $id ID of the resource
-     * @return boolean
-     */
-    public static function delete($id)
-    {
-        $resp = self::call(static::$classUrl.'/'.$id, 'DELETE');
-        return Util\ObjectSet::createObjectFromJson($resp);
-    }
 
     /**
      * Create a new item of [resource]
@@ -118,12 +95,21 @@ abstract class AbstractObject extends AbstractResource
      */
     public function update()
     {
-        if(!isset($this->id))
-        {
-            throw new Exception("An object must exist in order to update it");
-        }
+        $this->assureId();
         $resp = self::call(static::$classUrl.'/'.$this->id, 'PUT', array(static::$handle => $this));
         $this->refresh($resp->{static::$handle});
         return $resp;
+    }
+
+    /**
+    * Delete a resource
+    * @param  integer $id ID of the resource
+    * @return boolean
+    */
+    public function delete($id)
+    {
+        $this->assureId();
+        $resp = self::call(static::$classUrl.'/'.$id, 'DELETE');
+        return Util\ObjectSet::createObjectFromJson($resp);
     }
 }

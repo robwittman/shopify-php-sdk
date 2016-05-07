@@ -8,7 +8,7 @@
  */
 namespace Shopify;
 
-class CarrierService
+class CustomerSavedSearch
 {
     public static function __callStatic($method, $args)
     {

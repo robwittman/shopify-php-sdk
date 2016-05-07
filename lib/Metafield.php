@@ -10,13 +10,28 @@ namespace Shopify;
 
 class Metafield
 {
-    public static function __callStatic($method, $args)
+    public static function all()
     {
-        throw new \Exception("The Metafield object has not been completed yet");
+
     }
 
-    public function __construct()
+    public static function get()
     {
-        throw new \Exception("The Metafield object has not been completed yet");
+
+    }
+
+    public function create()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+
     }
 }

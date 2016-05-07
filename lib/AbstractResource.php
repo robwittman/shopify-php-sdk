@@ -32,4 +32,26 @@ abstract class AbstractResource
     {
         return new static($val, $options);
     }
+
+    /**
+     * Refresh the object's attributes from response
+     * @param  object $data API Response
+     * @return void
+     */
+    public function refresh($data)
+    {
+        foreach($data as $key => $value)
+        {
+            $this->{$key} = $value;
+        }
+    }
+
+    public function assureId()
+    {
+        if(!isset($this->id))
+        {
+            throw new Exception\Api("ID Field is required");
+        }
+        return TRUE;
+    }
 }

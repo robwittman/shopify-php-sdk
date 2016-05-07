@@ -28,7 +28,7 @@ class Request
      * JSON encoded into the body of the request
      * @var array
      */
-    protected $params;
+    protected $params = array();
 
     /**
      * Headers to send with request
@@ -48,6 +48,10 @@ class Request
         $this->method = $method;
         $this->params = $params;
         $this->headers = $headers;
+        if($method == 'POST' || $method == 'PUT')
+        {
+            $this->body = empty($params) ? NULL : json_encode($params);
+        }
     }
 
     /**

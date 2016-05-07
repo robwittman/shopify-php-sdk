@@ -1,4 +1,5 @@
-<?php/**
+<?php
+/**
  * \Shopify\OrderRisks
  *
  * @author Robert Wittman <bugattiboi1k1@gmail.com>

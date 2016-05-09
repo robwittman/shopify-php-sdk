@@ -2,3 +2,4 @@
 
  * Initial Release
  * Support created for all objects except CustomerSavedSearch, FulfillmentService, Metafields, Multipass, ShippingZone and TaxService
+ * Supported by TravisCI

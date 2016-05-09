@@ -7,7 +7,6 @@
     "api",
     "php"
   ],
-  "version" : "1.0.0",
   "homepage": "http://github.com/RobbyBugatti/shopify-php-api",
   "license": "MIT",
   "authors": [],

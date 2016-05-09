@@ -8,6 +8,6 @@ script: phpunit
 env:
     - AUTOLOAD=1
 
-script: ./build.php ${AUTOLOAD}
+script: php ./build.php ${AUTOLOAD}
 after_script: ./vendor/bin/coveralls -v
 sudo: false

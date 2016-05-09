@@ -1,5 +1,7 @@
 # Shopify PHP SDK
 
+[![Build Status](https://travis-ci.org/RobbyBugatti/shopify-php.svg)](https://travis-ci.org/RobbyBugatti/shopify-php)
+
 This SDK was created to enable rapid efiicient development using Shopify's API.
 
 ## Installation

@@ -2,6 +2,7 @@
 <?php
 chdir(dirname(__FILE__));
 
+$autoload = (int)$argv[0];
 if($autoload) {
     passthru(
         './vendor/bin/phpunit -c phpunit.xml', $returnStatus

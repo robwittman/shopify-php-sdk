@@ -12,6 +12,21 @@ use Shopify\Util;
 
 class Location extends AbstractObject
 {
-    protected static $handle = 'location';
+    protected static $classHandle = 'location';
     protected static $classUrl = 'locations';
+
+    public function create()
+    {
+        throw new Exception\ApiException("API SDK cannot be used to create a 'Location' resource");
+    }
+
+    public function update()
+    {
+        throw new Exception\ApiException("API SDK cannot be used to update a 'Location' resource");
+    }
+
+    public function delete()
+    {
+        throw new Exception\ApiException("API SDK cannot be used to dlete a 'Location' resource");
+    }
 }

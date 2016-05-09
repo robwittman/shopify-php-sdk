@@ -6,6 +6,7 @@ class AbandonedCheckoutTest extends TestCase
 {
     public function testAbandonedCheckoutIndex()
     {
-        $this->assertTrue(true);
+        $checkouts = AbandonedCheckout::all();
+        $this->assertInstanceOf('\Shopify\AbandonedCheckout', $checkouts[0]);
     }
 }

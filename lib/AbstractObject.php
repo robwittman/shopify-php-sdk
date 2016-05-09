@@ -17,7 +17,7 @@ abstract class AbstractObject extends AbstractResource
      * The handle used in API Responses
      * @var string
      */
-    protected static $handle;
+    protected static $classHandle;
 
     /**
      * Create an instance using returned API JSON data
@@ -82,10 +82,10 @@ abstract class AbstractObject extends AbstractResource
     {
         if(isset($this->id))
         {
-            throw new Exception("This object already has an ID");
+            throw new Exception\ApiException("This object already has an ID");
         }
-        $resp = self::call(static::$classUrl, 'POST', array(static::$handle => $this));
-        $this->refresh($resp->{static::$handle});
+        $resp = self::call(static::$classUrl, 'POST', array(static::$classHandle => $this));
+        $this->refresh($resp->{static::$classHandle});
         return $resp;
     }
 
@@ -96,8 +96,8 @@ abstract class AbstractObject extends AbstractResource
     public function update()
     {
         $this->assureId();
-        $resp = self::call(static::$classUrl.'/'.$this->id, 'PUT', array(static::$handle => $this));
-        $this->refresh($resp->{static::$handle});
+        $resp = self::call(static::$classUrl.'/'.$this->id, 'PUT', array(static::$classHandle => $this));
+        $this->refresh($resp->{static::$classHandle});
         return $resp;
     }
 
@@ -106,10 +106,10 @@ abstract class AbstractObject extends AbstractResource
     * @param  integer $id ID of the resource
     * @return boolean
     */
-    public function delete($id)
+    public function delete()
     {
         $this->assureId();
-        $resp = self::call(static::$classUrl.'/'.$id, 'DELETE');
+        $resp = self::call(static::$classUrl.'/'.$this->id, 'DELETE');
         return Util\ObjectSet::createObjectFromJson($resp);
     }
 }

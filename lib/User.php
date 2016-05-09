@@ -12,6 +12,12 @@ use Shopify\Util;
 
 class User extends AbstractObject
 {
-    protected static $handle = 'user';
+    protected static $classHandle = 'user';
     protected static $classUrl = 'users';
+
+    public static function getCurrent()
+    {
+        $resp = self::call(static::$classUrl.'/current', 'GET');
+        return Util\ObjectSet::createObjectFromJson($resp);
+    }
 }

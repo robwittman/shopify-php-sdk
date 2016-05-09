@@ -12,6 +12,13 @@ use Shopify\Util;
 
 class RecurringApplicationCharge extends AbstractObject
 {
-    protected static $handle = 'recurring_application_charge';
+    protected static $classHandle = 'recurring_application_charge';
     protected static $classUrl = 'recurring_application_charges';
+
+    public function activate()
+    {
+        $resp = self::call(self::$classUrl.'/'.$this->id.'/activate', 'POST', array('recurring_application_charge' => $this));
+        $this->refresh($resp->{static::$classHandle});
+        return TRUE;
+    }
 }

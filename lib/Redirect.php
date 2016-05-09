@@ -12,6 +12,6 @@ use Shopify\Util;
 
 class Redirect extends AbstractObject
 {
-    protected static $handle = 'redirect';
+    protected static $classHandle = 'redirect';
     protected static $classUrl = 'redirects';
 }

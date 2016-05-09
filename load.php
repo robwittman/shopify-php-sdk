@@ -1,7 +1,12 @@
 <?php
 
 define("MOCK_DIR", dirname(__FILE__) . '/data/mocks/');
+require_once(dirname(__FILE__)) . '/lib/Exception/Core.php';
+require_once(dirname(__FILE__)) . '/lib/Exception/ApiException.php';
+require_once(dirname(__FILE__)) . '/lib/Exception/CurlException.php';
+
 require_once(dirname(__FILE__)) . '/lib/Util/ObjectSet.php';
+
 require_once(dirname(__FILE__)) . '/lib/Http/Request.php';
 require_once(dirname(__FILE__)) . '/lib/Http/Response.php';
 require_once(dirname(__FILE__)) . '/lib/Http/Client.php';

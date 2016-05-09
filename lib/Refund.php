@@ -11,7 +11,7 @@ namespace Shopify;
 class Refund extends AbstractChildObject
 {
     protected static $parentUrl = 'orders';
-    protected static $parentIdField = NULL;
+    protected static $parentIdField = 'order_id';
     protected static $classUrl = 'refunds';
-    protected static $handle = 'refund';
+    protected static $classHandle = 'refund';
 }

@@ -42,7 +42,7 @@ class Request
      */
     protected $body;
 
-    public function __construct($path, $method = 'GET', $params = array(), $headers)
+    public function __construct($path, $method = 'GET', $params = array(), $headers = array(), $jsonify = FALSE)
     {
         $this->path = $path;
         $this->method = $method;
@@ -66,6 +66,11 @@ class Request
             return $this->headers;
         }
         return isset($this->headers[$key]) ? $this->headers[$key] : FALSE;
+    }
+
+    public function getBody()
+    {
+        return $this->body;
     }
 
     public function getMethod()

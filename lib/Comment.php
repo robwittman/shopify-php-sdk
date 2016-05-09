@@ -8,58 +8,45 @@
  */
 namespace Shopify;
 
+use Shopify\Fields\CommentStatuses;
+
 class Comment extends AbstractObject
 {
     protected static $classUrl = 'comments';
-    protected static $handle = 'comment';
+    protected static $classHandle = 'comment';
 
     public function approve()
     {
-        if(self::call(static::$classUrl.'/'.$id.'/approve' , 'POST'))
-        {
-            $this->status = 'approved';
-            return TRUE;
-        }
-        return FALSE;
+        $resp = self::call(static::$classUrl.'/'.$this->id.'/approve' , 'POST', array('comment' => $this));
+        $this->refresh($resp->{self::$classHandle});
+        return TRUE;
     }
 
-    public function spam()
+    public function markAsSpam()
     {
-        if(self::call(static::$classUrl.'/'.$id.'/spam' , 'POST'))
-        {
-            $this->status = 'spam';
-            return TRUE;
-        }
-        return FALSE;
+        $resp = self::call(static::$classUrl.'/'.$this->id.'/spam' , 'POST', array('comment' => $this));
+        $this->refresh($resp->{self::$classHandle});
+        return TRUE;
     }
 
-    public function not_spam()
+    public function unmarkAsSpam()
     {
-        if(self::call(static::$classUrl.'/'.$id.'/not_spam' , 'POST'))
-        {
-            $this->status = 'published';
-            return TRUE;
-        }
-        return FALSE;
+        $resp = self::call(static::$classUrl.'/'.$this->id.'/not_spam' , 'POST', array('comment' => $this));
+        $this->refresh($resp->{self::$classHandle});
+        return TRUE;
     }
 
     public function remove()
     {
-        if(self::call(static::$classUrl.'/'.$id.'/remove' , 'POST'))
-        {
-            $this->status = 'removed';
-            return TRUE;
-        }
-        return FALSE;
+        $resp = self::call(static::$classUrl.'/'.$this->id.'/remove' , 'POST', array('comment' => $this));
+        $this->refresh($resp->{self::$classHandle});
+        return TRUE;
     }
 
     public function restore()
     {
-        if(self::call(static::$classUrl.'/'.$id.'/restore' , 'POST'))
-        {
-            $this->status = 'published';
-            return TRUE;
-        }
-        return FALSE;
+        $resp = self::call(static::$classUrl.'/'.$this->id.'/restore' , 'POST', array('comment' => $this));
+        $this->refresh($resp->{self::$classHandle});
+        return TRUE;
     }
 }

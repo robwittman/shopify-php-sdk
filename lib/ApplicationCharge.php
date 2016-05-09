@@ -22,5 +22,22 @@ class ApplicationCharge extends AbstractObject
      * Resource handle
      * @var string
      */
-    protected static $handle = 'application_charge';
+    protected static $classHandle = 'application_charge';
+
+    public function activate()
+    {
+        $resp = self::call(static::$classUrl.'/'.$this->id.'/activate' , 'POST', array('application_charge' => $this));
+        $this->refresh($resp->{static::$classHandle});
+        return TRUE;
+    }
+
+    public function update()
+    {
+        throw new Exception\ApiException("Application Charges cannot be updated. You have to create a new one instead");
+    }
+
+    public function delete()
+    {
+        throw new Exception\ApiException("Application Charges cannot be deleted through the API");
+    }
 }

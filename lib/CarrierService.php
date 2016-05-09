@@ -8,15 +8,8 @@
  */
 namespace Shopify;
 
-class CarrierService
+class CarrierService extends AbstractObject
 {
-    public static function __callStatic($method, $args)
-    {
-        throw new \Exception("The CarrierService object has not been completed yet");
-    }
-
-    public function __construct()
-    {
-        throw new \Exception("The CarrierService object has not been completed yet");
-    }
+    protected static $classUrl = 'carrier_services';
+    protected static $classHandle = 'carrier_service';
 }

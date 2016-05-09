@@ -12,6 +12,13 @@ use Shopify\Util;
 
 class GiftCard extends AbstractObject
 {
-    protected static $handle = 'gift_card';
+    protected static $classHandle = 'gift_card';
     protected static $classUrl = 'gift_cards';
+
+    public function disable()
+    {
+        $resp = self::call(static::$classUrl.'/'.$this->id.'/disable' , 'POST', array('gift_card' => $this));
+        $this->refresh($resp->{self::$classHandle});
+        return TRUE;
+    }
 }

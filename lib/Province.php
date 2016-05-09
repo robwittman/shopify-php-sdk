@@ -13,5 +13,5 @@ class Province extends AbstractChildObject
     protected static $parentUrl = 'countries';
     protected static $parentIdField = 'country_id';
     protected static $classUrl = 'provinces';
-    protected static $handle = 'province';
+    protected static $classHandle = 'province';
 }

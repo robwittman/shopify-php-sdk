@@ -12,6 +12,6 @@ class UsageCharge extends AbstractChildObject
 {
     protected static $parentUrl = 'recurring_application_charges';
     protected static $parentIdField = 'recurring_application_charge_id';
-    protected static $classUrl = 'refunds';
-    protected static $handle = 'refund';
+    protected static $classUrl = 'usage_charges';
+    protected static $classHandle = 'refund';
 }

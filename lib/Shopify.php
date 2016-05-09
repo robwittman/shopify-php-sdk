@@ -187,7 +187,7 @@ class Shopify
         {
             return self::$$method;
         }
-        throw new \Exception("Call to undefined function {$method}");
+        throw new Exception\ApiException("Call to undefined function {$method}");
     }
 
     /**

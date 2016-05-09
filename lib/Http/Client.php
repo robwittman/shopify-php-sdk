@@ -104,7 +104,7 @@ class Client
                 }
             }
         } else {
-            throw new Exception\Api("Unrecognized method {$method}");
+            throw new Exception\ApiException("Unrecognized method {$method}");
         }
         $opts[CURLOPT_URL]              = $url;
         $opts[CURLOPT_RETURNTRANSFER]   = TRUE;
@@ -135,16 +135,25 @@ class Client
             $errors = $response->getJsonBody()->errors;
             if(is_string($errors))
             {
-                throw new Exception\Api($errors);
+                throw new Exception\ApiException($errors);
             } else {
                 $field = key((array) $errors);
                 $error = $errors->{$field}[0];
-                throw new Exception\Api(ucfirst($field).' '.$error);
+                throw new Exception\ApiException(ucfirst($field).' '.$error);
             }
         }
+        $this->handleHttpCode($response->getHttpCode());
+        return $response;
+    }
 
-        // Check if we have successful codes
-        if(!in_array($rcode, $this->success_codes))
+    /**
+     * Handle our HTTP Code and throw Exception
+     * @param  integer  $code
+     * @return void
+     */
+    private function handleHttpCode($code)
+    {
+        if(!in_array($code, $this->success_codes))
         {
             switch($rcode)
             {
@@ -166,11 +175,10 @@ class Client
                 case 500:
                     $msg = "There was an error comunicating with Shopify";
                 break;
-                default: $msg = "An unknown error code [{$rcode}] was returned";
+                default: $msg = "An unknown error code [{$code}] was returned";
             }
-            throw new Exception\Api($msg);
+            throw new Exception\ApiException($msg);
         }
-        return $response;
     }
 
     /**
@@ -193,7 +201,7 @@ class Client
                 $msg = "nUnexpected error communicating with Shopify";
         }
         $msg .= "\n\n(Network error [errno $errno]: $message)";
-        throw new Exception\Connection($msg);
+        throw new Exception\CurlException($msg);
     }
 
     /**

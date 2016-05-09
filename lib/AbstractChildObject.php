@@ -41,10 +41,11 @@ class AbstractChildObject extends AbstractResource
     {
         if(isset($this->id))
         {
-            throw new Exception("This object already has an ID");
+            throw new Exception\ApiException("This object already has an ID");
         }
-        $resp = self::call(static::$parentUrl.'/'.$this->{static::$parentIdField}.'/'.static::$classUrl, 'POST', array(static::$handle => $this));
-        $this->refresh($resp->{static::$handle});
+        $this->assureParentId();
+        $resp = self::call(static::$parentUrl.'/'.$this->{static::$parentIdField}.'/'.static::$classUrl, 'POST', array(static::$classHandle => $this));
+        $this->refresh($resp->{static::$classHandle});
         return $resp;
     }
 
@@ -54,13 +55,10 @@ class AbstractChildObject extends AbstractResource
      */
     public function update()
     {
-        if(!isset($this->id))
-        {
-            throw new Exception("An object must exist in order to update it");
-        }
+        $this->assureId();
         $this->assureParentId();
-        $resp = self::call(static::$parentUrl.'/'.$this->{static::$parentIdField}.'/'.static::$classUrl.'/'.$this->id, 'PUT', array(static::$handle => $this));
-        $this->refresh($resp->{static::$handle});
+        $resp = self::call(static::$parentUrl.'/'.$this->{static::$parentIdField}.'/'.static::$classUrl.'/'.$this->id, 'PUT', array(static::$classHandle => $this));
+        $this->refresh($resp->{static::$classHandle});
         return $resp;
     }
 
@@ -68,19 +66,20 @@ class AbstractChildObject extends AbstractResource
      * Delete a resuorce
      * @param  integer $parentId
      * @param  integer $id
-     * @return void
+     * @return NULL
      */
     public function delete()
     {
-        var_dump($this);
-        return self::call(static::parentUrl().'/'.$this->{static::$parentIdField}.'/'.static::$classUrl.'/'.$this->id, 'DELETE');
+        $this->assureParentId();
+        self::call(static::parentUrl().'/'.$this->{static::$parentIdField}.'/'.static::$classUrl.'/'.$this->id, 'DELETE');
+        return NULL;
     }
 
     public function assureParentId()
     {
-        if(!isset($this->{static::$parentIdField}))
+        if(!property_exists($this, static::$parentIdField) || is_null($this->{static::$parentIdField}))
         {
-            throw new Exception\Api("Updating ".static::$classUrl." requires a ".static::$parentIdField);
+            throw new Exception\ApiException("The resource '".static::$classUrl."' requires '".static::$parentIdField."'");
         }
         return TRUE;
     }

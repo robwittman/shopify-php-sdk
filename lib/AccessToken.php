@@ -30,6 +30,7 @@ class AccessToken extends AbstractResource
     public function __construct($data)
     {
         $this->token = $data->access_token;
+        
         $this->scope = $data->scope;
     }
 
@@ -38,6 +39,10 @@ class AccessToken extends AbstractResource
         return $this->token;
     }
 
+    public function getToken()
+    {
+        return $this->token;
+    }
     /**
      * Return the scopes for this access token
      * @return string

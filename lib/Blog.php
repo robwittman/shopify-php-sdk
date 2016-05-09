@@ -10,6 +10,13 @@ namespace Shopify;
 
 class Blog extends AbstractObject
 {
-    protected static $handle = 'blog';
+    protected static $classHandle = 'blog';
     protected static $classUrl = 'blogs';
+
+    public function getArticles($params = array())
+    {
+        $this->assureId();
+        $data = self::call(static::$classUrl.'/'.$this->id.'/articles', 'GET', $params);
+        return Util\ObjectSet::createObjectFromJson($data);
+    }
 }

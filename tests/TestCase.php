@@ -10,9 +10,4 @@ class TestCase extends \PHPUnit_Framework_TestCase
     {
         Shopify::init(['test' => TRUE]);
     }
-
-    public function testTrueIsTrue()
-    {
-        $this->assertTrue(true);
-    }
 }

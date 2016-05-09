@@ -15,11 +15,10 @@ abstract class AbstractResource
      * @param  boolean $jsonify Only passed as false for Auth requests
      * @return array         HTTP Client response
      */
-    public static function call($path, $method = 'GET', $params = array(), $jsonify = true)
+    public static function call($path, $method = 'GET', $params = array())
     {
         $data = \Shopify\Shopify::call($path, $method, $params);
         return $data;
-        // We just send the data to Util\ObjectSet, which instantiates all objects based on the response
     }
 
     /**
@@ -50,7 +49,7 @@ abstract class AbstractResource
     {
         if(!isset($this->id))
         {
-            throw new Exception\Api("ID Field is required");
+            throw new Exception\ApiException("ID Field is required");
         }
         return TRUE;
     }

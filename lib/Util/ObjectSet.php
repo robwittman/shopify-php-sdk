@@ -25,6 +25,7 @@ class ObjectSet
         $types = array(
             'access_token'                          => '\\Shopify\\AccessToken',
             'application_charge'                    => '\\Shopify\\ApplicationCharge',
+            'asset'                                 => '\\Shopify\\Asset',
             'article'                               => '\\Shopify\\Article',
             'blog'                                  => '\\Shopify\\Blog',
             'carrier_service'                       => '\\Shopify\\CarrierService',
@@ -37,7 +38,7 @@ class ObjectSet
             'custom_collection'                     => '\\Shopify\\CustomCollection',
             'customer'                              => '\\Shopify\\Customer',
             'customer_address'                      => '\\Shopify\\CustomerAddress',
-            'address'                               => '\\Shopify\\CustomerAddress',
+            'addresses'                             => '\\Shopify\\CustomerAddress',
             'customer_saved_search'                 => '\\Shopify\\CustomerSavedSearch',
             'discount'                              => '\\Shopify\\Discount',
             'event'                                 => '\\Shopify\\Event',
@@ -54,9 +55,11 @@ class ObjectSet
             'page'                                  => '\\Shopify\\Page',
             'product'                               => '\\Shopify\\Product',
             'province'                              => '\\Shopify\\Province',
+            'policies'                              => '\\Shopify\\Policy',
             'recurring_application_charge'          => '\\Shopify\\RecurringApplicationCharge',
             'redirect'                              => '\\Shopify\\Redirect',
             'refund'                                => '\\Shopify\\Refund',
+            'risk'                                  => '\\Shopify\\OrderRisks',
             'script_tag'                            => '\\Shopify\\ScriptTag',
             'shipping_zone'                         => '\\Shopify\\ShippingZone',
             'shop'                                  => '\\Shopify\\Shop',
@@ -81,6 +84,14 @@ class ObjectSet
         if($handle == 'countries')
         {
             $key = 'country';
+        }
+        else if($handle == 'policies')
+        {
+            $key = 'policies';
+        }
+        else if($handle == 'addresses' || $handle == 'customer_address')
+        {
+            $key = 'customer_address';
         }
         // Default, we just trim the 's' to get the handle
         else $key = rtrim($handle, 's');

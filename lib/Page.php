@@ -12,6 +12,6 @@ use Shopify\Util;
 
 class Page extends AbstractObject
 {
-    protected static $handle = 'page';
+    protected static $classHandle = 'page';
     protected static $classUrl = 'pages';
 }

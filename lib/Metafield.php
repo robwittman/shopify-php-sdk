@@ -8,7 +8,7 @@
  */
 namespace Shopify;
 
-class Metafield
+class Metafield extends AbstractObject
 {
     public static function all()
     {

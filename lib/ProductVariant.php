@@ -13,7 +13,7 @@ class ProductVariant extends AbstractChildObject
     protected static $parentUrl = 'products';
     protected static $parentIdField = 'product_id';
     protected static $classUrl = 'variants';
-    protected static $handle = 'variant';
+    protected static $classHandle = 'variant';
 
     /**
      * Overidden update function.
@@ -26,8 +26,8 @@ class ProductVariant extends AbstractChildObject
         {
             throw new Exception("An object must exist in order to update it");
         }
-        $resp = self::call(static::$classUrl.'/'.$this->id, 'PUT', array(static::$handle => $this));
-        $this->refresh($resp->{static::$handle});
+        $resp = self::call(static::$classUrl.'/'.$this->id, 'PUT', array(static::$classHandle => $this));
+        $this->refresh($resp->{static::$classHandle});
         return $resp;
     }
 }

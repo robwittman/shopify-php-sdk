@@ -12,6 +12,25 @@ use Shopify\Util;
 
 class Discount extends AbstractObject
 {
-    protected static $handle = 'discount';
+    protected static $classHandle = 'discount';
     protected static $classUrl = 'discounts';
+
+    public function update()
+    {
+        throw new Exception\ApiException("API SDK cannot be used to update discounts");
+    }
+
+    public function enable()
+    {
+        $resp = self::call(static::$classUrl.'/'.$this->id.'/enable' , 'POST', array('discount' => $this));
+        $this->refresh($resp->{self::$classHandle});
+        return TRUE;
+    }
+
+    public function disable()
+    {
+        $resp = self::call(static::$classUrl.'/'.$this->id.'/disable' , 'POST', array('discount' => $this));
+        $this->refresh($resp->{self::$classHandle});
+        return TRUE;
+    }
 }

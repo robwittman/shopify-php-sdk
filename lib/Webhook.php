@@ -12,6 +12,6 @@ use Shopify\Util;
 
 class Webhook extends AbstractObject
 {
-    protected static $handle = 'webhook';
+    protected static $classHandle = 'webhook';
     protected static $classUrl = 'webhooks';
 }

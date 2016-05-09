@@ -93,4 +93,12 @@ class ShopifyTest extends TestCase
     {
         $this->assertEquals($this->opts['permissions'], Shopify::permissions());
     }
+
+    /**
+     * @depends testInit
+     */
+    public function testBaseUrl()
+    {
+        $this->assertEquals(Shopify::baseUrl(), sprintf("https://%s/admin/", 'test-shop.myshopify.com'));
+    }
 }

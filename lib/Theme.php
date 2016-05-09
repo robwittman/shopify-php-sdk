@@ -12,6 +12,12 @@ use Shopify\Util;
 
 class Theme extends AbstractObject
 {
-    protected static $handle = 'theme';
+    protected static $classHandle = 'theme';
     protected static $classUrl = 'themes';
+
+    public function getAssets()
+    {
+        $assets = self::call(self::$classUrl.'/'.$this->id.'/assets', 'GET');
+        return Util\ObjectSet::createObjectFromJson($assets);
+    }
 }

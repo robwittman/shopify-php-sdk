@@ -36,7 +36,7 @@ class Response
     public function __construct($rawBody, $code, array $headers = array())
     {
         $this->rawBody = $rawBody;
-        $this->httpCode = $code;
+        $this->http_code = $code;
         $this->headers = $headers;
         $this->jsonBody = json_decode($this->rawBody);
     }
@@ -70,7 +70,7 @@ class Response
      */
     public function getRawBody()
     {
-        return $this->body;
+        return $this->rawBody;
     }
 
     /**

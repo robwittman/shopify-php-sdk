@@ -36,7 +36,7 @@ class Auth
         // Check if we require strict standards
         if(is_null(self::$nonce) && \Shopify\Shopify::strict())
         {
-            throw new \Exception("Trying to use strict API without nonce");
+            throw new Exception\ApiException("Trying to use strict API without nonce");
         }
         if(!is_null(self::$nonce)) $params['state'] = self::$nonce;
         return sprintf("https://%s/%s?%s", \Shopify\Shopify::store(), self::$auth_uri, http_build_query($params));
@@ -52,7 +52,7 @@ class Auth
         if(\Shopify\Shopify::strict())
         {
             if( is_null(self::$nonce) || ! isset( $_GET['state'])) throw new \Exception("Strict API execution requires a nonce for Authentication requests");
-            if(!\Shopify\Shopify::strict() && !\Shopify\Shopify::validateHmac()) throw new \Exception("Strict API execution requires a valid HMAC signature");
+            if(!\Shopify\Shopify::strict() && !\Shopify\Shopify::validateHmac()) throw new Exception\ApiException("Strict API execution requires a valid HMAC signature");
         }
         return \Shopify\AccessToken::createFromCode($_GET['code']);
     }

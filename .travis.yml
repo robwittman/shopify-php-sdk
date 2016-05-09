@@ -4,3 +4,10 @@ php:
     - 5.4
     - 7
 script: phpunit
+
+env:
+    - AUTOLOAD=1
+
+script: ./build.php ${AUTOLOAD}
+after_script: ./vendor/bin/coveralls -v
+sudo: false

@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-chdir(dirname((__FILE__));
+chdir(dirname(__FILE__));
 
 if($autoload) {
     passthru(

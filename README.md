@@ -14,6 +14,12 @@ This SDK was created to enable rapid efiicient development using Shopify's API.
     }
 }
 ```
+or
+
+```shell
+composer require robby-bugatti/shopify-php-sdk
+```
+
 then install
 
 ```shell

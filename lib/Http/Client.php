@@ -9,7 +9,7 @@ namespace Shopify\Http;
 
 use Shopify\Shopify;
 use Shopify\Util;
-use Shopify\Exception\Api;
+use Shopify\Exception;
 
 class Client
 {
@@ -104,7 +104,7 @@ class Client
                 }
             }
         } else {
-            throw new Exception\ApiException("Unrecognized method {$method}");
+            throw new Exception\("Unrecognized method {$method}");
         }
         $opts[CURLOPT_URL]              = $url;
         $opts[CURLOPT_RETURNTRANSFER]   = TRUE;

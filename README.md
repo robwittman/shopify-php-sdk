@@ -1,6 +1,8 @@
 # Shopify PHP SDK
 
 [![Build Status](https://travis-ci.org/RobbyBugatti/shopify-php.svg)](https://travis-ci.org/RobbyBugatti/shopify-php)
+[![Latest Stable Version](https://poser.pugx.org/robby-bugatti/shopify-php-sdk/v/stable)](https://packagist.org/packages/robby-bugatti/shopify-php-sdk) [![Total Downloads](https://poser.pugx.org/robby-bugatti/shopify-php-sdk/downloads)](https://packagist.org/packages/robby-bugatti/shopify-php-sdk) [![Latest Unstable Version](https://poser.pugx.org/robby-bugatti/shopify-php-sdk/v/unstable)](https://packagist.org/packages/robby-bugatti/shopify-php-sdk) [![License](https://poser.pugx.org/robby-bugatti/shopify-php-sdk/license)](https://packagist.org/packages/robby-bugatti/shopify-php-sdk)
+
 This SDK was created to enable rapid efiicient development using Shopify's API.
 
 ## Installation

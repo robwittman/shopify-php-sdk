@@ -8,6 +8,19 @@ use Shopify\Exception;
 abstract class AbstractResource
 {
     /**
+    * Create an instance using returned API JSON data
+    * @param array $data
+    * @return void
+    */
+    public function __construct($data = array())
+    {
+        foreach($data as $key => $value)
+        {
+            $this->{$key} = $value;
+        }
+    }
+    
+    /**
      * Make a call to Shopify API Server
      * @param  string $path   URL to request
      * @param  string $method URL Request method
@@ -20,6 +33,7 @@ abstract class AbstractResource
         $data = \Shopify\Shopify::call($path, $method, $params);
         return $data;
     }
+
 
     /**
      * Every object can be created from JSON

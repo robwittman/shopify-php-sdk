@@ -20,19 +20,6 @@ abstract class AbstractObject extends AbstractResource
     protected static $classHandle;
 
     /**
-     * Create an instance using returned API JSON data
-     * @param array $data
-     * @return void
-     */
-    public function __construct($data = array())
-    {
-        foreach($data as $key => $value)
-        {
-            $this->{$key} = $value;
-        }
-    }
-
-    /**
      * Get the endpoint for thie objects API
      * @return string
      */

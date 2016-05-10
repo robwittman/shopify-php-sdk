@@ -10,7 +10,7 @@
 
 namespace Shopify;
 
-class Shop extends AbstractObject
+class Shop extends AbstractResource
 {
     /**
      * Endpoint for this resource

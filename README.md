@@ -130,8 +130,8 @@ $product->update();
 
 To delete an object, simply call the objects static delete() method, passing the ID
 ```php
-\Shopify\Product::delete(2178508200);
-// returns true
+(new \Shopify\Product(123412341))->delete();
+// returns NULL
 ```
 
 ## Error Handling
@@ -141,15 +141,15 @@ The SDK is designed to throw Exceptions when an error is encountered. Wrap calls
 ```php
 try {
     $product = new \Shopify\Product(array());
-} catch (Exception\Connection $e) {
+} catch (Exception\CurlException $e) {
     echo $e->getMessage();
-} catch (Exception\Api) {
+} catch (Exception\ApiException) {
     echo $e->getMessage();
     // "Title cannot be blank"
 }
 
-\\ Exception\Connection => cURL failed to connect
-\\ Exception\Api        => There was an API error. [Invalid POST data, Invalid Endpoint, etc.]
+\\ Exception\CurlException => cURL failed to connect
+\\ Exception\ApiException        => There was an API error. [Invalid POST data, Invalid Endpoint, etc.]
 
 ```
 

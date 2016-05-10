@@ -10,7 +10,7 @@ This SDK was created to enable rapid efiicient development using Shopify's API.
 ```json
 {
     "require" : {
-        "robby-bugatti/shopify-php-sdk": "0.1.0"
+        "robby-bugatti/shopify-php-sdk": "1.0.0"
     }
 }
 ```

@@ -4,7 +4,7 @@
  *
  * @author Robert Wittman <bugattiboi1k1@gmail.com>
  * @license MIT
- * 
+ *
  */
 namespace Shopify\Http;
 
@@ -105,7 +105,7 @@ class Client
                 }
             }
         } else {
-            throw new Exception\("Unrecognized method {$method}");
+            throw new Exception\ApiException("Unrecognized method {$method}");
         }
         $opts[CURLOPT_URL]              = $url;
         $opts[CURLOPT_RETURNTRANSFER]   = TRUE;

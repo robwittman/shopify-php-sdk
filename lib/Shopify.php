@@ -133,7 +133,7 @@ class Shopify
      * @param  array  $params
      * @return mixed
      */
-    public function call($path, $method = 'GET', $params)
+    public static function call($path, $method = 'GET', $params)
     {
         $path = self::baseUrl().$path.'.json';
         $req = new \Shopify\Http\Request($path, $method, $params, [

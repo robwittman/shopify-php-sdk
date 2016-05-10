@@ -1,5 +1,5 @@
 {
-  "name": "robby-bugatti/shopify-php",
+  "name": "robby-bugatti/shopify-php-sdk",
   "description": "PHP SDK for Shopify API",
   "keywords": [
     "shopify",
@@ -7,7 +7,7 @@
     "api",
     "php"
   ],
-  "homepage": "http://github.com/RobbyBugatti/shopify-php",
+  "homepage": "http://github.com/RobbyBugatti/shopify-php-sdk",
   "license": "MIT",
   "authors": [],
   "require": {

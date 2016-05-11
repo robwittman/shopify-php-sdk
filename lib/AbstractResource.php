@@ -19,7 +19,7 @@ abstract class AbstractResource
             $this->{$key} = $value;
         }
     }
-    
+
     /**
      * Make a call to Shopify API Server
      * @param  string $path   URL to request
@@ -30,8 +30,7 @@ abstract class AbstractResource
      */
     public static function call($path, $method = 'GET', $params = array())
     {
-        $data = \Shopify\Shopify::call($path, $method, $params);
-        return $data;
+        return \Shopify\Shopify::call($path, $method, $params);
     }
 
 

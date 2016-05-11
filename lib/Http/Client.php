@@ -130,9 +130,12 @@ class Client
 
         // Create our response objecct
         $response = new Response($res_body, $rcode, $rheaders);
-        if(!is_null($response->getJsonBody()) && isset($response->getJsonBody()->errors))
+
+        // Check for Shopify Errors
+        $jsonBody = $response->getJsonBody();
+        if(!is_null($jsonBody) && isset($jsonBody->errors))
         {
-            $errors = $response->getJsonBody()->errors;
+            $errors = $jsonBody->errors;
             if(is_string($errors))
             {
                 throw new Exception\ApiException($errors);
@@ -142,6 +145,9 @@ class Client
                 throw new Exception\ApiException(ucfirst($field).' '.$error);
             }
         }
+        unset($jsonBody);
+
+    
         $this->handleHttpCode($response->getHttpCode());
         return $response;
     }

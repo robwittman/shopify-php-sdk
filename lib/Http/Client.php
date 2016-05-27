@@ -161,7 +161,7 @@ class Client
     {
         if(!in_array($code, $this->success_codes))
         {
-            switch($rcode)
+            switch($code)
             {
                 case 401:
                     $msg = "Invalid API key or wrong password";

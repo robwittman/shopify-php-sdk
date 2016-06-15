@@ -21,7 +21,7 @@ class Shopify
      * Singleton instance of the SDK
      * @var Shopify
      */
-    protected static $instance;
+    protected static $instance = NULL;
 
     /**
      * Handle for the HTTP Client
@@ -57,7 +57,7 @@ class Shopify
      * The store we are initializing for
      * @var string
      */
-    public static $store = 'test-shop.myshopify.com';
+    public static $store = 'localhost.myshopify.com';
 
     /**
      * Access token for the given store
@@ -114,6 +114,10 @@ class Shopify
      */
     public static function instance()
     {
+        if(is_null(static::$instance))
+        {
+            throw new \Shopify\Exception\ApiException("SDK has not been intialized. Start with \Shopify\Shopify::init()");
+        }
         return static::$instance;
     }
 

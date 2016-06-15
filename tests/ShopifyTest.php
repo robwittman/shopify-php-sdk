@@ -12,8 +12,8 @@ class ShopifyTest extends TestCase
         'api_secret' => "asdpaosidcoaij23r",
         'redirect_uri' => "https://some_randomg_url",
         'access_token' => 'asdifpaoisdjpfaoijsdfp',
-        'store' => 'test-shop.myshopify.com',
-        'permissions' => "read_products,write_products"
+        'permissions' => "read_products,write_products",
+        'store' => "dev.myshopify.com"
     ];
 
     public function testInit()
@@ -99,6 +99,6 @@ class ShopifyTest extends TestCase
      */
     public function testBaseUrl()
     {
-        $this->assertEquals(Shopify::baseUrl(), sprintf("https://%s/admin/", 'test-shop.myshopify.com'));
+        $this->assertEquals(Shopify::baseUrl(), sprintf("https://%s/admin/", 'dev.myshopify.com'));
     }
 }

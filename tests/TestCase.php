@@ -4,7 +4,7 @@ namespace Shopify;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
-    private $client;
+    protected $client;
 
     public function setUp()
     {

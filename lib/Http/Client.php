@@ -9,7 +9,6 @@ namespace Shopify\Http;
 
 use Shopify\Shopify;
 use Shopify\Util;
-use Shopify\Exception;
 
 class Client
 {
@@ -104,7 +103,7 @@ class Client
                 }
             }
         } else {
-            throw new Exception\ApiException("Unrecognized method {$method}");
+            throw new \Shopify\Exception\ApiException("Unrecognized method {$method}");
         }
         $opts[CURLOPT_URL]              = $url;
         $opts[CURLOPT_RETURNTRANSFER]   = TRUE;
@@ -138,16 +137,16 @@ class Client
             $errors = $jsonBody->errors;
             if(is_string($errors))
             {
-                throw new Exception\ApiException($errors);
+                throw new \Shopify\Exception\ApiException($errors);
             } else {
                 $field = key((array) $errors);
                 $error = $errors->{$field}[0];
-                throw new Exception\ApiException(ucfirst($field).' '.$error);
+                throw new \Shopify\Exception\ApiException(ucfirst($field).' '.$error);
             }
         }
         unset($jsonBody);
 
-    
+
         $this->handleHttpCode($response->getHttpCode());
         return $response;
     }
@@ -183,7 +182,7 @@ class Client
                 break;
                 default: $msg = "An unknown error code [{$code}] was returned";
             }
-            throw new Exception\ApiException($msg);
+            throw new \Shopify\Exception\ApiException($msg);
         }
     }
 
@@ -207,7 +206,7 @@ class Client
                 $msg = "nUnexpected error communicating with Shopify";
         }
         $msg .= "\n\n(Network error [errno $errno]: $message)";
-        throw new Exception\CurlException($msg);
+        throw new \Shopify\Exception\CurlException($msg);
     }
 
     /**

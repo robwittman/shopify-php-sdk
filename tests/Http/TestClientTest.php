@@ -4,7 +4,7 @@ namespace Shopify;
 
 class TestClientTest extends TestCase
 {
-    private $client;
+    protected $client;
 
     public function setUp()
     {

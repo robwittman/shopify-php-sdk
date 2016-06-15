@@ -128,7 +128,7 @@ $product->update();
 
 ### Deleting
 
-To delete an object, simply call the objects static delete() method, passing the ID
+To delete an object, simply call the objects delete() method, passing the ID
 ```php
 (new \Shopify\Product(123412341))->delete();
 // returns NULL

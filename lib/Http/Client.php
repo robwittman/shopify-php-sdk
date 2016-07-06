@@ -115,9 +115,8 @@ class Client
         // Execute our curl request
         curl_setopt_array($curl, $opts);
         $res_body = curl_exec($curl);
-        $errno = curl_errno($curl);
         $rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
+        $errno = curl_errno($curl);
 
         // Check if curl instantiated, or throw an error
         if($res_body === false)
@@ -146,6 +145,7 @@ class Client
         }
         unset($jsonBody);
 
+        curl_close($curl);
 
         $this->handleHttpCode($response->getHttpCode());
         return $response;
@@ -168,6 +168,7 @@ class Client
                 case 404:
                     $msg = "That resource does not exist";
                 break;
+                case 400:
                 case 406:
                     $msg = "Request Information was Not Acceptable";
                 break;
@@ -179,6 +180,9 @@ class Client
                 break;
                 case 500:
                     $msg = "There was an error comunicating with Shopify";
+                break;
+                case 503:
+                    $msg = "Service unavailable. Is your domain set correctly?";
                 break;
                 default: $msg = "An unknown error code [{$code}] was returned";
             }

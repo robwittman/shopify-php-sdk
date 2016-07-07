@@ -195,6 +195,24 @@ class Shopify
     }
 
     /**
+     * Verify that HMAC hash of parameters matches HMAC signature
+     * @return [type] [description]
+     */
+    public static function validateHmac()
+    {
+        $params = [];
+        foreach($_GET as $param => $value) {
+    	    if ($param != 'signature' && $param != 'hmac') {
+    		$params[$param] = "{$param}={$value}";
+    	    }
+    	}
+        asort($params);
+        $params = implode("&", $params);
+
+        return $_GET['hmac'] === hash_hmac('sha256', $params, self::$api_secret);
+    }
+
+    /**
      * Return the root API url based on the authenticated store
      * @return string
      */

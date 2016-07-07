@@ -37,7 +37,7 @@ class Auth
         // Check if we require strict standards
         if(is_null(self::$nonce) && \Shopify\Shopify::strict())
         {
-            throw new Exception\ApiException("Trying to use strict API without nonce");
+            throw new Exception\ApiException('Strict API execution requires a nonce be set');
         }
         if(!is_null(self::$nonce)) $params['state'] = self::$nonce;
         return sprintf("https://%s/%s?%s", \Shopify\Shopify::store(), self::$auth_uri, http_build_query($params));
@@ -48,19 +48,20 @@ class Auth
      * @param string $nonce
      * @return \Shopfiy\AccessToken
      */
-    public static function accessToken( $nonce = NULL )
+    public static function accessToken()
     {
         // Do any strict checking for our OAuth requests
         if(\Shopify\Shopify::strict())
         {
-            if( !self::checkNonce( $nonce ) ) throw new \Exception("Strict API execution requires a nonce for Authentication requests");
-            if( !\Shopify\Shopify::validateHmac() ) throw new Exception\ApiException("Strict API execution requires a valid HMAC signature");
+            if( is_null( self::$nonce ) ) throw new \Exception('No nonce was set. use Auth::setNonce($nonce) to set one');
+            if( !self::checkNonce( $nonce ) ) throw new \Exception("Authentication nonce failed verification");
+            if( !\Shopify\Shopify::validateHmac() ) throw new Exception\ApiException("HMAC signature failed verification");
         }
         return \Shopify\AccessToken::createFromCode($_GET['code']);
     }
 
     /**
-     * Set a nonce, used to secure API requests
+     * Set the nonce property
      * @param string $nonce
      */
     public static function setNonce($nonce)
@@ -73,7 +74,7 @@ class Auth
      * @param  string $nonce
      * @return boolean
      */
-    public static function checkNonce($nonce = NULL)
+    public static function checkNonce($nonce)
     {
         return $nonce === $_GET['state'];
     }
@@ -85,14 +86,14 @@ class Auth
 
     /**
      * Create a nonce to be used for authentication
-     *
-     * This can be substituted with whichever technique a developer wants to implement
-     *
      * @return string
      */
-    public static function generateNonce()
+    public static function generateNonce( $save = TRUE )
     {
         if(is_null(\Shopify\Shopify::api_secret())) throw new Exception\ApiException("API Secret required for nonce generation");
-        return hash_hmac('sha256', \Shopify\Shopify::store().'.'.time(),\Shopify\Shopify::api_secret() );
+        $nonce = hash_hmac('sha256', \Shopify\Shopify::store().'.'.time(),\Shopify\Shopify::api_secret() );
+
+        if($save) self::setNonce($nonce);
+        return $nonce;
     }
 }

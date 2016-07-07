@@ -186,7 +186,7 @@ class Client
                 break;
                 default: $msg = "An unknown error code [{$code}] was returned";
             }
-            throw new \Shopify\Exception\ApiException($msg);
+            throw new \Shopify\Exception\ApiException($msg, $code);
         }
     }
 

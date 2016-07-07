@@ -27,8 +27,8 @@ storage engines, this SDK will not store these state variables for you. However,
 functions for generating and managing them
 
 ```php
-\Shopify\Auth::generateNonce() // Returns a hashed string of <store>.<timestamp>, using API Secret as key
-// hash_hmac('sha256', <store>.<timestamp>, \Shopify\Shopify::api_secret());s
+\Shopify\Auth::generateNonce();
+// Returns a hashed string of <store>.<timestamp>, using API Secret as key
 ```
 This will return a hashed string, composed by concatenating the store name with a timestamp, using the API Secret
 as the key.
@@ -46,11 +46,13 @@ This will return TRUE or FALSE, depending on if the nonce in the URL matches a n
 This function is automatically run during accessToken() in strict environments, so you shouldnt need to
 call it explicitly
 
+For full example, check out [Full Auth Example with Comments](examples/authentication.php)
 ### Authentication
 
 To use the SDK for OAuth purposes, you need to provide your api_key, api_secret, permissions, and redirect_uri
 
 ```php
+// Set our options for initializing the SDK
 $options = array(
     'api_key' => 'some_random_api_key',
     'api_secret' => 'some_random_api_secret',
@@ -60,14 +62,19 @@ $options = array(
 );
 \Shopify\Shopify::init($options);
 
-// Store this somewhere so we can compare it later
-$storageEngine->store($nonce);
 
-if(isset($_GET['code']))
+if(!isset($_GET['code']))
 {
+    $nonce = \Shopify\Auth::generateNonce();
+
+    // Store this somewhere so we can compare it later
+    $storageEngine->store($nonce);
+
     // Redirect to Shopify to start OAuth
     header("Location: ".\Shopify\Auth::authorizationUrl());
 } else {
+    $nonce = $storageEngine->retrieve($nonce);
+    \Shopify\Auth::setNonce($nonce);
 
     // We can go ahead and get the access token
     echo \Shopify\Auth::accessToken();
@@ -167,7 +174,7 @@ try {
 \\ Exception\CurlException => cURL failed to connect
 \\ Exception\ApiException        => There was an API error. [Invalid POST data, Invalid Endpoint, etc.]
 
-```
+```/.lung`q23 45v
 
 ## References
 

@@ -174,8 +174,7 @@ try {
 \\ Exception\CurlException => cURL failed to connect
 \\ Exception\ApiException        => There was an API error. [Invalid POST data, Invalid Endpoint, etc.]
 
-```/.lung`q23 45v
-
+```
 ## References
 
 [Shopify Partner Login](https://partners.shopify.com)

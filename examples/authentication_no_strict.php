@@ -31,5 +31,4 @@ else
     }
 
     echo $accessToken->access_token; // 53e20e750c89274d02b53927135fd664
-    echo $accessToken->scope; // read_products
 }

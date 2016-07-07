@@ -54,7 +54,7 @@ class Auth
         if(\Shopify\Shopify::strict())
         {
             if( is_null( self::$nonce ) ) throw new \Exception('No nonce was set. use Auth::setNonce($nonce) to set one');
-            if( !self::checkNonce( $nonce ) ) throw new \Exception("Authentication nonce failed verification");
+            if( !self::checkNonce( self::$nonce ) ) throw new \Exception("Authentication nonce failed verification");
             if( !\Shopify\Shopify::validateHmac() ) throw new Exception\ApiException("HMAC signature failed verification");
         }
         return \Shopify\AccessToken::createFromCode($_GET['code']);

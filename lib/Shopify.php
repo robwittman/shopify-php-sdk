@@ -10,8 +10,8 @@
 
 namespace Shopify;
 
-use Shopify\Http\Client;
-use SHopify\Http\TestClient;
+use GuzzleHttp\Client;
+
 use Shopify\Exception;
 use Shopify\Util;
 
@@ -51,45 +51,22 @@ class Shopify
      * Comma separated string of application permissions
      * @var string
      */
-    public static $permissions;
+    public static $permissions = 'read_products';
 
     /**
-     * The store we are initializing for
-     * @var string
+     * @var array
      */
-    public static $store = 'localhost.myshopify.com';
+    public static $shop_data = array();
 
-    /**
-     * Access token for the given store
-     * @var string
-     */
-    public static $access_token;
+    const API_KEY_ENV_NAME = 'SHOPIFY_API_KEY';
 
-    /**
-     * Wether the SDK runs in strict mode. Defaults to TRUE
-     * @var boolean
-     */
-    public static $strict = TRUE;
-
-    /**
-     * Wether the SDK runs in debug mode. Defaults to FALSE
-     * @var boolean
-     */
-    public static $debug = FALSE;
-
-    /**
-     * Wether the SDK is loaded in test functionality
-     *
-     * This loads the TestClient instead of our API Client
-     * @var boolean
-     */
-    public static $test = FALSE;
+    const API_SECRET_ENV_NAME = 'SHOPIFY_API_SECRET';
 
     /**
      * Instantiate our API
      * @param Client $client
      */
-    public function __construct($client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -99,11 +76,9 @@ class Shopify
      * @param  array  $opts
      * @return Shopify
      */
-    public static function init(array $opts = array())
+    public static function init($appId, $appSecret, array $shopData)
     {
-        $client = ((isset($opts['test']) && $opts['test']) || self::test()) ? new TestClient() : new Client();
-        $api = new static($client);
-        $api::setOpt($opts);
+        $api = new static($client, $shopData);
         static::setInstance($api);
         return $api;
     }

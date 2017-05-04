@@ -4,6 +4,8 @@ namespace Shopify\Service;
 
 use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Blog;
+use Shopify\Options\Blog\GetOptions;
+use Shopify\Options\Blog\ListOptions;
 
 class BlogService extends AbstractService
 {
@@ -13,14 +15,16 @@ class BlogService extends AbstractService
         return $this->getNode($request, [], Blog::class);
     }
 
-    public function all(array $params = array())
+    public function all(ListOptions $options = null)
     {
+        $params = is_null($options) ? array() : $options->export();
         $request = new Request('GET', '/admin/blogs.json');
         return $this->getEdge($request, $params, Blog::class);
     }
 
-    public function count(array $params = array())
+    public function count(CountOptions $options = null)
     {
+        $params = is_null($options) ? array() : $options->export();
         $request = new Request('GET', '/admin/blogs/count.json');
         return $this->getCount($request, $params);
     }
@@ -37,6 +41,6 @@ class BlogService extends AbstractService
 
     public function delete(Blog $blog)
     {
-        
+
     }
 }

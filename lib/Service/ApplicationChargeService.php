@@ -4,6 +4,8 @@ namespace Shopify\Service;
 
 use GuzzleHttp\Psr7\Request;
 use Shopify\Object\ApplicationCharge;
+use Shopify\Options\ApplicationCharge\GetOptions;
+use Shopify\Options\ApplicationCharge\ListOptions;
 
 class ApplicationChargeService extends AbstractService
 {
@@ -23,23 +25,26 @@ class ApplicationChargeService extends AbstractService
      *
      * @link https://help.shopify.com/api/reference/applicationcharge#show
      * @param  integer $chargeId
+     * @param  GetOptions $options
      * @return ApplicationCharge
      */
-    public function get($chargeId)
+    public function get($chargeId, GetOptions $options = null)
     {
+        $params = is_null($options) ? array() : $options->export();
         $request = new Request('GET', '/admin/application_charges/'.$chargeId.'.json');
-        return $this->getNode($request, [], ApplicationCharge::class);
+        return $this->getNode($request, $params, ApplicationCharge::class);
     }
 
     /**
      * Retrieve all one-time application charges
      *
      * @link https://help.shopify.com/api/reference/applicationcharge#index
-     * @param  array  $params
+     * @param  ListOptions $options
      * @return ApplicationCharge[]
      */
-    public function all(array $params = array())
+    public function all(ListOptions $options = null)
     {
+        $params = is_null($options) ? array() : $options->export();
         $request = new Request('GET', '/admin/application_charges.json');
         return $this->getEdge($request, $params, ApplicationCharge::class);
     }

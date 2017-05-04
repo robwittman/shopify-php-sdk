@@ -4,6 +4,8 @@ namespace Shopify\Service;
 
 use GuzzleHttp\Psr7\Request;
 use Shopify\Object\ApplicationCredit;
+use Shopify\Options\ApplicationCredit\GetOptions;
+use Shopify\Options\ApplicationCredit\ListOptions;
 
 class ApplicationCreditService extends AbstractService
 {
@@ -24,23 +26,26 @@ class ApplicationCreditService extends AbstractService
      *
      * @link  https://help.shopify.com/api/reference/applicationcredit#show
      * @param  integer $creditId
+     * @param  GetOptions $options
      * @return ApplicationCredit
      */
-    public function get($creditId)
+    public function get($creditId, GetOptions $options = null)
     {
+        $params = is_null($options) ? array() : $options->export();
         $request = new Request('GET', '/admin/application_credits/'.$creditId.'.json');
-        return $this->getNode($request, [], ApplicationCredit::class);
+        return $this->getNode($request, $params, ApplicationCredit::class);
     }
 
     /**
      * Retrieve all application credits
      *
      * @link https://help.shopify.com/api/reference/applicationcredit#index
-     * @param  array  $params
+     * @param  ListOptions $options
      * @return ApplicationCredit[]
      */
-    public function all(array $params = array())
+    public function all(ListOptions $options = null)
     {
+        $params = is_null($options) ? array() : $options->export();
         $request = new Request('GET', '/admin/application_credits.json');
         return $this->getEdge($request, $params, ApplicationCredit::class);
     }

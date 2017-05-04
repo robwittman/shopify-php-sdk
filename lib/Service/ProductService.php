@@ -4,6 +4,9 @@ namespace Shopify\Service;
 
 use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Product;
+use Shopify\Options\Product\GetOptions;
+use Shopify\Options\Product\ListOptions;
+use Shopify\Options\Product\CountOptions;
 
 class ProductService extends AbstractService
 {

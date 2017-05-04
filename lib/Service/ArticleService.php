@@ -4,6 +4,9 @@ namespace Shopify\Service;
 
 use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Article;
+use Shopify\Options\Article\GetOptions;
+use Shopify\Options\Article\ListOptions;
+use Shopify\Options\Article\CountOptions;
 
 class ArticleService extends AbstractService
 {
@@ -12,20 +15,23 @@ class ArticleService extends AbstractService
 
     }
 
-    public function get($blogId, $articleId)
+    public function get($blogId, $articleId, GetOptions $options = null)
     {
+        $params = is_null($options) ? array() : $options->export();
         $request = new Request('GET', '/admin/blogs/'.$blogId.'/articles/'.$articleId.'.json');
-        return $this->getNode($request, [], Article::class);
+        return $this->getNode($request, $params, Article::class);
     }
 
-    public function all($blogId, array $params = array())
+    public function all($blogId, ListOptions $options = null)
     {
+        $params = is_null($options) ? array() : $options->export();
         $request = new Request('GET', '/admin/blogs/'.$blogId.'/articles.json');
         return $this->getEdge($request, $params, Article::class);
     }
 
-    public function count($blogId, array $params = array())
+    public function count($blogId, CountOptions $options = null)
     {
+        $params = is_null($options) ? array() : $options->export();
         $request = new Request('GET', '/admin/blogs/'.$blogId.'/articles/count.json');
         return $this->getCount($request, $params);
     }
@@ -48,6 +54,6 @@ class ArticleService extends AbstractService
 
     public function delete($blogId, Article $article)
     {
-        
+
     }
 }

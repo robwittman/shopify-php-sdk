@@ -16,13 +16,13 @@ trait HasTimestamps
      */
     protected $updated_at;
 
-    // public function getCreatedAt()
-    // {
-    //     return $this->created_at;
-    // }
-    //
-    // public function getUpdatedAt()
-    // {
-    //     return $this->updated_at;
-    // }
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
 }

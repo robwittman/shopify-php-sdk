@@ -2,7 +2,7 @@
 
 namespace Shopify\Concerns;
 
-class HasId
+trait HasId
 {
     /**
      * A unique numeric identifier for the shop.

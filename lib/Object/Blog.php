@@ -1,13 +1,49 @@
 <?php
+/**
+ *
+ * Shopify\Object\Blog
+ *
+ * In addition to an online storefront, Shopify shops come with a built-in
+ * blogging engine, allowing a shop to have one or more blogs.
+ *
+ * MIT License
+ *
+ * Copyright (c) Rob Wittman 2016
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * @package Shopify
+ * @author Rob Wittman <rob@ihsdigital.com>
+ * @license MIT
+ * @link https://help.shopify.com/api/reference/blog
+ */
 
 namespace Shopify\Object;
 
 use Shopify\Concerns\HasTimestamps;
 use Shopify\Concerns\HasId;
+use Shopify\Concerns\HasMetafields;
 
 class Blog extends AbstractObject
 {
     use HasTimestamps,
+        HasMetafields,
         HasId;
 
     /**
@@ -38,12 +74,6 @@ class Blog extends AbstractObject
     protected $handle;
 
     /**
-     * Attaches additional metadata to a store's resources:
-     * @var array
-     */
-    protected $metafield;
-
-    /**
      * Tags are additional short descriptors formatted as a string of comma-separated values.
      * For example, if an article has three tags: tag1, tag2, tag3.
      * @var string
@@ -62,4 +92,81 @@ class Blog extends AbstractObject
      * @var string
      */
     protected $title;
+
+    public function getCommentable()
+    {
+        return $this->get('commentable');
+    }
+
+    public function setCommentable($commentable)
+    {
+        $this->set('commentable', $commentable);
+        return $this;
+    }
+
+    public function getFeedburner()
+    {
+        return $this->get('feedburner');
+    }
+
+    public function setFeedburner($feedburner)
+    {
+        $this->set('feedburner', $feedburner);
+        return $this;
+    }
+
+    public function getFeedburnerLocation()
+    {
+        return $this->get('feedburner_location');
+    }
+
+    public function setFeedburnerLocation($feedburner_location)
+    {
+        $this->set('feedburner_location', $feedburner_location);
+        return $this;
+    }
+
+    public function getHandle()
+    {
+        return $this->get('handle');
+    }
+
+    public function setHandle($handle)
+    {
+        $this->set('handle', $handle);
+        return $this;
+    }
+
+    public function getTags()
+    {
+        return $this->get('tags');
+    }
+
+    public function setTags($tags)
+    {
+        $this->set('tags', $tags);
+        return $this;
+    }
+
+    public function getTemplateSuffix()
+    {
+        return $this->get('template_suffix');
+    }
+
+    public function setTemplateSuffix($template_suffix)
+    {
+        $this->set('template_suffix', $template_suffix);
+        return $this;
+    }
+
+    public function getTitle()
+    {
+        return $this->get('title');
+    }
+
+    public function setTitle($title)
+    {
+        $this->set('title', $title);
+        return $this;
+    }
 }

@@ -1,26 +1,58 @@
 <?php
-<?php
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Asset;
-use Shopify\Options\Asset\ListOptions;
 use Shopify\Options\Asset\GetOptions;
+use Shopify\Options\Asset\ListOptions;
 
 class AssetService extends AbstractService
 {
-    public function get($themeId, GetOptions $options = null)
-    {
-        $params = is_null($options) ? array() : $options->export();
-        $request = new Request('GET', '/admin/themes/'.$themeId.'/assets.json');
-        return $this->getNode($request, $params, Asset::class);
-    }
-
+    /**
+     * Receive a list of all assets
+     * @link https://help.shopify.com/api/reference/asset#index
+     * @param  integer $themeId
+     * @param  ListOptions $options
+     * @return Asset[]
+     */
     public function all($themeId, ListOptions $options = null)
     {
-        $params = is_null($options) ? array() : $options->export();
-        $request = new Request('GET', '/admin/themes/'.$themeId.'/assets.json');
-        return $this->getEdge($request, $params, Asset::class);
+
+    }
+
+    /**
+     * Receive a single asset
+     * @link https://help.shopify.com/api/reference/asset#show
+     * @param  integer $themeId
+     * @param  GetOptions $options
+     * @return Article
+     */
+    public function get($themeId, GetOptions $options = null)
+    {
+
+    }
+
+    /**
+     * Creating or modifying an asset
+     * @link https://help.shopify.com/api/reference/asset#update
+     * @param  integer $themeId
+     * @param  Asset  $asset
+     * @return
+     */
+    public function put($themeId, Asset $asset)
+    {
+
+    }
+
+    /**
+     * Remove an asset from the database
+     * @link https://help.shopify.com/api/reference/asset#destroy
+     * @param  integer $themeId
+     * @param  Asset  $asset
+     * @return void
+     */
+    public function delete($themeId, Asset $asset)
+    {
+
     }
 }

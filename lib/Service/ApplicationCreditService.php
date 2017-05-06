@@ -2,40 +2,12 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\ApplicationCredit;
 use Shopify\Options\ApplicationCredit\GetOptions;
 use Shopify\Options\ApplicationCredit\ListOptions;
 
 class ApplicationCreditService extends AbstractService
 {
-    /**
-     * Create an application credit
-     *
-     * @link https://help.shopify.com/api/reference/applicationcredit#create
-     * @param  ApplicationCredit $credit
-     * @return boolean
-     */
-    public function create(ApplicationCredit &$credit)
-    {
-
-    }
-
-    /**
-     * Receive a single ApplicationCredit
-     *
-     * @link  https://help.shopify.com/api/reference/applicationcredit#show
-     * @param  integer $creditId
-     * @param  GetOptions $options
-     * @return ApplicationCredit
-     */
-    public function get($creditId, GetOptions $options = null)
-    {
-        $params = is_null($options) ? array() : $options->export();
-        $request = new Request('GET', '/admin/application_credits/'.$creditId.'.json');
-        return $this->getNode($request, $params, ApplicationCredit::class);
-    }
-
     /**
      * Retrieve all application credits
      *
@@ -45,8 +17,41 @@ class ApplicationCreditService extends AbstractService
      */
     public function all(ListOptions $options = null)
     {
-        $params = is_null($options) ? array() : $options->export();
-        $request = new Request('GET', '/admin/application_credits.json');
-        return $this->getEdge($request, $params, ApplicationCredit::class);
+        $endpoint = '/admin/application_credits.json';
+        $request = $this->createRequest($endpoint);
+        return $this->getEdge($request, $options, ApplicationCredit::class);
+    }
+
+    /**
+     * Receive a single ApplicationCredit
+     *
+     * @link https://help.shopify.com/api/reference/applicationcredit#show
+     * @param  integer $applicationCreditId
+     * @param  GetOptions $options
+     * @return ApplicationCredit
+     */
+    public function get($applicationCreditId, GetOptions $options = null)
+    {
+        $endpoint = '/admin/application_credits/'.$applicationCreditId.'.json';
+        $request = $this->createRequest($endpoint);
+1        return $this->getNode($request, $options, ApplicationCredit::class);
+    }
+
+    /**
+     * Create an application credit
+     *
+     * @link https://help.shopify.com/api/reference/applicationcredit#create
+     * @param  ApplicationCredit $applicationCredit
+     * @return void
+     */
+    public function create(ApplicationCredit &$applicationCredit)
+    {
+        $data = $applicationCredit->exportData();
+        $endpoint = '/admin/application_credits.json';
+        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
+        $response = $this->send($request, array(
+            'application_credit' => $data
+        ));
+        $applicationCredit->setData($response->application_credit);
     }
 }

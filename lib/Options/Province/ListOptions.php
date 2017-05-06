@@ -10,12 +10,4 @@ class ListOptions extends BaseOptions
 {
     use HasFields,
         HasSinceId;
-
-    protected $country_id;
-
-    public function setCountryId($country_id)
-    {
-        $this->country_id = $country_id;
-        return $this;
-    }
 }

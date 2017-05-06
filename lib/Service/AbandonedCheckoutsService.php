@@ -2,7 +2,6 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\AbandonedCheckout;
 use Shopify\Options\AbandonedCheckout\ListOptions;
 use Shopify\Options\AbandonedCheckout\CountOptions;
@@ -18,10 +17,9 @@ class AbandonedCheckoutService extends AbstractService
      */
     public function all(ListOptions $options = null)
     {
-        $params = is_null($options) ? array() : $options->export();
         $endpoint = '/admin/checkouts.json';
-        $request = new Request("GET", $endpoint);
-        return $this->getEdge($request, $params, AbandonedCheckout::class);
+        $request = $this->createRequest($endpoint);
+        return $this->getEdge($request, $options, AbandonedCheckout::class);
     }
 
     /**
@@ -33,9 +31,8 @@ class AbandonedCheckoutService extends AbstractService
      */
     public function count(CountOptions $options = null)
     {
-        $params = is_null($options) ? array() : $options->export();
         $endpoint = '/admin/checkouts/count.json';
-        $request = new Request("GET", $endpoint);
-        return $this->getEdge($request, $params, null);
+        $request = $this->createRequest($endpoint);
+        return $this->getEdge($request, $options, null);
     }
 }

@@ -14,6 +14,11 @@ abstract class AbstractService
     private $api;
     private $mapper;
 
+    const REQUEST_METHOD_GET = 'GET';
+    const REQUEST_METHOD_POST = 'POST';
+    const REQUEST_METHOD_PUT = 'PUT';
+    const REQUEST_METHOD_DELETE = 'DELETE';
+    
     public static function factory(ApiInterface $api)
     {
         return new static($api);
@@ -34,26 +39,40 @@ abstract class AbstractService
         return $this->api;
     }
 
-    public function getCount(Request $request, array $params = array())
+    public function getCount(Request $request, $options = array())
     {
-        $response = $this->send($request, $params);
+        if (is_a($options, BaseOptions::class)) {
+            $options = $options->export();
+        }
+        $response = $this->send($request, $options);
         return $this->createObject(null, $data);
     }
 
-    public function getEdge(Request $request, array $params = array(), $className = null)
+    public function getEdge(Request $request, $options = array(), $className = null)
     {
-        $response = $this->send($request, $params);
+        if (is_a($options, BaseOptions::class)) {
+            $options = $options->export();
+        }
+        $response = $this->send($request, $options);
         $handle = $className::getApiHandle();
         $data = $response->{$handle};
         return $this->createCollection($className, $data);
     }
 
-    public function getNode(Request $request, array $params = array(), $className = null)
+    public function getNode(Request $request, $options = array(), $className = null)
     {
-        $response = $this->send($request, $params);
+        if (is_a($options, BaseOptions::class)) {
+            $options = $options->export();
+        }
+        $response = $this->send($request, $options);
         $handle = Inflector::singularize($className::getApiHandle());
         $data = $response->{$handle};
         return $this->createObject($className, $data);
+    }
+
+    public function createRequest($endpoint, $method = self::REQUEST_METHOD_GET)
+    {
+        return new Request($method, $endpoint);
     }
 
     public function send(Request $request, array $params = array())

@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Shopify\Storage\PersistentStorageInterface;
 use Shopify\Storage\SessionStorage;
 use Shopify\Helper\OAuthHelper;
+use Psr\Log\LoggerInterface as Logger;
 
 class Api implements ApiInterface
 {
@@ -18,6 +19,8 @@ class Api implements ApiInterface
     protected $myshopify_domain;
     protected $http_handler;
     protected $storage;
+    protected $meta = array();
+    protected $logger;
 
     public function setApiKey($apiKey)
     {
@@ -93,6 +96,12 @@ class Api implements ApiInterface
             $this->storage = new SessionStorage();
         }
         return $this->storage;
+    }
+
+    public function setLogger(Logger $loggger)
+    {
+        $this->logger = $logger;
+        return $this;
     }
 
     public function init()

@@ -8,6 +8,7 @@ use Shopify\ApiInterface;
 use Shopify\Object\AbstractObject;
 use Shopify\Inflector;
 use JsonMapper;
+use Shopify\Options\BaseOptions;
 
 abstract class AbstractService
 {
@@ -18,7 +19,7 @@ abstract class AbstractService
     const REQUEST_METHOD_POST = 'POST';
     const REQUEST_METHOD_PUT = 'PUT';
     const REQUEST_METHOD_DELETE = 'DELETE';
-    
+
     public static function factory(ApiInterface $api)
     {
         return new static($api);
@@ -39,7 +40,7 @@ abstract class AbstractService
         return $this->api;
     }
 
-    public function getCount(Request $request, $options = array())
+    public function getCount(Request $request, $options = null)
     {
         if (is_a($options, BaseOptions::class)) {
             $options = $options->export();
@@ -48,7 +49,7 @@ abstract class AbstractService
         return $this->createObject(null, $data);
     }
 
-    public function getEdge(Request $request, $options = array(), $className = null)
+    public function getEdge(Request $request, $options = null, $className = null)
     {
         if (is_a($options, BaseOptions::class)) {
             $options = $options->export();
@@ -59,7 +60,7 @@ abstract class AbstractService
         return $this->createCollection($className, $data);
     }
 
-    public function getNode(Request $request, $options = array(), $className = null)
+    public function getNode(Request $request, $options = null, $className = null)
     {
         if (is_a($options, BaseOptions::class)) {
             $options = $options->export();
@@ -75,8 +76,10 @@ abstract class AbstractService
         return new Request($method, $endpoint);
     }
 
-    public function send(Request $request, array $params = array())
+    public function send(Request $request, $params = null)
     {
+        // print_r(func_get_args());
+        // exit;
         $handler = $this->getApi()->getHttpHandler();
         $args = array();
         if ($request->getMethod() === 'GET') {

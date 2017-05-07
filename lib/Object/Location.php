@@ -45,6 +45,11 @@ class Location extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'locations';
+    }
+    
     /**
      * The name of the location
      * @var string

@@ -43,6 +43,11 @@ class Country extends AbstractObject
 {
     use HasId;
 
+    public static function getApiHandle()
+    {
+        return 'countries';
+    }
+    
     /**
      * The ISO 3166-1 alpha-2 two-letter country code for the country.
      * The code for a given country will be the same as the code for the same country in another shop.
@@ -95,6 +100,9 @@ class Country extends AbstractObject
         return $this->get('provinces');
     }
 
+    /**
+     * @param Province[] $provinces
+     */
     public function setProvinces($provinces)
     {
         $this->set('provinces', $provinces);

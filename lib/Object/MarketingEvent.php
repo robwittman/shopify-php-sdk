@@ -42,6 +42,11 @@ namespace Shopify\Object;
 
 class MarketingEvent extends AbstractObject
 {
+    public static function getApiHandle()
+    {
+        return 'marketing_events';
+    }
+
     /**
      * The specific type of marketing event. Must be one of the allowed values
      * ('ad', 'post', 'message', 'seo', 'sem', 'transaction', 'affiliate', 'loyalty').

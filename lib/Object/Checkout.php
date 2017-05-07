@@ -10,6 +10,11 @@ class Checkout extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'checkouts';
+    }
+
     protected $billing_address;
     protected $currency;
     protected $customer_id;

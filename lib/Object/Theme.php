@@ -43,6 +43,11 @@ class Theme extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'themes';
+    }
+
     /**
      * The name of the theme.
      * @var string

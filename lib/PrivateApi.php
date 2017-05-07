@@ -90,4 +90,10 @@ class PrivateApi implements ApiInterface
         $input = base64_encode($input);
         return "Basic {$input}";
     }
+
+    public function getService($class)
+    {
+        $className = "\\Shopify\\Service\\{$class}Service";
+        return new $className($this);
+    }
 }

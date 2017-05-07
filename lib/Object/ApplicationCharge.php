@@ -44,6 +44,10 @@ use Shopify\Concerns\HasTimestamps;
 
 class ApplicationCharge extends AbstractObject
 {
+    public static function getApiHandle()
+    {
+        return 'application_charges';
+    }
     /**
      * The URL that the customer is taken to, to accept or decline the one-time application charge.
      * @var string

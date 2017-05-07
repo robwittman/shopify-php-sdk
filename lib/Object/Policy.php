@@ -41,6 +41,11 @@ class Location extends AbstractObject
 {
     use HasTimestamps;
 
+    public static function getApiHandle()
+    {
+        return 'policies';
+    }
+
     /**
      * Name of the policy
      * @var string

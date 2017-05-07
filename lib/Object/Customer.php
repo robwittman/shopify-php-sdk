@@ -49,6 +49,10 @@ class Customer extends AbstractObject
         HasMetafields,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'customers';
+    }
     /**
      * Indicates whether the customer has consented to be sent marketing material
      * via email. Valid values are "true" and "false."

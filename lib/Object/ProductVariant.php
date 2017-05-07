@@ -45,6 +45,11 @@ class ProductVariant extends AbstractObject
         HasMetafields,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'variants';
+    }
+
     /**
      * The barcode, UPC or ISBN number for the product.
      * @var string
@@ -270,17 +275,6 @@ class ProductVariant extends AbstractObject
         return $this;
     }
 
-    public function getInventoryPolicy()
-    {
-        return $this->get('inventory_policy');
-    }
-
-    public function setInventoryPolicy($inventory_policy)
-    {
-        $this->set('inventory_policy', $inventory_policy);
-        return $this;
-    }
-
     public function getOldInventoryQuantity()
     {
         return $this->get('old_inventory_quantity');
@@ -371,12 +365,12 @@ class ProductVariant extends AbstractObject
 
     public function getRequiresShipping()
     {
-        return $this->get('reqiures_shipping');
+        return $this->get('requires_shipping');
     }
 
     public function setRequiresShipping($reqiures_shipping)
     {
-        $this->set('reqiures_shipping', $reqiures_shipping);
+        $this->set('requires_shipping', $reqiures_shipping);
         return $this;
     }
 

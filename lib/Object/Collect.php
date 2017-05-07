@@ -43,6 +43,10 @@ class Collect extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'collects';
+    }
     /**
      * The id of the custom collection containing the product
      * @var integer

@@ -45,6 +45,11 @@ class Refund extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'refunds';
+    }
+
     /**
      * The date and time when the refund was imported, in ISO 8601 format. This
      * value can be set to dates in the past when importing from other systems.

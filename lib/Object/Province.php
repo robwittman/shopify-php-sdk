@@ -44,6 +44,11 @@ use Shopify\Concerns\HasId;
 
 class Province extends AbstractObject
 {
+    public static function getApiHandle()
+    {
+        return 'provinces';
+    }
+
     /**
      * The standard abbreviation for the state or province.
      * @var string

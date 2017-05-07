@@ -48,6 +48,11 @@ class Page extends AbstractObject
         HasMetafields,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'pages';
+    }
+    
     /**
      * The name of the person who created the page.
      * @var string

@@ -8,13 +8,13 @@ trait HasUpdatedAt
 
     protected $updated_at_max;
 
-    public function setCreatedAtMin($updated_at_min)
+    public function setUpdatedAtMin($updated_at_min)
     {
         $this->updated_at_min = $updated_at_min;
         return $this;
     }
 
-    public function getCreatedAtMin()
+    public function getUpdatedAtMin()
     {
         return $this->updated_at_min;
     }

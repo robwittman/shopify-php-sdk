@@ -44,6 +44,11 @@ class ProductImage extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'images';
+    }
+
     /**
      * The order of the product image in the list. The first product image
      * is at position 1 and is the "main" image for the product.

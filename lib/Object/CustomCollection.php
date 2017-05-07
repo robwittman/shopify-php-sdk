@@ -47,6 +47,10 @@ class CustomCollection extends AbstractObject
         HasMetafields,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'custom_collections';
+    }
     /**
      * The description of the custom collection, complete with HTML markup.
      * Many templates display this on their custom collection pages.

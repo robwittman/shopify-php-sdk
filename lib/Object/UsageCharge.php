@@ -46,6 +46,11 @@ class UsageCharge extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'usage_charges';
+    }
+
     /**
      * The name of the usage charge.
      * @var string

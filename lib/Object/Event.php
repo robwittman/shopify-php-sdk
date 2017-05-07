@@ -44,6 +44,11 @@ class Event extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'events';
+    }
+    
     /**
      * Refers to a certain event and its resources.
      * @var string

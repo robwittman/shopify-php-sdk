@@ -50,6 +50,10 @@ class ApplicationCredit extends AbstractObject
 {
     use HasId;
 
+    public static function getApiHandle()
+    {
+        return 'application_credits';
+    }
     /**
      * The description of the application credit.
      * @var string

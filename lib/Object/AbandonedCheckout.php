@@ -40,12 +40,18 @@ namespace Shopify\Object;
 
 use Shopify\Concerns\HasId;
 use Shopify\Concerns\HasTimestamps;
+use Shopify\Object\Customer;
+use Shopify\Object\LineItem
 
 class AbandonedCheckout extends AbstractObject
 {
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'checkouts';
+    }
     /**
      * The full recovery URL to be sent to a customer to recover their abandoned checkout.
      * @var string
@@ -313,7 +319,7 @@ class AbandonedCheckout extends AbstractObject
         return $this->get('customer');
     }
 
-    public function setCustomer($customer)
+    public function setCustomer(Customer $customer)
     {
         $this->set('customer', $customer);
         return $this;
@@ -368,6 +374,9 @@ class AbandonedCheckout extends AbstractObject
         return $this->get('line_items');
     }
 
+    /**
+     * @param LineItem[] $line_items [description]
+     */
     public function setLineItems($line_items)
     {
         $this->set('line_items', $line_items);

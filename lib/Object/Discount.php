@@ -48,6 +48,11 @@ class Discount extends AbstractObject
 {
     use HasId;
 
+    public static function getApiHandle()
+    {
+        return 'discounts';
+    }
+    
     /**
      * Specify how the discount's value will be applied to the order
      * @var string

@@ -46,6 +46,11 @@ class SmartCollection extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'smart_collections';
+    }
+
     /**
      * The description of the smart collection, complete with HTML markup.
      * Many templates display this on their smart collection page.

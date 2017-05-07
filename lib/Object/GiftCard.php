@@ -46,6 +46,11 @@ class GiftCard extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'gift_cards';
+    }
+
     /**
      * A unique numeric identifier of the application that issued the gift card
      * (if it was issued by an application).

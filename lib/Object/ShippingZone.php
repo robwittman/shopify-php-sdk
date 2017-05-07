@@ -43,6 +43,11 @@ class ShippingZone extends AbstractObject
 {
     use HasTimestamps;
 
+    public static function getApiHandle()
+    {
+        return 'shipping_zones';
+    }
+    
     /**
      * The name of the shipping zone, specified by the user.
      * @var string

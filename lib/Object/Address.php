@@ -36,6 +36,10 @@ namespace Shopify\Object;
 
 class Address extends AbstractObject
 {
+    public static function getApiHandle()
+    {
+        return 'addresses';
+    }
     /**
      * The street address of the billing address.
      * @var string

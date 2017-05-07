@@ -44,6 +44,10 @@ class Comment extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'comments';
+    }
     /**
      * A unique numeric identifier for the article to which the comment belongs.
      * @var integer

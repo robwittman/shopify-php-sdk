@@ -41,6 +41,11 @@ class Asset extends AbstractObject
 {
     use HasTimestamps;
 
+    public static function getApiHandle()
+    {
+        return 'assets';
+    }
+    
     /**
      * An asset attached to a store's theme.
      * @var string

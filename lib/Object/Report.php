@@ -43,6 +43,11 @@ class Report extends AbstractObject
 {
     use HasId;
 
+    public static function getApiHandle()
+    {
+        return 'reports';
+    }
+
     /**
      * The category for the report. The value returned by the API is "custom_app_reports".
      * @var string

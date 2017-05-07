@@ -45,6 +45,11 @@ class FulfillmentEvent extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'fulfillment_events';
+    }
+
     /**
      * A numeric unique identifier for the shop to which the fulfillment event belongs.
      * @var integer

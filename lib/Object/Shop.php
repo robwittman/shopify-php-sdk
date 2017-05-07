@@ -43,6 +43,11 @@ class Shop extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'shop';
+    }
+
     /**
      * The shop's street address.
      * @var string

@@ -54,6 +54,11 @@ class Webhook extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'webhooks';
+    }
+
     /**
      * The URI where the webhook should send the POST request when the event occurs.
      * @var string

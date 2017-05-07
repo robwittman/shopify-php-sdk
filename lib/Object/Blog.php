@@ -46,6 +46,11 @@ class Blog extends AbstractObject
         HasMetafields,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'blogs';
+    }
+    
     /**
      * Indicates whether readers can post comments to the blog and if comments are moderated or not
      * @var string

@@ -44,6 +44,11 @@ class Redirect extends AbstractObject
 {
     use HasId;
 
+    public static function getApiHandle()
+    {
+        return 'redirects';
+    }
+
     /**
      * The "before" path to be redirected. When the user this path, s/he will be
      * redirected to the path specified by target.

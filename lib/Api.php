@@ -148,4 +148,10 @@ class Api implements ApiInterface
             " Please set using `export {$apiSecretEnvName}=<api_secret>`"
         );
     }
+
+    public function getService($class)
+    {
+        $className = "\\Shopify\\Service\\{$class}Service";
+        return new $className($this);
+    }
 }

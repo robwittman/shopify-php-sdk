@@ -43,6 +43,11 @@ class Transaction extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'transactions';
+    }
+
     /**
      * The amount of money that the transaction was for.
      * @var string

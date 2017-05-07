@@ -45,6 +45,10 @@ class Article extends AbstractObject
         HasTimestamps,
         HasMetafields;
 
+    public static function getApiHandle()
+    {
+        return 'articles';
+    }
     /**
      * The name of the author of this article
      * @var string

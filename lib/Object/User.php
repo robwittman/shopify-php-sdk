@@ -41,6 +41,11 @@ class User extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'users';
+    }
+
     /**
      * Identifies if the user is the owner of the Shopify account
      * @var boolean

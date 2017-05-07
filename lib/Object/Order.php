@@ -50,6 +50,11 @@ class Order extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'orders';
+    }
+
     /**
      * The mailing address associated with the payment method.
      * @var Address

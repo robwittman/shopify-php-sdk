@@ -45,6 +45,11 @@ class Fulfillment extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'fulfillments';
+    }
+    
     /**
      * A historical record of each item in the fulfillment:
      * @var LineItem[]

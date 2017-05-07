@@ -46,6 +46,11 @@ class ScriptTag extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'script_tags';
+    }
+
     /**
      * DOM event which triggers the loading of the script. Valid values are: "onload."
      * @var string

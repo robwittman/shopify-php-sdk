@@ -46,6 +46,10 @@ class RecurringApplicationCharge extends AbstractObject
     use HasTimestamps,
         HasId;
 
+    public static function getApiHandle()
+    {
+        return 'recurring_application_charges';
+    }
     /**
      * The date and time when the customer activated the recurring application charge.
      * The API returns this value in ISO 8601 format.

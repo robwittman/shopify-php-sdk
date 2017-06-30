@@ -7,7 +7,7 @@
         "api",
         "php"
     ],
-    "homepage": "http://github.com/RobbyBugatti/shopify-php-sdk",
+    "homepage": "http://github.com/robwittman/shopify-php-sdk",
     "license": "MIT",
     "authors": [],
     "require": {

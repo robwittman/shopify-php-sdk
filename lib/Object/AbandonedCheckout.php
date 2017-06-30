@@ -41,7 +41,7 @@ namespace Shopify\Object;
 use Shopify\Concerns\HasId;
 use Shopify\Concerns\HasTimestamps;
 use Shopify\Object\Customer;
-use Shopify\Object\LineItem
+use Shopify\Object\LineItem;
 
 class AbandonedCheckout extends AbstractObject
 {

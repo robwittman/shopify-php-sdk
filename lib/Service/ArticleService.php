@@ -114,7 +114,7 @@ class ArticleService extends AbstractService
         $endpoint = '/admin/articles/authors.json';
         $request = $this->createRequest($endpoint);
         $response = $this->send($request);
-        return $responsee->authors;
+        return $response->authors;
     }
 
     /**

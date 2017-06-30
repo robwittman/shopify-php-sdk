@@ -56,7 +56,7 @@ abstract class AbstractObject
         if (!property_exists($this, $property)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    "Property %s does not exist for %s", $property, get_called_class()
+                    "Property '%s' does not exist for '%s'", $property, get_called_class()
                 )
             );
         }

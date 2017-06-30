@@ -44,6 +44,9 @@ use Shopify\Concerns\HasTimestamps;
 
 class ApplicationCharge extends AbstractObject
 {
+    use HasId,
+        HasTimestamps;
+        
     public static function getApiHandle()
     {
         return 'application_charges';

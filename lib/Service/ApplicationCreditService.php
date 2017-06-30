@@ -34,7 +34,7 @@ class ApplicationCreditService extends AbstractService
     {
         $endpoint = '/admin/application_credits/'.$applicationCreditId.'.json';
         $request = $this->createRequest($endpoint);
-1        return $this->getNode($request, $options, ApplicationCredit::class);
+        return $this->getNode($request, $options, ApplicationCredit::class);
     }
 
     /**

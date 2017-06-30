@@ -6,7 +6,7 @@ use Shopify\Object\AbandonedCheckout;
 use Shopify\Options\AbandonedCheckout\ListOptions;
 use Shopify\Options\AbandonedCheckout\CountOptions;
 
-class AbandonedCheckoutService extends AbstractService
+class AbandonedCheckoutsService extends AbstractService
 {
     /**
      * List all abandonded checkouts

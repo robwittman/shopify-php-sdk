@@ -187,6 +187,9 @@ class Product extends AbstractObject
         return $this->get('images');
     }
 
+    /**
+     * @param ProductImage[] $images
+     */
     public function setImages($images)
     {
         $this->set('images', $images);
@@ -198,6 +201,9 @@ class Product extends AbstractObject
         return $this->get('options');
     }
 
+    /**
+     * @param ProductOption[] $options
+     */
     public function setOptions($options)
     {
         $this->set('options', $options);

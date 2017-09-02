@@ -2,7 +2,7 @@
 
 namespace Shopify\Storage;
 
-use Shopify\Exception\Shopify\Exception\SdkException;
+use Shopify\Exception\SdkException;
 
 class SessionStorage implements PersistentStorageInterface
 {

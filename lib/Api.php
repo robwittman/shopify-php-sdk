@@ -106,16 +106,14 @@ class Api implements ApiInterface
 
     public function init()
     {
-        if (is_null($this->http_handler)) {
-            $args = array();
-            if (is_null(!$this->myshopify_domain)) {
-                $args['base_uri'] = sprintf("https://%s");
-            }
-            if (!is_null(!$this->access_token)) {
-                $args['headers']['X-Shopify-Access-Token'] = $this->access_token;
-            }
-            $this->http_handler = new Client($args);
+        $args = array();
+        if (!is_null($this->myshopify_domain)) {
+            $args['base_uri'] = sprintf("https://%s");
         }
+        if (!is_null($this->access_token)) {
+            $args['headers']['X-Shopify-Access-Token'] = $this->access_token;
+        }
+        $this->http_handler = new Client($args);
     }
 
     public function getOAuthHelper()

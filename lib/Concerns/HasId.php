@@ -9,4 +9,9 @@ trait HasId
      * @var integer
      */
     protected $id;
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }

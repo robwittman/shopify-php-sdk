@@ -40,14 +40,17 @@ use Shopify\Concerns\HasId;
 
 class Shop extends AbstractObject
 {
-    use HasTimestamps,
-        HasId;
-
     public static function getApiHandle()
     {
         return 'shop';
     }
 
+    protected $id;
+
+    protected $created_at;
+
+    protected $updated_at;
+    
     /**
      * The shop's street address.
      * @var string

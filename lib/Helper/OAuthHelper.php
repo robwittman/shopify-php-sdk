@@ -4,10 +4,12 @@ namespace Shopify\Helper;
 
 use Shopify\Api;
 use Shopify\Storage\PersistentStorageInterface;
+use Shopify\Exception\ShopifySdkException;
 use GuzzleHttp\Psr7\Request;
 
 class OAuthHelper
 {
+    protected $api;
     protected $storage;
     protected $apiKey;
     protected $apiSecret;
@@ -17,16 +19,19 @@ class OAuthHelper
 
     public function __construct(Api $api, PersistentStorageInterface $storage)
     {
+        $this->api = $api;
         $this->apiKey = $api->getApiKey();
         $this->apiSecret = $api->getApiSecret();
         $this->myshopifyDomain = $api->getMyshopifyDomain();
         $this->storage = $storage;
     }
 
-    public function getAuthorizationUrl($redirectUrl, $scope)
+    public function getAuthorizationUrl($redirectUrl, $scope, $storeState = true)
     {
-        $state = $this->storage->get('state') ?: $this->getPseudoRandomString();
-        $this->storage->set('state', $state);
+        if ($storeState) {
+            $state = $this->storage->get('state') ?: $this->getPseudoRandomString();
+            $this->storage->set('state', $state);
+        }
 
         $params = array(
             'client_id' => $this->apiKey,
@@ -38,53 +43,37 @@ class OAuthHelper
         return "https://{$this->myshopifyDomain}/admin/oauth/authorize?".http_build_query($params);
     }
 
-    public function getAccessToken(array $params = array())
+    public function getAccessToken($code, $redirect_uri, $state = null)
     {
-        $required = array('code', 'state');
-        foreach ($requiredParams as $param) {
-            if (!isset($params[$param])) {
-                throw new ShopifySdkException(
-                    "Parameter '{$param}' required to generate access token"
-                );
-            }
+        if (!is_null($state)) {
+            $oldState = $this->storage->get('state');
+            $this->validateCsrf($state, $oldState);
+            $this->resetCsrf();
         }
-        $oldState = $this->storage->get('state');
-        $state = $params['state'];
 
-        $this->validateCsrf($oldState, $state);
-        $this->resetCsrf();
+        $params = array(
+            'client_id' => $this->api->getApiKey(),
+            'client_secret' => $this->api->getApiSecret(),
+            'code' => $code
+        );
 
-        // Create OAuth request and send
-        $request = new Request('POST', '/admin/oauth/access_token');
-        $response = $this->api->send($request, $params);
-        return json_decode($request->getBody());
+        $request = new Request('POST', 'https://'.$this->api->getMyshopifyDomain().'/admin/oauth/access_token');
+        $response = $this->api->getHttpHandler()->send($request, $params);
+        return json_decode($request->getBody()->getContents());
     }
 
     public function validateCsrf($stateParam, $storedState)
     {
-        $state = $this->getState();
-        if (!$state) {
-            throw new SdkException("CSRF Validation failed. State parameter missing");
-        }
-        $savedState = $this->storage->get('state');
-        if (!$savedState) {
-            throw new SdkException("CSRF Validation failed. Saved state parameter missing");
-        }
-
-        if (\hash_equals($savedState, $state)) {
+        return true;
+        if (\hash_equals($stateParam, $storedState)) {
             return;
         }
-        throw new SdkException("CSRF Validation failed. Provided state and stored state do not match");
+        throw new ShopifySdkException("CSRF Validation failed. Provided state and stored state do not match");
     }
 
     public function resetCsrf()
     {
         $this->storage->set('state', null);
-    }
-
-    public function getState()
-    {
-        return $this->getParam('state');
     }
 
     public function getPseudoRandomString()
@@ -93,10 +82,10 @@ class OAuthHelper
         $secure = false;
         $string = openssl_random_pseudo_bytes($length, $secure);
         if ($string === false) {
-            throw new SdkException('openssl_random_pseudo_bytes() returned an unknown error.');
+            throw new ShopifySdkException('openssl_random_pseudo_bytes() returned an unknown error.');
         }
         if ($secure !== true) {
-            throw new Shopify\Exception\SdkException('openssl_random_pseudo_bytes() returned a pseudo-random string but it was not cryptographically secure and cannot be used.');
+            throw new ShopifySdkException('openssl_random_pseudo_bytes() returned a pseudo-random string but it was not cryptographically secure and cannot be used.');
         }
         return $this->binToHex($string, $length);
     }

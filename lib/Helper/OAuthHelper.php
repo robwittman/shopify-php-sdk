@@ -43,7 +43,7 @@ class OAuthHelper
         return "https://{$this->myshopifyDomain}/admin/oauth/authorize?".http_build_query($params);
     }
 
-    public function getAccessToken($code, $redirect_uri, $state = null)
+    public function getAccessToken($code, $state = null)
     {
         if (!is_null($state)) {
             $oldState = $this->storage->get('state');

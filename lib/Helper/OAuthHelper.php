@@ -58,8 +58,8 @@ class OAuthHelper
         );
 
         $request = new Request('POST', 'https://'.$this->api->getMyshopifyDomain().'/admin/oauth/access_token');
-        $response = $this->api->getHttpHandler()->send($request, $params);
-        return json_decode($request->getBody()->getContents());
+        $response = $this->api->getHttpHandler()->send($request, array('form_params' => $params));
+        return json_decode($response->getBody()->getContents());
     }
 
     public function validateCsrf($stateParam, $storedState)

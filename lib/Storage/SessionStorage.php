@@ -2,7 +2,7 @@
 
 namespace Shopify\Storage;
 
-use Shopify\Exception\SdkException;
+use Shopify\Exception\ShopifySdkException;
 
 class SessionStorage implements PersistentStorageInterface
 {
@@ -11,7 +11,7 @@ class SessionStorage implements PersistentStorageInterface
     public function __construct()
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
-            throw new Shopify\Exception\SdkException(
+            throw new ShopifySdkException(
                 "Sessions are not active. Please start one using session_start()"
             );
         }

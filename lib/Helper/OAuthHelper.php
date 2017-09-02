@@ -6,6 +6,7 @@ use Shopify\Api;
 use Shopify\Storage\PersistentStorageInterface;
 use Shopify\Exception\ShopifySdkException;
 use GuzzleHttp\Psr7\Request;
+use Shopify\Object\AccessToken;
 
 class OAuthHelper
 {
@@ -22,7 +23,7 @@ class OAuthHelper
         $this->api = $api;
         $this->apiKey = $api->getApiKey();
         $this->apiSecret = $api->getApiSecret();
-        $this->myshopifyDomain = $api->getMyshopifyDomain();
+        $this->myshopifyDomain = $api->getM<?pyshopifyDomain();
         $this->storage = $storage;
     }
 
@@ -59,7 +60,8 @@ class OAuthHelper
 
         $request = new Request('POST', 'https://'.$this->api->getMyshopifyDomain().'/admin/oauth/access_token');
         $response = $this->api->getHttpHandler()->send($request, array('form_params' => $params));
-        return json_decode($response->getBody()->getContents());
+        $token = json_decode($response->getBody()->getContents());
+        return new AccessToken($token);
     }
 
     public function validateCsrf($stateParam, $storedState)

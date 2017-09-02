@@ -2,23 +2,21 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Province;
-use Shopify\Options\Province\ListOptions;
 
 class ProvinceService extends AbstractService
 {
     /**
      * Receive a list of all Provinces
      * @link https://help.shopify.com/api/reference/province#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Province[]
      */
-    public function all($countryId, ListOptions $options = null)
+    public function all($countryId, array $params = array())
     {
         $endpoint = '/admin/countries/'.$countryId.'/provinces.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Province::class);
+        return $this->getEdge($request, $params, Province::class);
     }
 
     /**
@@ -45,7 +43,7 @@ class ProvinceService extends AbstractService
     {
         $endpoint = '/admin/countries/'.$countryId.'/provinces/'.$provinceId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, null, Province::class);
+        return $this->getNode($request, array(), Province::class);
     }
 
     /**

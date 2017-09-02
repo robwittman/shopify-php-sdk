@@ -3,32 +3,29 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Comment;
-use Shopify\Options\Comment\GetOptions;
-use Shopify\Options\Comment\ListOptions;
-use Shopify\Options\Comment\CountOptions;
 
 class CommentService extends AbstractService
 {
     /**
      * Receive a list of all comments
      * @link https://help.shopify.com/api/reference/comment#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Comment[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/comments.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Comment::class);
+        return $this->getEdge($request, $params, Comment::class);
     }
 
     /**
      * Receive a count of all comments
      * @link https://help.shopify.com/api/reference/comment#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $endpoint = '/admin/comments/count.json';
         $request = $this->createRequest($endpoint);
@@ -39,14 +36,14 @@ class CommentService extends AbstractService
      * Receive a single comment
      * @link https://help.shopify.com/api/reference/comment#show
      * @param  integer $commentId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Comment
      */
-    public function get($commentId, GetOptions $options = null)
+    public function get($commentId, array $params = array())
     {
         $endpoint = '/admin/comments/'.$commentId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, Comment::class);
+        return $this->getNode($request, $params, Comment::class);
     }
 
     /**

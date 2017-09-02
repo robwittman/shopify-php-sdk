@@ -2,7 +2,6 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\ShippingZone;
 
 class ShippingZoneService extends AbstractService

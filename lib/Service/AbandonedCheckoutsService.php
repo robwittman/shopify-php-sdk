@@ -3,8 +3,6 @@
 namespace Shopify\Service;
 
 use Shopify\Object\AbandonedCheckout;
-use Shopify\Options\AbandonedCheckout\ListOptions;
-use Shopify\Options\AbandonedCheckout\CountOptions;
 
 class AbandonedCheckoutsService extends AbstractService
 {
@@ -12,27 +10,27 @@ class AbandonedCheckoutsService extends AbstractService
      * List all abandonded checkouts
      *
      * @link https://help.shopify.com/api/reference/abandoned_checkouts#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return AbandonedCheckout[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/checkouts.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, AbandonedCheckout::class);
+        return $this->getEdge($request, $params, AbandonedCheckout::class);
     }
 
     /**
      * Get a count of checkouts
      *
      * @link https://help.shopify.com/api/reference/abandoned_checkouts#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $endpoint = '/admin/checkouts/count.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, null);
+        return $this->getEdge($request, $params, null);
     }
 }

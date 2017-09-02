@@ -2,7 +2,6 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\User;
 
 class UserService extends AbstractService
@@ -15,7 +14,7 @@ class UserService extends AbstractService
     public function all()
     {
         $request = $this->createRequest('/admin/users.json');
-        return $this->getEdge($request, null, User::class);
+        return $this->getEdge($request, array(), User::class);
     }
 
     /**
@@ -27,6 +26,6 @@ class UserService extends AbstractService
     public function get($userId)
     {
         $request = $this->createRequest('/admin/users/'.$userId.'.json');
-        return $this->getNode($request, null, User::class);
+        return $this->getNode($request, array(), User::class);
     }
 }

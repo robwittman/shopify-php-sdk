@@ -2,11 +2,7 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Redirect;
-use Shopify\Options\Redirect\GetOptions;
-use Shopify\Options\Redirect\ListOptions;
-use Shopify\Options\Redirect\CountOptions;
 
 class RedirectService extends AbstractService
 {
@@ -16,19 +12,19 @@ class RedirectService extends AbstractService
      * @param  ListOptions  $options
      * @return Redirect[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $request = $this->createRequest('/admin/redirects.json');
-        return $this->getEdge($request, $options, Redirect::class);
+        return $this->getEdge($request, $params, Redirect::class);
     }
 
     /**
      * Receive a count of all redirects
      * @link https://help.shopify.com/api/reference/redirect#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $request = $this->createRequest('/admin/redirects/count.json');
         return $this->getCount($request, $options);
@@ -38,13 +34,13 @@ class RedirectService extends AbstractService
      * Receive a singel redirect
      * @link https://help.shopify.com/api/reference/redirect#show
      * @param  integer $redirectId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Redirect
      */
-    public function get($redirectId, GetOptions $options = null)
+    public function get($redirectId, array $params = array())
     {
         $request = $this->createRequest('/admin/redirects/'.$redirectId.'.json');
-        return $this->getNode($request, $options, Redirect::class);
+        return $this->getNode($request, $params, Redirect::class);
     }
 
     /**

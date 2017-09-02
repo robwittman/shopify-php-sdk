@@ -2,26 +2,21 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Customer;
 use Shopify\Object\CustomerInvite;
-use Shopify\Options\Customer\GetOptions;
-use Shopify\Options\Customer\ListOptions;
-use Shopify\Options\Customer\SearchOptions;
-
 class CustomerService extends AbstractService
 {
     /**
      * Get all customers
      * @link https://help.shopify.com/api/reference/customer#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Customer[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/customers.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Customer::class);
+        return $this->getEdge($request, $params, Customer::class);
     }
 
     /**
@@ -34,7 +29,7 @@ class CustomerService extends AbstractService
     {
         $endpoint = '/admin/customers/search.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Customer::class);
+        return $this->getEdge($request, $params, Customer::class);
     }
 
     /**
@@ -53,14 +48,14 @@ class CustomerService extends AbstractService
      * Receive a single customer
      * @link https://help.shopify.com/api/reference/customer#show
      * @param  integer $customerId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Customer
      */
-    public function get($customerId, GetOptions $options = null)
+    public function get($customerId, array $params = array())
     {
         $endpoint = '/admin/customers/'.$customerId.'.json';;
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, Customer::class);
+        return $this->getNode($request, $params, Customer::class);
     }
 
     /**

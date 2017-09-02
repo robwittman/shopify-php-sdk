@@ -2,24 +2,21 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Country;
-use Shopify\Options\Country\GetOptions;
-use Shopify\Options\Country\ListOptions;
 
 class CountryService extends AbstractService
 {
     /**
      * Receive a list of countries
      * @link https://help.shopify.com/api/reference/country#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Country[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/countries.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Country::class);
+        return $this->getEdge($request, $params, Country::class);
     }
 
     /**
@@ -38,14 +35,14 @@ class CountryService extends AbstractService
      * Receive a single country
      * @link https://help.shopify.com/api/reference/country#show
      * @param  integer $countryId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Country
      */
-    public function get($countryId, GetOptions $options = null)
+    public function get($countryId, array $params = array())
     {
         $endpoint = '/admin/countries/'.$countryId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, Country::class);
+        return $this->getNode($request, $params, Country::class);
     }
 
     /**

@@ -3,31 +3,28 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Fulfillment;
-use Shopify\Options\Fulfillment\GetOptions;
-use Shopify\Options\Fulfillment\ListOptions;
-use Shopify\Options\Fulfillment\CountOptions;
 
 class FulfillmentService extends AbstractService
 {
-    public function all($orderId, ListOptions $options = null)
+    public function all($orderId, array $params = array())
     {
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Fulfillment::class);
+        return $this->getEdge($request, $params, Fulfillment::class);
     }
 
-    public function count($orderId, CountOptions $options = null)
+    public function count($orderId, array $params = array())
     {
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/count.json';
         $request = $this->createRequest($endpoint);
         return $this->getCount($request, $options);
     }
 
-    public function get($orderId, $fulfillmentId, GetOptions $options = null)
+    public function get($orderId, $fulfillmentId, array $params = array())
     {
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, Fulfillment::class);
+        return $this->getNode($request, $params, Fulfillment::class);
     }
 
     public function create($orderId, Fulfillment &$fulfillment)

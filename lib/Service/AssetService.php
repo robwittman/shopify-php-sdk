@@ -3,8 +3,6 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Asset;
-use Shopify\Options\Asset\GetOptions;
-use Shopify\Options\Asset\ListOptions;
 
 class AssetService extends AbstractService
 {
@@ -12,10 +10,10 @@ class AssetService extends AbstractService
      * Receive a list of all assets
      * @link https://help.shopify.com/api/reference/asset#index
      * @param  integer $themeId
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Asset[]
      */
-    public function all($themeId, ListOptions $options = null)
+    public function all($themeId, array $params = array())
     {
 
     }
@@ -24,10 +22,10 @@ class AssetService extends AbstractService
      * Receive a single asset
      * @link https://help.shopify.com/api/reference/asset#show
      * @param  integer $themeId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Article
      */
-    public function get($themeId, GetOptions $options = null)
+    public function get($themeId, array $params = array())
     {
 
     }

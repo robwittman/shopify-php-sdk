@@ -15,7 +15,6 @@
         "ext-curl": "*",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.2",
-        "netresearch/jsonmapper": "^1.1",
         "psr/log": "^1.0"
     },
     "autoload": {

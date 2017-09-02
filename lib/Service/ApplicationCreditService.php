@@ -3,8 +3,6 @@
 namespace Shopify\Service;
 
 use Shopify\Object\ApplicationCredit;
-use Shopify\Options\ApplicationCredit\GetOptions;
-use Shopify\Options\ApplicationCredit\ListOptions;
 
 class ApplicationCreditService extends AbstractService
 {
@@ -12,14 +10,14 @@ class ApplicationCreditService extends AbstractService
      * Retrieve all application credits
      *
      * @link https://help.shopify.com/api/reference/applicationcredit#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return ApplicationCredit[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/application_credits.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, ApplicationCredit::class);
+        return $this->getEdge($request, $params, ApplicationCredit::class);
     }
 
     /**
@@ -27,14 +25,14 @@ class ApplicationCreditService extends AbstractService
      *
      * @link https://help.shopify.com/api/reference/applicationcredit#show
      * @param  integer $applicationCreditId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return ApplicationCredit
      */
-    public function get($applicationCreditId, GetOptions $options = null)
+    public function get($applicationCreditId, array $params = array())
     {
         $endpoint = '/admin/application_credits/'.$applicationCreditId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, ApplicationCredit::class);
+        return $this->getNode($request, $params, ApplicationCredit::class);
     }
 
     /**

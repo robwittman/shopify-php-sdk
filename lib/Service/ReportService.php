@@ -2,36 +2,33 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Report;
-use Shopify\Options\Report\GetOptions;
-use Shopify\Options\Report\ListOptions;
 
 class ReportService extends AbstractService
 {
     /**
      * Retrieve a list of all Reports
      * @link https://help.shopify.com/api/reference/report#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Report[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $request = $this->createRequest('/admin/reports.json');
-        return $this->getEdge($request, $options, Report::class);
+        return $this->getEdge($request, $params, Report::class);
     }
 
     /**
      * Receive a single report
      * @link https://help.shopify.com/api/reference/report#show
      * @param  integer $reportId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Report
      */
-    public function get($reportId, GetOptions $options = null)
+    public function get($reportId, array $params = array())
     {
         $request = $this->createRequest('/admin/reports/'.$reportId.'.json');
-        return $this->getNode($request, $options, Report::class);
+        return $this->getNode($request, $params, Report::class);
     }
 
     /**

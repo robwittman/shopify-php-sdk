@@ -3,32 +3,29 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Product;
-use Shopify\Options\Product\GetOptions;
-use Shopify\Options\Product\ListOptions;
-use Shopify\Options\Product\CountOptions;
 
 class ProductService extends AbstractService
 {
     /**
      * Receive a lists of all Products
      * @link https://help.shopify.com/api/reference/product#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Product[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/products.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Product::class);
+        return $this->getEdge($request, $params, Product::class);
     }
 
     /**
      * Receive a count of all Products
      * @link https://help.shopify.com/api/reference/product#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $endpoint = '/admin/products/count.json';
         $request = $this->createRequest($endpoint);
@@ -39,14 +36,14 @@ class ProductService extends AbstractService
      * Receive a single product
      * @link https://help.shopify.com/api/reference/product#show
      * @param  integer $productId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Product
      */
-    public function get($productId, GetOptions $options = null)
+    public function get($productId, array $params = array())
     {
         $endpoint = '/admin/products/'.$productId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, Product::class);
+        return $this->getNode($request, $params, Product::class);
     }
 
     /**

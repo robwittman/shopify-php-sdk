@@ -2,24 +2,20 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\SmartCollection;
-use Shopify\Options\SmartCollection\GetOptions;
-use Shopify\Options\SmartCollection\ListOptions;
-use Shopify\Options\SmartCollection\OrderOptions;
 
 class SmartCollectionService extends AbstractService
 {
     /**
      * Receive a list of all SmartCollection
      * @link https://help.shopify.com/api/reference/smartcollection#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return SmartCollection[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $request = $this->createRequest('/admin/smart_collections.json');
-        return $this->getEdge($request, $options, SmartCollection::class);
+        return $this->getEdge($request, $params, SmartCollection::class);
     }
 
     /**
@@ -37,13 +33,13 @@ class SmartCollectionService extends AbstractService
      * Receive a single smart collection
      * @link https://help.shopify.com/api/reference/smartcollection#show
      * @param  integer $smartCollectionId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return SmartCollection
      */
-    public function get($smartCollectionId, GetOptions $options = null)
+    public function get($smartCollectionId, array $params = array())
     {
         $request = $this->createRequest('/admin/smart_collections/'.$smartCollectionId.'.json');
-        return $this->getNode($request, $options, SmartCollection::class);
+        return $this->getNode($request, $params, SmartCollection::class);
     }
 
     /**

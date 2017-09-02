@@ -12,32 +12,14 @@ class PrivateApi implements ApiInterface
     protected $myshopify_domain;
     protected $http_handler;
 
-    public function setApiKey($apiKey)
-    {
-        $this->api_key = $apiKey;
-        return $this;
-    }
-
     public function getApiKey()
     {
         return $this->api_key;
     }
 
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
-    }
-
     public function getPassword()
     {
         return $this->password;
-    }
-
-    public function setSharedSecret($sharedSecret)
-    {
-        $this->shared_secret = $sharedSecret;
-        return $this;
     }
 
     public function getSharedSecret()
@@ -49,6 +31,11 @@ class PrivateApi implements ApiInterface
     {
         $this->myshopify_domain = $myshopifyDomain;
         return $this;
+    }
+
+    public function getMyshopifyDomain()
+    {
+        return $this->myshopify_domain;
     }
 
     public function setHttpHandler(Client $httpHandler)
@@ -63,37 +50,23 @@ class PrivateApi implements ApiInterface
         return $this->http_handler;
     }
 
-    public function getMyshopifyDomain()
-    {
-        return $this->myshopify_domain;
-    }
-
     public function init()
     {
-        if (is_null($this->http_handler)) {
-            $args = array(
-                'base_uri' => "https://{$this->myshopify_domain}",
-                'headers' => array(
-                    'Authorization' => $this->createBasicAuthHeader(
-                        $this->api_key,
-                        $this->password
-                    )
-                )
-            );
-            $this->http_handler = new Client($args);
-        }
+        $args = array(
+        'base_uri' => "https://{$this->myshopify_domain}",
+        'headers' => array(
+            'Authorization' => $this->createBasicAuthHeader(
+                $this->api_key,
+                $this->password
+            )
+        );
+        $this->http_handler = new Client($args);
     }
 
-    public function createBasicAuthHeader($apiKey, $password)
+    protected function createBasicAuthHeader($apiKey, $password)
     {
         $input = "{$apiKey}:{$password}";
         $input = base64_encode($input);
         return "Basic {$input}";
-    }
-
-    public function getService($class)
-    {
-        $className = "\\Shopify\\Service\\{$class}Service";
-        return new $className($this);
     }
 }

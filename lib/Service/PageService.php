@@ -3,32 +3,29 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Page;
-use Shopify\Options\Page\GetOptions;
-use Shopify\Options\Page\ListOptions;
-use Shopify\Options\Page\CountOptions;
 
 class PageService extends AbstractService
 {
     /**
      * Receive a list of all pages
      * @link https://help.shopify.com/api/reference/page#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Page[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/pages.json';
         $request = $this->creatRequest($endpoint);
-        return $this->getEdge($request, $options, Page::class);
+        return $this->getEdge($request, $params, Page::class);
     }
 
     /**
      * Receive a count of all pages
      * @link https://help.shopify.com/api/reference/page#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $endpoint = '/admin/pages/count.json';
         $request = $this->creatRequest($endpoint);
@@ -39,14 +36,14 @@ class PageService extends AbstractService
      * Receive a single
      * @link https://help.shopify.com/api/reference/page#show
      * @param  integer $pageId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Page
      */
-    public function get($pageId, GetOptions $options = null)
+    public function get($pageId, array $params = array())
     {
         $endpoint = '/admin/pages/'.$pageId.'.json';
         $request = $this->creatRequest($endpoint);
-        return $this->getNode($request, $options, Page::class);
+        return $this->getNode($request, $params, Page::class);
     }
 
     /**

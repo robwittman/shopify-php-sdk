@@ -2,7 +2,6 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Policy;
 
 class PolicyService extends AbstractService
@@ -16,6 +15,6 @@ class PolicyService extends AbstractService
     {
         $endpoint = '/admin/policies.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, null, Policy::class);
+        return $this->getEdge($request, array(), Policy::class);
     }
 }

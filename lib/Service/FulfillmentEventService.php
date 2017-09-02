@@ -17,7 +17,7 @@ class FulfillmentEventService extends AbstractService
     {
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events.json';
         $request  = $this->createRequest($endpoint);
-        return $this->getEdge($request, null, FulfillmentEvent::class);
+        return $this->getEdge($request, array(), FulfillmentEvent::class);
     }
 
     /**
@@ -32,7 +32,7 @@ class FulfillmentEventService extends AbstractService
     {
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events/'.$fulfillmentEventId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, null, FulfillmentEvent::class);
+        return $this->getNode($request, array(), FulfillmentEvent::class);
     }
 
     /**

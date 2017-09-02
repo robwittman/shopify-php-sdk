@@ -7,8 +7,6 @@ use GuzzleHttp\Psr7\Response;
 use Shopify\ApiInterface;
 use Shopify\Object\AbstractObject;
 use Shopify\Inflector;
-use JsonMapper;
-use Shopify\Options\BaseOptions;
 
 abstract class AbstractService
 {
@@ -25,14 +23,9 @@ abstract class AbstractService
         return new static($api);
     }
 
-    public function __construct(ApiInterface $api, $mapper = null)
+    public function __construct(ApiInterface $api)
     {
         $this->api = $api;
-        if (is_null($mapper)) {
-            $mapper = new JsonMapper();
-            $mapper->bStrictNullTypes = false;
-        }
-        $this->mapper = $mapper;
     }
 
     public function getApi()
@@ -40,32 +33,23 @@ abstract class AbstractService
         return $this->api;
     }
 
-    public function getCount(Request $request, $options = null)
+    public function getCount(Request $request, array $params = array())
     {
-        if (is_a($options, BaseOptions::class)) {
-            $options = $options->export();
-        }
-        $response = $this->send($request, $options);
+        $response = $this->send($request, $params);
         return $this->createObject(null, $data);
     }
 
-    public function getEdge(Request $request, $options = null, $className = null)
+    public function getEdge(Request $request, array $params = array(), $className = null)
     {
-        if (is_a($options, BaseOptions::class)) {
-            $options = $options->export();
-        }
-        $response = $this->send($request, $options);
+        $response = $this->send($request, $params);
         $handle = $className::getApiHandle();
         $data = $response->{$handle};
         return $this->createCollection($className, $data);
     }
 
-    public function getNode(Request $request, $options = null, $className = null)
+    public function getNode(Request $request, array $params = array(), $className = null)
     {
-        if (is_a($options, BaseOptions::class)) {
-            $options = $options->export();
-        }
-        $response = $this->send($request, $options);
+        $response = $this->send($request, $params);
         $handle = Inflector::singularize($className::getApiHandle());
         $data = $response->{$handle};
         return $this->createObject($className, $data);
@@ -76,10 +60,8 @@ abstract class AbstractService
         return new Request($method, $endpoint);
     }
 
-    public function send(Request $request, $params = null)
+    public function send(Request $request, array $params = array())
     {
-        // print_r(func_get_args());
-        // exit;
         $handler = $this->getApi()->getHttpHandler();
         $args = array();
         if ($request->getMethod() === 'GET') {
@@ -93,7 +75,7 @@ abstract class AbstractService
 
     public function createObject($className, $data)
     {
-        return $this->mapper->map($data, new $className());
+
     }
 
     public function createCollection($className, $data)

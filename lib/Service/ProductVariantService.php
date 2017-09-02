@@ -2,10 +2,7 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\ProductVariant;
-use Shopify\Options\ProductVariant\GetOptions;
-use Shopify\Options\ProductVariant\ListOptions;
 
 class ProductVariantService extends AbstractService
 {
@@ -13,13 +10,13 @@ class ProductVariantService extends AbstractService
      * Receive a list of Product Variants
      * @link https://help.shopify.com/api/reference/product_variant#index
      * @param  integer  $productId
-     * @param  ListOptions $options
+     * @param  array $params
      * @return ProductVariant[]
      */
-    public function all($productId, ListOptions $options = null)
+    public function all($productId, array $params = array())
     {
         $request = $this->createRequest('/admin/products/'.$productId.'/variants.json');
-        return $this->getEdge($request, $options, ProductVariant::class);
+        return $this->getEdge($request, $params, ProductVariant::class);
     }
 
     /**
@@ -38,14 +35,14 @@ class ProductVariantService extends AbstractService
      * Receive a single product variant
      * @link https://help.shopify.com/api/reference/product_variant#show
      * @param  integer $productVariantId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return ProductVariant
      */
-    public function get($productVariantId, GetOptions $options = null)
+    public function get($productVariantId, array $params = array())
     {
         $endpoint = '/admin/variants/'.$productVariantId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, ProductVariant::class);
+        return $this->getNode($request, $params, ProductVariant::class);
     }
 
     /**

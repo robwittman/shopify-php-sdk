@@ -3,8 +3,6 @@
 namespace Shopify\Service;
 
 use Shopify\Object\ApplicationCharge;
-use Shopify\Options\ApplicationCharge\GetOptions;
-use Shopify\Options\ApplicationCharge\ListOptions;
 
 class ApplicationChargeService extends AbstractService
 {
@@ -12,14 +10,14 @@ class ApplicationChargeService extends AbstractService
      * Retrieve all one-time application charges
      *
      * @link https://help.shopify.com/api/reference/applicationcharge#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return ApplicationCharge[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/application_charges.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, ApplicationCharge::class);
+        return $this->getEdge($request, $params, ApplicationCharge::class);
     }
 
     /**
@@ -27,14 +25,14 @@ class ApplicationChargeService extends AbstractService
      *
      * @link https://help.shopify.com/api/reference/applicationcharge#show
      * @param  integer $applicationChargeId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return ApplicationCharge
      */
-    public function get($applicationChargeId, GetOptions $options = null)
+    public function get($applicationChargeId, array $params = array())
     {
         $endpoint = '/admin/application_charges/'.$applicationChargeId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, ApplicationCharge::class);
+        return $this->getNode($request, $params, ApplicationCharge::class);
     }
 
     /**

@@ -2,33 +2,29 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\ScriptTag;
-use Shopify\Options\ScriptTag\GetOptions;
-use Shopify\Options\ScriptTag\ListOptions;
-use Shopify\Options\ScriptTag\CountOptions;
 
 class ScriptTagService extends AbstractService
 {
     /**
      * Get a list of all ScriptTags
      * @link https://help.shopify.com/api/reference/scripttag#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return ScriptTag[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $request = $this->createRequest('/admin/script_tags.json');
-        return $this->getEdge($request, $options, ScriptTag::class);
+        return $this->getEdge($request, $params, ScriptTag::class);
     }
 
     /**
      * Receive a count of all ScriptTags
      * @link https://help.shopify.com/api/reference/scripttag#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $request = $this->createRequest('/admin/script_tags/count.json');
         return $this->getCount($request, $options);
@@ -38,13 +34,13 @@ class ScriptTagService extends AbstractService
      * Receive a single Script Tag
      * @link https://help.shopify.com/api/reference/scripttag#show
      * @param  integer $scriptTagId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return ScriptTag
      */
-    public function get($scriptTagId, GetOptions $options = null)
+    public function get($scriptTagId, array $params = array())
     {
         $request = $this->createRequest('/admin/script_tags/'.$scriptTagId.'.json');
-        return $this->getNode($request, $options, ScriptTag::class);
+        return $this->getNode($request, $params, ScriptTag::class);
     }
 
     /**

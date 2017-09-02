@@ -2,38 +2,35 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\RecurringApplicationCharge;
-use Shopify\Options\RecurringApplicationCharge\GetOptions;
-use Shopify\Options\RecurringApplicationCharge\ListOptions;
 
 class RecurringApplicationChargeService extends AbstractService
 {
     /**
      * Retrieve all Recurring Application Charges
      * @link https://help.shopify.com/api/reference/recurringapplicationcharge#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return RecurringApplicationCharge[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/recurring_application_charges.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, RecurringApplicationCharge::class);
+        return $this->getEdge($request, $params, RecurringApplicationCharge::class);
     }
 
     /**
      * Receive a single recurring application charge
      * @link https://help.shopify.com/api/reference/recurringapplicationcharge#show
      * @param  integer $recurringApplicationChargeId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return RecurringApplicationCharge
      */
-    public function get($recurringApplicationChargeId, GetOptions $options = null)
+    public function get($recurringApplicationChargeId, array $params = array())
     {
         $endpoint = '/admin/recurring_application_charges/'.$recurringApplicationChargeId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, RecurringApplicationCharge::class);
+        return $this->getNode($request, $params, RecurringApplicationCharge::class);
     }
 
     /**

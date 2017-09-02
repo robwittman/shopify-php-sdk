@@ -2,11 +2,7 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\ProductImage;
-use Shopify\Options\ProductImage\GetOptions;
-use Shopify\Options\ProductImage\ListOptions;
-use Shopify\Options\ProductImage\CountOptions;
 
 class ProductImageService extends AbstractService
 {
@@ -14,24 +10,24 @@ class ProductImageService extends AbstractService
      * Receive a list of all product images
      * @link https://help.shopify.com/api/reference/product_image#index
      * @param  integer $productId
-     * @param  ListOptions $options
+     * @param  array $params
      * @return ProductImage[]
      */
-    public function all($productId, ListOptions $options = null)
+    public function all($productId, array $params = array())
     {
         $endpoint= '/admin/products/'.$productId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, ProductImage::class);
+        return $this->getEdge($request, $params, ProductImage::class);
     }
 
     /**
      * Receive a count of all Product Images
      * @link https://help.shopify.com/api/reference/product_image#count
      * @param  integer $productId
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count($productId, CountOptions $options = null)
+    public function count($productId, array $params = array())
     {
         $endpoint = '/admin/products/'.$productId.'/images/count.json';
         $request = $this->createRequest($endpoint);
@@ -43,10 +39,10 @@ class ProductImageService extends AbstractService
      * @link https://help.shopify.com/api/reference/product_image#show
      * @param  integer $productId
      * @param  integer $productImageId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return ProductImage
      */
-    public function get($productId, $productImageId, GetOptions $options = null)
+    public function get($productId, $productImageId, array $params = array())
     {
         $endpoint = '/admin/products/'.$productId.'/images/'.$productImageId.'.json';
         $request = $this->createRequest($endpoint);

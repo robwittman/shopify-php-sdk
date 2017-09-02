@@ -3,9 +3,6 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Article;
-use Shopify\Options\Article\GetOptions;
-use Shopify\Options\Article\ListOptions;
-use Shopify\Options\Article\CountOptions;
 
 class ArticleService extends AbstractService
 {
@@ -13,24 +10,24 @@ class ArticleService extends AbstractService
      * Receive a list of Articles
      * @link https://help.shopify.com/api/reference/article#index
      * @param  integer $blogId
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Article[]
      */
-    public function all($blogId, ListOptions $options = null)
+    public function all($blogId, array $params = array())
     {
         $endpoint = '/admin/blogs/'.$blogId.'/articles.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Article::class);
+        return $this->getEdge($request, $params, Article::class);
     }
 
     /**
      * Receive acount of all Articles
      * @link https://help.shopify.com/api/reference/article#count
      * @param  integer $blogId
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count($blogId, CountOptions $options = null)
+    public function count($blogId, array $params = array())
     {
         $endpoint = '/admin/blogs/'.$blogId.'/articles/count.json';
         $request = $this->createRequest($endpoint);
@@ -42,14 +39,14 @@ class ArticleService extends AbstractService
      * @link https://help.shopify.com/api/reference/article#show
      * @param  integer $blogId
      * @param  integer $articleId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Article
      */
-    public function get($blogId, $articleId, GetOptions $options = null)
+    public function get($blogId, $articleId, array $params = array())
     {
         $endpoint = '/admin/blogs/'.$blogId.'/articles/'.$articleId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, Article::class);
+        return $this->getNode($request, $params, Article::class);
     }
 
     /**

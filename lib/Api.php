@@ -6,26 +6,29 @@ use GuzzleHttp\Client;
 use Shopify\Storage\PersistentStorageInterface;
 use Shopify\Storage\SessionStorage;
 use Shopify\Helper\OAuthHelper;
-use Psr\Log\LoggerInterface as Logger;
+use Psr\Log\LoggerInterface;
+use Shopify\Exception\InvalidPropertyException;
 
 class Api implements ApiInterface
 {
-    const SHOPIFY_API_KEY_NAME = 'SHOPIFY_API_KEY';
-    const SHOPIFY_API_SECRET_NAME = 'SHOPIFY_API_SECRET';
-
     protected $api_key;
     protected $api_secret;
     protected $access_token;
     protected $myshopify_domain;
     protected $http_handler;
     protected $storage;
-    protected $meta = array();
     protected $logger;
 
-    public function setApiKey($apiKey)
+    public function __construct(array $options = array())
     {
-        $this->api_key = $apiKey;
-        return $this;
+        foreach ($options as $key => $value) {
+            if (!property_exists($this, $key)) {
+                throw new \InvalidPropertyException(
+                    "Property '{$key}' does not exist on \Shopify\Api"
+                );
+            }
+            $this->{$key} = $value;
+        }
     }
 
     public function getApiKey()
@@ -36,24 +39,12 @@ class Api implements ApiInterface
         return $this->api_key;
     }
 
-    public function setApiSecret($apiSecret)
-    {
-        $this->api_secret = $apiSecret;
-        return $this;
-    }
-
     public function getApiSecret()
     {
         if (is_null($this->api_secret)) {
             $this->loadApiSecretFromEnv();
         }
         return $this->api_secret;
-    }
-
-    public function setMyshopifyDomain($myshopifyDomain)
-    {
-        $this->myshopify_domain = $myshopifyDomain;
-        return $this;
     }
 
     public function getMyshopifyDomain()
@@ -98,7 +89,11 @@ class Api implements ApiInterface
         return $this->storage;
     }
 
-    public function setLogger(Logger $loggger)
+    /**
+     * Set our LoggerInterface
+     * @param Logger $logger
+     */
+    public function setLogger(Logger $logger)
     {
         $this->logger = $logger;
         return $this;
@@ -119,37 +114,5 @@ class Api implements ApiInterface
     public function getOAuthHelper()
     {
         return new OAuthHelper($this, $this->getStorageInterface());
-    }
-
-    public function loadApiKeyFromEnv()
-    {
-        $apiKeyEnvName = static::SHOPIFY_API_KEY_NAME;
-        if ($api_key = getenv($apiKeyEnvName)) {
-            $this->setApiKey($api_key);
-            return;
-        }
-        throw new Shopify\Exception\SdkException(
-            "Attempted loading api_key from environment, but wasn't found.".
-            " Please set using `export {$apiKeyEnvName}=<api_key>`"
-        );
-    }
-
-    public function loadApiSecretFromEnv()
-    {
-        $apiSecretEnvName = static::SHOPIFY_API_SECRET_NAME;
-        if ($api_secret = getenv($apiSecretEnvName)) {
-            $this->setApiSecret($api_secret);
-            return;
-        }
-        throw new Shopify\Exception\SdkException(
-            "Attempted loading api_secret from environment, but wasn't found.".
-            " Please set using `export {$apiSecretEnvName}=<api_secret>`"
-        );
-    }
-
-    public function getService($class)
-    {
-        $className = "\\Shopify\\Service\\{$class}Service";
-        return new $className($this);
     }
 }

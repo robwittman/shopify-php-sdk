@@ -3,32 +3,29 @@
 namespace Shopify\Service;
 
 use Shopify\Object\GiftCard;
-use Shopify\Options\GiftCard\GetOptions;
-use Shopify\Options\GiftCard\ListOptions;
-use Shopify\Options\GiftCard\SearchOptions;
 
 class GiftCardService extends AbstractService
 {
     /**
      * Receive a list of Gift Cards
      * @link https://help.shopify.com/api/reference/gift_card#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return GiftCard[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/gift_cards.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, GiftCard::class);
+        return $this->getEdge($request, $params, GiftCard::class);
     }
 
     /**
      * Receive a count of Gift Cards
      * @link https://help.shopify.com/api/reference/gift_card#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $endpoint = '/admin/gift_cards/count.json';
         $request = $this->createRequest($endpoint);
@@ -39,14 +36,14 @@ class GiftCardService extends AbstractService
      * Receive a single Gift Card
      * @link https://help.shopify.com/api/reference/gift_card#show
      * @param  integer $giftCardId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return GiftCard
      */
-    public function get($giftCardId, GetOptions $options = null)
+    public function get($giftCardId, array $params = array())
     {
         $endpoint = '/admin/gift_cards/'.$giftCardId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, GiftCard::class);
+        return $this->getNode($request, $params, GiftCard::class);
     }
 
     /**
@@ -108,6 +105,6 @@ class GiftCardService extends AbstractService
     {
         $endpoint = '/admin/gift_cards/search.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, GiftCard::class);
+        return $this->getEdge($request, $params, GiftCard::class);
     }
 }

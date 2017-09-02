@@ -2,23 +2,21 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\MarketingEvent;
-use Shopify\Options\MarketingEvent\ListOptions;
 
 class MarketingEventService extends AbstractService
 {
     /**
      * Receieve a list of all Marketing Events
      * @link https://help.shopify.com/api/reference/marketing_event#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return MarketingEvent[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/marketing_events.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, MarketingEvent::class);
+        return $this->getEdge($request, $params, MarketingEvent::class);
     }
 
     /**
@@ -43,7 +41,7 @@ class MarketingEventService extends AbstractService
     {
         $endpoint = '/admin/marketing_events/'.$marketingEventId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, null, MarketingEvent::class);
+        return $this->getNode($request, array(), MarketingEvent::class);
     }
 
     /**

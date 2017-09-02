@@ -3,32 +3,29 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Collect;
-use Shopify\Options\Collect\GetOptions;
-use Shopify\Options\Collect\ListOptions;
-use Shopify\Options\Collect\CountOptions;
 
 class CollectService extends AbstractService
 {
     /**
      * Receive a list of all collects
      * @link https://help.shopify.com/api/reference/collect#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Collect[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/collects.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Collect::class);
+        return $this->getEdge($request, $params, Collect::class);
     }
 
     /**
      * Receive a count of all collects
      * @link https://help.shopify.com/api/reference/collect#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $endpoint = '/admin/collects/count.json';
         $request = $this->createRequest($endpoint);
@@ -39,14 +36,14 @@ class CollectService extends AbstractService
      * Receive a single collect
      * @link https://help.shopify.com/api/reference/collect#show
      * @param  integer $collectId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Collect
      */
-    public function get($collectId, GetOptions $options = null)
+    public function get($collectId, array $params = array())
     {
         $endpoint = '/admin/collects/'.$collect->getId().'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options);
+        return $this->getNode($request, $params);
     }
 
     /**

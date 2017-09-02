@@ -35,64 +35,26 @@
 namespace Shopify\Object;
 
 use Shopify\Exception\ShopifySdkException;
-use ReflectionClass;
 
 abstract class AbstractObject
 {
-    public static function getApiHandle()
-    {
-        return false;
-    }
-
     private $changedFields = array();
 
-    /**
-     * Set the field 'property' to 'value'.
-     * @param string $property
-     * @param mixed $value
-     */
-    public function set($property, $value)
+    protected $data = array();
+
+    public function __get($key)
     {
-        if (!property_exists($this, $property)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Property '%s' does not exist for '%s'", $property, get_called_class()
-                )
+        if (!array_key_exists($this->data, $key)) {
+            throw new InvalidPropertyException(
+                "Property '{$key}' does not exist for ".get_called_class()
             );
         }
-        $type = $this->getPropertyType($property);
-        $value = $this->cast($type, $value);
-        $this->{$property} = $value;
-        $this->changedFields[$property] = $value;
-        return $this;
+        return $this->data[$key];
     }
 
-    public function get($property) {
-        if (!property_exists($this, $property)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Property %s does not exist for %s", $property, get_called_class()
-                )
-            );
-        }
-
-        return $this->{$property};
-    }
-
-    public function __call($method, $arguments)
+    public function __set($key, $value)
     {
-        if (!in_array(substr($method, 0, 3), ['get', 'set'])) {
-            throw new \Exception(
-                sprintf("Call to undefined method %s::%s", get_called_class(), $method)
-            );
-        }
-        $propertyName = $this->getPropertyName(substr($method, 3));
-        $values = $arguments ? $arguments : null;
-        if (substr($method, 0, 3) === 'get') {
-            return $this->get($propertyName);
-        } else {
-            return $this->set($propertyName, $values);
-        }
+        $this->data[$key] = $value;
     }
 
     public function setDataWithoutValidation($data)
@@ -147,17 +109,6 @@ abstract class AbstractObject
         return str_replace('_','',ucwords($propertyName, '_'));
     }
 
-    public function getPropertyType($propertyName)
-    {
-        $class = new ReflectionClass(static::class);
-        $property = $class->getProperty($propertyName);
-        if (preg_match('/@var\s+([^\s]+)/', $property->getDocComment(), $matches)) {
-            list(, $type) = $matches;
-            return $type;
-        }
-        return null;
-    }
-
     public function cast($type, $value)
     {
         $list = false;
@@ -180,13 +131,8 @@ abstract class AbstractObject
         return $value;
     }
 
-    public function instantiate($className, $data)
+    public static function className()
     {
-        if (class_exists($className)) {
-            $obj = new $className();
-            $obj->setDataWithoutValidation($data);
-            return $obj;
-        }
-        return $data;
+        return get_called_class();
     }
 }

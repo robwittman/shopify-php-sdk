@@ -2,34 +2,30 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Order;
-use Shopify\Options\Order\GetOptions;
-use Shopify\Options\Order\ListOptions;
-use Shopify\Options\Order\CountOptions;
 
 class OrderService extends AbstractService
 {
     /**
      * Retrieve a list of Orders (OPEN Orders by default, use status=any for ALL orders)
      * @link https://help.shopify.com/api/reference/order#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Order[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint '/admin/orders.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Order::class);
+        return $this->getEdge($request, $params, Order::class);
     }
 
     /**
      * Receive a count of all Orders
      * @link https://help.shopify.com/api/reference/order#show
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $endpoint = '/admin/orders/cound.json';
         $request = $this->createRequest($endpoint);
@@ -40,14 +36,14 @@ class OrderService extends AbstractService
      * Receive a single Order
      * @link https://help.shopify.com/api/reference/order#count
      * @param  integer $orderId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Order
      */
-    public function get($orderId, GetOptions $options = null)
+    public function get($orderId, array $params = array())
     {
         $endpoint = '/admin/orders/'.$orderId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, Order::class);
+        return $this->getNode($request, $params, Order::class);
     }
 
     /**

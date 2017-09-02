@@ -2,34 +2,30 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Event;
-use Shopify\Options\Event\GetOptions;
-use Shopify\Options\Event\ListOptions;
-use Shopify\Options\Event\CountOptions;
 
 class EventService extends AbstractService
 {
     /**
      * Get a list of all events
      * @link https://help.shopify.com/api/reference/event#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Event[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/events.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Event::class);
+        return $this->getEdge($request, $params, Event::class);
     }
 
     /**
      * Get a count of events
      * @link https://help.shopify.com/api/reference/event#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $endpoint = '/admin/events/count.json';
         $request = $this->createRequest($endpoint);
@@ -40,10 +36,10 @@ class EventService extends AbstractService
      * Receive a single event
      * @link https://help.shopify.com/api/reference/event#show
      * @param  integer $eventId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Event
      */
-    public function get($eventId, GetOptions $options = null)
+    public function get($eventId, array $params = array())
     {
         $endpoint = '/admin/events/'.$eventId.'.json';
         $request = $this->createRequest($endpoint);

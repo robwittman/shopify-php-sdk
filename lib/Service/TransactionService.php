@@ -2,11 +2,7 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Transaction;
-use Shopify\Options\Transaction\GetOptions;
-use Shopify\Options\Transaction\ListOptions;
-use Shopify\Options\Transaction\CountOptions;
 
 class TransactionService extends AbstractService
 {
@@ -14,23 +10,23 @@ class TransactionService extends AbstractService
      * Recieve a list of all Transactions
      * @link https://help.shopify.com/api/reference/transaction#index
      * @param  integer $orderId
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Transaction[]
      */
-    public function all($orderId, ListOptions $options = null)
+    public function all($orderId, array $params = array())
     {
         $request = $this->createRequest('/admin/orders/'.$orderId.'/transactions.json');
-        return $this->getEdge($request, $options, Transaction::class);
+        return $this->getEdge($request, $params, Transaction::class);
     }
 
     /**
      * Receive a count of all transactions
      * @link https://help.shopify.com/api/reference/transaction#count
      * @param integer $orderId
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count($orderId, CountOptions $options = null)
+    public function count($orderId, array $params = array())
     {
         $request = $this->createRequest('/admin/orders/'.$orderId.'/transactions/count.json');
         return $this->getCount($request, $options);
@@ -41,13 +37,13 @@ class TransactionService extends AbstractService
      * @link https://help.shopify.com/api/reference/transaction#show
      * @param  integer $orderId
      * @param  integer $transactionId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Transaction
      */
-    public function get($orderId, $transactionId, GetOptions $options = null)
+    public function get($orderId, $transactionId, array $params = array())
     {
         $request= $this->createRequest('/admin/orders/'.$orderId.'/transactions/'.$transactionId.'.json');
-        return $this->getNode($request, $options, Transaction::class);
+        return $this->getNode($request, $params, Transaction::class);
     }
 
     /**

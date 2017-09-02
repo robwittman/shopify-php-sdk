@@ -2,10 +2,7 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\UsageCharge;
-use Shopify\Options\UsageCharge\GetOptions;
-use Shopify\Options\UsageCharge\ListOptions;
 
 class UsageChargeService extends AbstractService
 {
@@ -31,25 +28,25 @@ class UsageChargeService extends AbstractService
      * @link https://help.shopify.com/api/reference/usagecharge#show
      * @param  integer $recurringApplicationChargeId
      * @param  integer $usageChargeId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return UsageCharge
      */
-    public function get($recurringApplicationChargeId, $usageChargeId, GetOptions $options = null)
+    public function get($recurringApplicationChargeId, $usageChargeId, array $params = array())
     {
         $request= $this->createRequest('/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges/'.$usageChargeId.'.json');
-        return $this->getNode($request, $options, UsageCharge::class);
+        return $this->getNode($request, $params, UsageCharge::class);
     }
 
     /**
      * Retrieve all usage charges
      * @link https://help.shopify.com/api/reference/usagecharge#index
      * @param  integer $recurringApplicationChargeId
-     * @param  ListOptions $options
+     * @param  array $params
      * @return UsageCharge[]
      */
-    public function all($recurringApplicationChargeId, ListOptions $options = null)
+    public function all($recurringApplicationChargeId, array $params = array())
     {
         $request = $this->createRequest('/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json');
-        return $this->getEdge($request, $options, UsageCharge::class);
+        return $this->getEdge($request, $params, UsageCharge::class);
     }
 }

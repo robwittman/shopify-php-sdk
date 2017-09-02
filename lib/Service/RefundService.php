@@ -2,10 +2,7 @@
 
 namespace Shopify\Service;
 
-use GuzzleHttp\Psr7\Request;
 use Shopify\Object\Refund;
-use Shopify\Options\Refund\GetOptions;
-use Shopify\Options\Refund\ListOptions;
 
 class RefundService extends AbstractService
 {
@@ -13,13 +10,13 @@ class RefundService extends AbstractService
      * Receive a list of all Refunds
      * @link https://help.shopify.com/api/reference/refund#index
      * @param integer $orderId
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Refund[]
      */
-    public function all($orderId, ListOptions $options = null)
+    public function all($orderId, array $params = array())
     {
         $request = $this->createRequest('/admin/orders/'.$orderId.'/refunds.json');
-        return $this->getEdge($request, $options, Refund::class);
+        return $this->getEdge($request, $params, Refund::class);
     }
 
     /**
@@ -27,13 +24,13 @@ class RefundService extends AbstractService
      * @link https://help.shopify.com/api/reference/refund#show
      * @param  integer $orderId
      * @param  integer $refundId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Refund
      */
-    public function get($orderId, $refundId, GetOptions $options = null)
+    public function get($orderId, $refundId, array $params = array())
     {
         $request= $this->createRequest('/admin/orders/'.$orderId.'/refunds/'.$refundId.'.json');
-        return $this->getNode($request, $options, Refund::class);
+        return $this->getNode($request, $params, Refund::class);
     }
 
     /**

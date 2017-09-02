@@ -3,22 +3,20 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Blog;
-use Shopify\Options\Blog\GetOptions;
-use Shopify\Options\Blog\ListOptions;
 
 class BlogService extends AbstractService
 {
     /**
      * Receive a list of all blogs
      * @link https://help.shopify.com/api/reference/blog#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Blog[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/blogs.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, Blog::class);
+        return $this->getEdge($request, $params, Blog::class);
     }
 
     /**
@@ -37,14 +35,14 @@ class BlogService extends AbstractService
      * Receive a single blog
      * @link https://help.shopify.com/api/reference/blog#show
      * @param  integer $blogId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return Blog
      */
-    public function get($blogId, GetOptions $options = null)
+    public function get($blogId, array $params = array())
     {
         $endpoint = '/admin/blogs/'.$blogId.'.json';
         $request = $this->createRequest($enpoint);
-        return $this->getNode($request, $options, Blog::class);
+        return $this->getNode($request, $params, Blog::class);
     }
 
     /**

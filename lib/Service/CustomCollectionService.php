@@ -3,32 +3,29 @@
 namespace Shopify\Service;
 
 use Shopify\Object\CustomCollection;
-use Shopify\Options\CustomCollection\GetOptions;
-use Shopify\Options\CustomCollection\ListOptions;
-use Shopify\Options\CustomCollection\CountOptions;
 
 class CustomCollectionService extends AbstractService
 {
     /**
      * Receive a list of all custom collections
      * @link https://help.shopify.com/api/reference/customcollection#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return CustomCollection[]
      */
-    public function all(ListOptions $options = null)
+    public function all(array $params = array())
     {
         $endpoint = '/admin/custom_collections.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $options, CustomCollection::class);
+        return $this->getEdge($request, $params, CustomCollection::class);
     }
 
     /**
      * Receive a count of all custom collections
      * @link https://help.shopify.com/api/reference/customcollection#count
-     * @param  CountOptions $options
+     * @param  array $params
      * @return integer
      */
-    public function count(CountOptions $options = null)
+    public function count(array $params = array())
     {
         $endpoint = '/admin/custom_collections/count.json';
         $request = $this->createRequest($endpoint);
@@ -39,14 +36,14 @@ class CustomCollectionService extends AbstractService
      * Receive a single custom collection
      * @link https://help.shopify.com/api/reference/customcollection#show
      * @param  integer  $customCollectionId
-     * @param  GetOptions $options
+     * @param  array $params
      * @return CustomCollection
      */
-    public function get($customCollectionId, GetOptions $options = null)
+    public function get($customCollectionId, array $params = array())
     {
         $endpoint = '/admin/custom_collections/'.$customCollectionId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $options, CustomCollection::class);
+        return $this->getNode($request, $params, CustomCollection::class);
     }
 
     /**

@@ -38,43 +38,43 @@ class OAuthHelper
         return "https://{$this->myshopifyDomain}/admin/oauth/authorize?".http_build_query($params);
     }
 
-    public function getAccessToken($redirectUrl)
+    public function getAccessToken(array $params = array())
     {
-        if (!$code = $this->getParam('code')) {
-            return null;
+        $required = array('code', 'state');
+        foreach ($requiredParams as $param) {
+            if (!isset($params[$param])) {
+                throw new ShopifySdkException(
+                    "Parameter '{$param}' required to generate access token"
+                );
+            }
         }
+        $oldState = $this->storage->get('state');
+        $state = $params['state'];
 
-        $this->validateCsrf();
+        $this->validateCsrf($oldState, $state);
         $this->resetCsrf();
 
         // Create OAuth request and send
         $request = new Request('POST', '/admin/oauth/access_token');
         $response = $this->api->send($request, $params);
-        var_dump($response);
+        return json_decode($request->getBody());
     }
 
-    public function getParam($param)
-    {
-        return isset($_GET[$param]) ?
-            $_GET[$param] :
-            null;
-    }
-
-    public function validateCsrf()
+    public function validateCsrf($stateParam, $storedState)
     {
         $state = $this->getState();
         if (!$state) {
-            throw new Shopify\Exception\SdkException("CSRF Validation failed. State parameter missing");
+            throw new SdkException("CSRF Validation failed. State parameter missing");
         }
         $savedState = $this->storage->get('state');
         if (!$savedState) {
-            throw new Shopify\Exception\SdkException("CSRF Validation failed. Saved state parameter missing");
+            throw new SdkException("CSRF Validation failed. Saved state parameter missing");
         }
 
         if (\hash_equals($savedState, $state)) {
             return;
         }
-        throw new Shopify\Exception\SdkException("CSRF Validation failed. Provided state and stored state do not match");
+        throw new SdkException("CSRF Validation failed. Provided state and stored state do not match");
     }
 
     public function resetCsrf()
@@ -93,7 +93,7 @@ class OAuthHelper
         $secure = false;
         $string = openssl_random_pseudo_bytes($length, $secure);
         if ($string === false) {
-            throw new Shopify\Exception\SdkException('openssl_random_pseudo_bytes() returned an unknown error.');
+            throw new SdkException('openssl_random_pseudo_bytes() returned an unknown error.');
         }
         if ($secure !== true) {
             throw new Shopify\Exception\SdkException('openssl_random_pseudo_bytes() returned a pseudo-random string but it was not cryptographically secure and cannot be used.');

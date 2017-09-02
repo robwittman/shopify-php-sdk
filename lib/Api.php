@@ -108,7 +108,7 @@ class Api implements ApiInterface
     {
         $args = array();
         if (!is_null($this->myshopify_domain)) {
-            $args['base_uri'] = sprintf("https://%s");
+            $args['base_uri'] = sprintf("https://%s", $this->myshopify_domain);
         }
         if (!is_null($this->access_token)) {
             $args['headers']['X-Shopify-Access-Token'] = $this->access_token;

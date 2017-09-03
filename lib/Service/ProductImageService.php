@@ -16,9 +16,9 @@ class ProductImageService extends AbstractService
      */
     public function all($productId, array $params = array())
     {
-        $endpoint= '/admin/products/'.$productId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, ProductImage::class);
+        $endpoint=  '/admin/products/'.$productId.'/images.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(ProductImage::class, $response['images']);
     }
 
     /**
@@ -32,8 +32,8 @@ class ProductImageService extends AbstractService
     public function count($productId, array $params = array())
     {
         $endpoint = '/admin/products/'.$productId.'/images/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request, $options);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -42,14 +42,14 @@ class ProductImageService extends AbstractService
      * @link   https://help.shopify.com/api/reference/product_image#show
      * @param  integer $productId
      * @param  integer $productImageId
-     * @param  array   $params
+     *
      * @return ProductImage
      */
-    public function get($productId, $productImageId, array $params = array())
+    public function get($productId, $productImageId)
     {
         $endpoint = '/admin/products/'.$productId.'/images/'.$productImageId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($endpoint, $options, ProductImage::class);
+        $response = $this->request($endpoint, 'GET');
+        return $this->createObject(ProductImage::class, $response['image']);
     }
 
     /**
@@ -64,13 +64,10 @@ class ProductImageService extends AbstractService
     {
         $data = $productImage->exportData();
         $endpoint = '/admin/products/'.$productId.'/images.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'POST', array(
             'image' => $data
-            )
-        );
-        $productImage->setData($response->image);
+        ));
+        $productImage->setData($response['image']);
     }
 
     /**
@@ -85,13 +82,10 @@ class ProductImageService extends AbstractService
     {
         $data = $productImage->exportData();
         $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'PUT', array(
             'image' => $data
-            )
-        );
-        $productImage->setData($response->image);
+        ));
+        $productImage->setData($response['image']);
     }
 
     /**
@@ -105,7 +99,6 @@ class ProductImageService extends AbstractService
     public function delete($productId, ProductImage $productImage)
     {
         $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        return $this->request($endpoint, 'DELETE');
     }
 }

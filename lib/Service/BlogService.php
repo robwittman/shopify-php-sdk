@@ -16,8 +16,8 @@ class BlogService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/blogs.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Blog::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Blog::class, $response['blogs']);
     }
 
     /**
@@ -29,8 +29,8 @@ class BlogService extends AbstractService
     public function count()
     {
         $endpoint = '/admin/blogs/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request);
+        $response = $this->request($endpoint, 'GET');
+        return $response['count'];
     }
 
     /**
@@ -44,8 +44,8 @@ class BlogService extends AbstractService
     public function get($blogId, array $params = array())
     {
         $endpoint = '/admin/blogs/'.$blogId.'.json';
-        $request = $this->createRequest($enpoint);
-        return $this->getNode($request, $params, Blog::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Blog::class, $response['blog']);
     }
 
     /**
@@ -59,13 +59,10 @@ class BlogService extends AbstractService
     {
         $data = $blog->exportData();
         $endpoint = '/admin/blogs.json';
-        $request = $this->createRequest($enpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'POST', array(
             'blog' => $data
-            )
-        );
-        $blog->setData($response->blog);
+        ));
+        $blog->setData($response['blog']);
     }
 
     /**
@@ -77,15 +74,7 @@ class BlogService extends AbstractService
      */
     public function update(Blog &$blog)
     {
-        $data = $blog->exportData();
-        $endpoint = '/admin/blogs/'.$blog->getId().'.json';
-        $request = $this->createRequest($enpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
-            'blog' => $data
-            )
-        );
-        $blog->setData($response->blog);
+        
     }
 
     /**

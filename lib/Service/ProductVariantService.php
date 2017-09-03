@@ -16,8 +16,9 @@ class ProductVariantService extends AbstractService
      */
     public function all($productId, array $params = array())
     {
-        $request = $this->createRequest('/admin/products/'.$productId.'/variants.json');
-        return $this->getEdge($request, $params, ProductVariant::class);
+        $endpoint = '/admin/products/'.$productId.'/variants.json';
+        $request = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(ProductVariant::class, $response['variants']);
     }
 
     /**
@@ -29,8 +30,8 @@ class ProductVariantService extends AbstractService
      */
     public function count($productId)
     {
-        $request = $this->createRequest('/admin/products/'.$product->getId().'/variants/count.json');
-        return $this->getCount($request);
+        $response = $this->request('/admin/products/'.$productId.'/count.json', 'GET');
+        return $response['count'];
     }
 
     /**
@@ -38,14 +39,18 @@ class ProductVariantService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/product_variant#show
      * @param  integer $productVariantId
-     * @param  array   $params
+     * @param  array   $fields
      * @return ProductVariant
      */
-    public function get($productVariantId, array $params = array())
+    public function get($productVariantId, array $fields = array())
     {
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = $fields;
+        }
         $endpoint = '/admin/variants/'.$productVariantId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, ProductVariant::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(ProductVariant::class, $response['variant']);
     }
 
     /**
@@ -60,13 +65,10 @@ class ProductVariantService extends AbstractService
     {
         $data = $productVariant->exportData();
         $endpoint = '/admin/products/'.$productId.'/variants.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'POST', array(
             'variant' => $data
-            )
-        );
-        $productVariant->setData($response->variant);
+        ));
+        $productVariant->setData($response['variant']);
     }
 
     /**
@@ -80,13 +82,10 @@ class ProductVariantService extends AbstractService
     {
         $data = $productVariant->exportData();
         $endpoint = '/admin/variants/'.$productVariant->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'PUT', array(
             'variant' => $data
-            )
-        );
-        $productVariant->setData($response->variant);
+        ));
+        $productVariant->setData($response['variant']);
     }
 
     /**
@@ -100,7 +99,6 @@ class ProductVariantService extends AbstractService
     public function delete($productId, ProductVariant &$productVariant)
     {
         $endpoint = '/admin/products/'.$productId.'/variants/'.$productVariant->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        return $this->send($request);
+        $response = $this->request($endpoint, 'DELETE');
     }
 }

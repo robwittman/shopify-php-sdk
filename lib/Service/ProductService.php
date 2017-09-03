@@ -16,8 +16,7 @@ class ProductService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/products.json';
-        $request = $this->createRequest($endpoint);
-        $response = $this->send($request);
+        $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Product::class, $response['products']);
     }
 
@@ -31,8 +30,8 @@ class ProductService extends AbstractService
     public function count(array $params = array())
     {
         $endpoint = '/admin/products/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request, $options);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -40,14 +39,17 @@ class ProductService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/product#show
      * @param  integer $productId
-     * @param  array   $params
+     * @param  array   $fields
      * @return Product
      */
-    public function get($productId, array $params = array())
+    public function get($productId, array $fields = array())
     {
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = $fields;
+        }
         $endpoint = '/admin/products/'.$productId.'.json';
-        $request = $this->createRequest($endpoint);
-        $response = $this->send($request, $params);
+        $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Product::class, $response['product']);
     }
 
@@ -62,13 +64,10 @@ class ProductService extends AbstractService
     {
         $data = $product->exportData();
         $endpoint = '/admin/products.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'POST', array(
             'product' => $data
-            )
-        );
-        $product->setData($response->product);
+        ));
+        $product->setData($response['product']);
     }
 
     /**
@@ -82,17 +81,14 @@ class ProductService extends AbstractService
     {
         $data = $product->exportData();
         $endpoint = '/admin/products/'.$product->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'PUT', array(
             'product' => $data
-            )
-        );
-        $product->setData($response->product);
+        ));
+        $product->setData($response['product']);
     }
 
     /**
-     * Remove a producct
+     * Remove a product
      *
      * @link   https://help.shopify.com/api/reference/product#destroy
      * @param  Product $product
@@ -101,7 +97,6 @@ class ProductService extends AbstractService
     public function delete(Product &$product)
     {
         $endpoint = '/admin/products/'.$product->id.'.json';
-        $request  = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        $this->request($endpoint, 'DELETE');
     }
 }

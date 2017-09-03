@@ -112,27 +112,6 @@ foreach ($product->variants as $variant) {
 }
 ```
 
-## Note on Product Modification
-
-Due to the way Shopify handles updates to a products variant fields, if you want to update one or more variants on a product, you ahve 2 options.
-
- - Take the entire variants object, update the ones you want, and re-set to the product.
- - Use `Shopify\Product\VariantService` to update each one individually.
-
-If your product contains 20 variants, and you post a JSON object like:
-```json
-{
-    "product_id" : 21345678,
-    "variants" : [
-        {
-            "price" : "10.00"
-        }
-    ]
-}
-```
-
-all of the other variants will be deleted, and you will have only the one with '10.00' price tag.
-
 ## References
 
 [Shopify Partner Login](https://partners.shopify.com)

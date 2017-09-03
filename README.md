@@ -94,6 +94,25 @@ echo $token->access_token;
 echo $token->scopes;
 ```
 
+### Using objects
+
+Object properties can be accessed using `object->property`. Nested objects are instantiated classes. All timestamp fields are instances of `\DateTime`.
+
+```php
+use Shopify\Enum\Fields\ProductFields;
+use Shopify\Enum\Fields\ProductVariantFields;
+
+$product = $service->get($productId);
+echo $product->created_at->format('Y-m-d H:i:s');
+echo $product->title;
+
+foreach ($product->variants as $variant) {
+    echo $variant->option1;
+    echo $variant->option2;
+}
+```
+
+
 ## References
 
 [Shopify Partner Login](https://partners.shopify.com)

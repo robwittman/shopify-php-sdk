@@ -12,36 +12,29 @@ class OAuthHelper
 {
     protected $api;
     protected $storage;
-    protected $apiKey;
-    protected $apiSecret;
-    protected $permissions;
-    protected $redirectUri;
-    protected $myshopifyDomain;
 
     public function __construct(Api $api, PersistentStorageInterface $storage)
     {
         $this->api = $api;
-        $this->apiKey = $api->getApiKey();
-        $this->apiSecret = $api->getApiSecret();
-        $this->myshopifyDomain = $api->getMyshopifyDomain();
         $this->storage = $storage;
     }
 
     public function getAuthorizationUrl($redirectUrl, $scope, $storeState = true)
     {
+        $state = '';
         if ($storeState) {
             $state = $this->storage->get('state') ?: $this->getPseudoRandomString();
             $this->storage->set('state', $state);
         }
 
         $params = array(
-            'client_id' => $this->apiKey,
+            'client_id' => $this->api->getApiKey(),
             'redirect_uri' => $redirectUrl,
             'state' => $state,
             'scope' => $scope
         );
 
-        return "https://{$this->myshopifyDomain}/admin/oauth/authorize?".http_build_query($params);
+        return "https://{$this->api->getMyshopifyDomain()}/admin/oauth/authorize?".http_build_query($params);
     }
 
     public function getAccessToken($code, $state = null)

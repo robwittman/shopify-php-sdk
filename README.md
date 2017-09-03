@@ -13,21 +13,85 @@ composer require robwittman/shopify-php-sdk
 Before you can start using this SDK, you have to create a <a href="https://partners.shopify.com/">Shopify Application</a>
 You can now use the API key and secret to generate access tokens, which can then access a stores data
 
-### Authentication
+## Initialization
 
-TO get started with Shopify's API, you need to get a store access token.
+To initialize the Api Client:
+
 ```php
-$api = new Shopify\Api();
-$api
-    ->setApiKey(API_KEY)
-    ->setApiSecret(API_SECRET)
-    ->setMyshopifyDomain($domain);
-$helper = $api->getOAuthHelper();
-$url = $helper->getAuthorizationUrl('http://localhost', 'write_products,read_orders');
+$client = new Shopify\Api(array(
+    'api_key' => '<api_key>',
+    'api_secret' => '<api_secret>',
+    'myshopify_domain' => 'store.myshopify.com',
+    'access_token' => '<store_access_token>'
+));
+```
 
-// When returning from OAuth
-$helper = $api->getOAuthHelper();
+Once the client is initialized, you can then create a service, and use it to communicate with the api
+
+### Reading
+
+```php
+$service = new Shopify\Service\ProductService($client);
+$service->all(); #Fetch all products, with optional params
+$service->get($productId); # Get a single product
+$service->count(); # Count the resources
+```
+
+### Creating
+
+```php
+$service = new Shopify\Service\ProductService($client);
+$product = new Shopify\Object\Product();
+# Set some product fields
+$product->title = 'Test Product';
+$product->vendor = 'Printer';
+
+$service->create($product);
+```
+
+### Updating
+
+```php
+$service = new Shopify\Service\ProductService($client);
+$product = $service->get($productId);
+# Set some product fields
+$product->title = 'Test Product';
+$product->vendor = 'Printer';
+
+$service->update($product);
+```
+
+### Deleting
+```php
+$service = new Shopify\Service\ProductService($client);
+$service->delete($productId);
+```
+
+## Authentication
+
+Authentication to Shopify's API is done through access tokens, which are obtained through OAuth. To get a
+token, there is a helper library packaged with this client
+
+```php
+$client = new Shopify\Api($params);
+$helper = $client->getOAuthHelper();
+
+$redirectUri = 'https://localhost/install.php';
+$scopes = 'write_products,read_orders,...';
+
+$authorizationUrl = $helper->getAuthorizationUrl($redirectUri, $scopes);
+header("Location: {$authorizationUrl}");
+```
+
+At your `redirect_uri`, instantiate the helper again to get an access token
+
+```php
+$client = new Shopify\Api($params);
+$helper = $client->getOAuthHelper();
+
 $token = $helper->getAccessToken($code);
+echo $token->access_token;
+echo $token->scopes;
 ```
 
 ## References

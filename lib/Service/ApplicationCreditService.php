@@ -15,9 +15,8 @@ class ApplicationCreditService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $endpoint = '/admin/application_credits.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, ApplicationCredit::class);
+        $data = $this->request('/admin/application_credits.json', 'GET', $params);
+        return $this->createCollection(ApplicationCredit::class, $data['application_credit']);
     }
 
     /**
@@ -25,14 +24,18 @@ class ApplicationCreditService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/applicationcredit#show
      * @param  integer $applicationCreditId
-     * @param  array   $params
+     * @param  array   $fields
      * @return ApplicationCredit
      */
-    public function get($applicationCreditId, array $params = array())
+    public function get($applicationCreditId, array $fields = array())
     {
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = $fields;
+        }
         $endpoint = '/admin/application_credits/'.$applicationCreditId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, ApplicationCredit::class);
+        $data = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(ApplicationCharge::class, $data['application_charge']);
     }
 
     /**
@@ -46,12 +49,9 @@ class ApplicationCreditService extends AbstractService
     {
         $data = $applicationCredit->exportData();
         $endpoint = '/admin/application_credits.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
-            'application_credit' => $data
-            )
-        );
-        $applicationCredit->setData($response->application_credit);
+        $response = $this->request($endpoint, 'POST', array(
+            'application_charge' => $data
+        ));
+        $applicationCredit->setData($response['application_credit']);
     }
 }

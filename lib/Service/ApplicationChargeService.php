@@ -15,9 +15,8 @@ class ApplicationChargeService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $endpoint = '/admin/application_charges.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, ApplicationCharge::class);
+        $data = $this->request('/admin/application_charges.json', 'GET', $params);
+        return $this->createCollection(ApplicationCharge::class, $data['application_charges']);
     }
 
     /**
@@ -25,14 +24,17 @@ class ApplicationChargeService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/applicationcharge#show
      * @param  integer $applicationChargeId
-     * @param  array   $params
+     * @param  array   $fields
      * @return ApplicationCharge
      */
-    public function get($applicationChargeId, array $params = array())
+    public function get($applicationChargeId, array $fields = array())
     {
-        $endpoint = '/admin/application_charges/'.$applicationChargeId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, ApplicationCharge::class);
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = $fields;
+        }
+        $data = $this->request('/admin/application_charges/'.$applicationChargeId.'.json', 'GET', $params);
+        return $this->createObject(ApplicationCharge::class, $data['application_charge']);
     }
 
     /**
@@ -46,13 +48,10 @@ class ApplicationChargeService extends AbstractService
     {
         $data = $applicationCharge->exportData();
         $endpoint = '/admin/application_charges.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request('/admin/application_charges.json', 'POST', array(
             'application_charge' => $data
-            )
-        );
-        $applicationCharge->setData($response->application_charge);
+        ));
+        $applicationCharge->setData($response['application_charge']);
     }
 
     /**
@@ -64,10 +63,7 @@ class ApplicationChargeService extends AbstractService
      */
     public function activate(ApplicationCharge &$applicationCharge)
     {
-        $data = $applicationCharge->exportData();
-        $endpoint = '/admin/application_charges/'.$applicationCharge->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request);
-        $applicationCharge->setData($response->application_charge);
+        $response = $this->request('/admin/application_charges/'.$applicationCharge->id.'/activate.json', 'POST');
+        $applicationCharge->setData($response['application_charge']);
     }
 }

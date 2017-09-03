@@ -15,9 +15,8 @@ class AbandonedCheckoutsService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $endpoint = '/admin/checkouts.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, AbandonedCheckout::class);
+        $data = $this->request('/admin/checkouts.json', 'GET', $params);
+        return $this->createCollection(AbandonedCheckout::class, $data['abandoned_checkouts']);
     }
 
     /**
@@ -29,8 +28,7 @@ class AbandonedCheckoutsService extends AbstractService
      */
     public function count(array $params = array())
     {
-        $endpoint = '/admin/checkouts/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, null);
+        $data = $this->request('/admin/checkouts/count.json', 'GET', $params);
+        return $data['count'];
     }
 }

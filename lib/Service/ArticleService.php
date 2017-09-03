@@ -17,8 +17,8 @@ class ArticleService extends AbstractService
     public function all($blogId, array $params = array())
     {
         $endpoint = '/admin/blogs/'.$blogId.'/articles.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Article::class);
+        $data = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Article::class, $data['articles']);
     }
 
     /**
@@ -32,8 +32,8 @@ class ArticleService extends AbstractService
     public function count($blogId, array $params = array())
     {
         $endpoint = '/admin/blogs/'.$blogId.'/articles/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request, $options, Article::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -42,14 +42,18 @@ class ArticleService extends AbstractService
      * @link   https://help.shopify.com/api/reference/article#show
      * @param  integer $blogId
      * @param  integer $articleId
-     * @param  array   $params
+     * @param  array   $fields
      * @return Article
      */
-    public function get($blogId, $articleId, array $params = array())
+    public function get($blogId, $articleId, array $fields = array())
     {
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = $fields;
+        }
         $endpoint = '/admin/blogs/'.$blogId.'/articles/'.$articleId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, Article::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Article::class, $response['article']);
     }
 
     /**
@@ -64,13 +68,10 @@ class ArticleService extends AbstractService
     {
         $data = $article->exportData();
         $endpoint = '/admin/blogs/'.$blogId.'/articles.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'POST', array(
             'article' => $data
-            )
-        );
-        $article->setData($response->article);
+        ));
+        $article->setData($response['article']);
     }
 
     /**
@@ -84,14 +85,11 @@ class ArticleService extends AbstractService
     public function update($blogId, Article &$article)
     {
         $data = $article->exportData();
-        $endpoint = '/admin/blogs/'.$blogId.'/articles/'.$article->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/blogs/'.$blogId.'/articles/'.$article->id.'.json';
+        $response = $this->request($endpoint, 'POST', array(
             'article' => $data
-            )
-        );
-        $article->setData($response->article);
+        ));
+        $article->setData($response['article']);
     }
 
     /**
@@ -106,9 +104,7 @@ class ArticleService extends AbstractService
     {
         $articleId = $article->getId();
         $endpoint = '/admin/blogs/'.$blogId.'/articles/'.$articleId.'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $response = $this->send($request);
-        return null;
+        $this->request($endpoint, 'DELETE');
     }
 
     /**
@@ -120,9 +116,8 @@ class ArticleService extends AbstractService
     public function authors()
     {
         $endpoint = '/admin/articles/authors.json';
-        $request = $this->createRequest($endpoint);
-        $response = $this->send($request);
-        return $response->authors;
+        $response = $this->request($endpoint, 'GET');
+        return $response['authors'];
     }
 
     /**
@@ -134,8 +129,7 @@ class ArticleService extends AbstractService
     public function tags()
     {
         $endpoint = '/admin/articles/tags.json';
-        $request = $this->createRequest($endpoint);
-        $response = $this->send($request);
-        return $responsee->tags;
+        $response = $this->request($endpoint, 'GET');
+        return $responsee['tags'];
     }
 }

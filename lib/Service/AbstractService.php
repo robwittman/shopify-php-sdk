@@ -33,26 +33,10 @@ abstract class AbstractService
         return $this->api;
     }
 
-    public function getCount(Request $request, array $params = array())
+    public function request($endpoint, $method = self::REQUEST_METHOD_GET, array $params = array())
     {
-        $response = $this->send($request, $params);
-        return $this->createObject(null, $data);
-    }
-
-    public function getEdge(Request $request, array $params = array(), $className = null)
-    {
-        $response = $this->send($request, $params);
-        $handle = $className::getApiHandle();
-        $data = $response->{$handle};
-        return $this->createCollection($className, $data);
-    }
-
-    public function getNode(Request $request, array $params = array(), $className = null)
-    {
-        $response = $this->send($request, $params);
-        $handle = Inflector::singularize($className::getApiHandle());
-        $data = $response->{$handle};
-        return $this->createObject($className, $data);
+        $request = $this->createRequest($endpoint, $method);
+        return $this->send($request, $params);
     }
 
     public function createRequest($endpoint, $method = self::REQUEST_METHOD_GET)

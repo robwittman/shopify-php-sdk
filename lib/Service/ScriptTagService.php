@@ -15,8 +15,8 @@ class ScriptTagService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $request = $this->createRequest('/admin/script_tags.json');
-        return $this->getEdge($request, $params, ScriptTag::class);
+        $data = $this->request('/admin/script_tags.json', 'GET', $params);
+        return $this->createCollection(ScriptTag::class, $data['script_tags']);
     }
 
     /**
@@ -28,8 +28,8 @@ class ScriptTagService extends AbstractService
      */
     public function count(array $params = array())
     {
-        $request = $this->createRequest('/admin/script_tags/count.json');
-        return $this->getCount($request, $options);
+        $data = $this->request('/admin/script_tags/count.json', 'GET', $params);
+        return $data['count'];
     }
 
     /**
@@ -37,13 +37,17 @@ class ScriptTagService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/scripttag#show
      * @param  integer $scriptTagId
-     * @param  array   $params
+     * @param  array   $fields
      * @return ScriptTag
      */
-    public function get($scriptTagId, array $params = array())
+    public function get($scriptTagId, array $fields = array())
     {
-        $request = $this->createRequest('/admin/script_tags/'.$scriptTagId.'.json');
-        return $this->getNode($request, $params, ScriptTag::class);
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = implode(',', $fields);
+        }
+        $data = $this->request('/admin/script_tags/'.$scriptTagId.'.json', 'GET', $params);
+        return $this->createCollection(ScriptTag::class, $data['script_tags']);
     }
 
     /**
@@ -56,13 +60,10 @@ class ScriptTagService extends AbstractService
     public function create(ScriptTag &$scriptTag)
     {
         $data = $scriptTag->exportData();
-        $request = $this->createRequest('/admin/script_tags.json', static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request('/admin/script_tags.json', 'POST', array(
             'script_tag' => $data
-            )
-        );
-        $scriptTag->setData($response->script_tag);
+        ));
+        $scriptTag->setData($response['script_tag']);
     }
 
     /**
@@ -75,13 +76,10 @@ class ScriptTagService extends AbstractService
     public function update(ScriptTag $scriptTag)
     {
         $data = $scriptTag->exportData();
-        $request = $this->createRequest('/admin/script_tags/'.$script_tag->getId().'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request('/admin/script_tags/'.$scriptTag->id.'.json', 'PUT', array(
             'script_tag' => $data
-            )
-        );
-        $scriptTag->setData($response->script_tag);
+        ));
+        $scriptTag->setData($response['script_tag']);
     }
 
     /**
@@ -93,7 +91,6 @@ class ScriptTagService extends AbstractService
      */
     public function delete(ScriptTag $scriptTag)
     {
-        $request = $this->createRequest('/admin/script_tags/'.$scriptTag->getId().'json', static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        $this->request('/admin/script_tags/'.$scriptTag->id.'.json', 'DELETE');
     }
 }

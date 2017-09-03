@@ -8,7 +8,8 @@ class ProvinceService extends AbstractService
 {
     /**
      * Receive a list of all Provinces
-     * @link https://help.shopify.com/api/reference/province#index
+     *
+     * @link   https://help.shopify.com/api/reference/province#index
      * @param  array $params
      * @return Province[]
      */
@@ -21,7 +22,8 @@ class ProvinceService extends AbstractService
 
     /**
      * Receive a count of all Provinces
-     * @link https://help.shopify.com/api/reference/province#count
+     *
+     * @link   https://help.shopify.com/api/reference/province#count
      * @param  integer $countryId
      * @return integer
      */
@@ -34,7 +36,8 @@ class ProvinceService extends AbstractService
 
     /**
      * Receive a single province
-     * @link https://help.shopify.com/api/reference/province#show
+     *
+     * @link   https://help.shopify.com/api/reference/province#show
      * @param  integer $countryId
      * @param  integer $provinceId
      * @return Province
@@ -48,7 +51,8 @@ class ProvinceService extends AbstractService
 
     /**
      * Modify an existing province
-     * @link https://help.shopify.com/api/reference/province#update
+     *
+     * @link   https://help.shopify.com/api/reference/province#update
      * @param  Province $province
      * @return void
      */
@@ -57,9 +61,11 @@ class ProvinceService extends AbstractService
         $data = $province->exportData();
         $endpoint = '/admin/countries/'.$countryId.'/provinces/'.$province->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'province' => $data
-        ));
+            )
+        );
         $province->setData($response->province);
     }
 }

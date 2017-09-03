@@ -70,18 +70,22 @@ abstract class AbstractService
             $args['json'] = $params;
         }
         $this->lastResponse = $handler->send($request, $args);
-        return json_decode($this->lastResponse->getBody()->getContents());
+        return json_decode($this->lastResponse->getBody()->getContents(), true);
     }
 
     public function createObject($className, $data)
     {
-
+        $obj = new $className();
+        $obj->setData($data);
+        return $obj;
     }
 
     public function createCollection($className, $data)
     {
-        return array_map(function($object) use ($className) {
-            return $this->createObject($className, $object);
-        }, $data);
+        return array_map(
+            function ($object) use ($className) {
+                return $this->createObject($className, $object);
+            }, $data
+        );
     }
 }

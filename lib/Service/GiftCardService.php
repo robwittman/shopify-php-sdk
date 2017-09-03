@@ -8,7 +8,8 @@ class GiftCardService extends AbstractService
 {
     /**
      * Receive a list of Gift Cards
-     * @link https://help.shopify.com/api/reference/gift_card#index
+     *
+     * @link   https://help.shopify.com/api/reference/gift_card#index
      * @param  array $params
      * @return GiftCard[]
      */
@@ -21,7 +22,8 @@ class GiftCardService extends AbstractService
 
     /**
      * Receive a count of Gift Cards
-     * @link https://help.shopify.com/api/reference/gift_card#count
+     *
+     * @link   https://help.shopify.com/api/reference/gift_card#count
      * @param  array $params
      * @return integer
      */
@@ -34,9 +36,10 @@ class GiftCardService extends AbstractService
 
     /**
      * Receive a single Gift Card
-     * @link https://help.shopify.com/api/reference/gift_card#show
+     *
+     * @link   https://help.shopify.com/api/reference/gift_card#show
      * @param  integer $giftCardId
-     * @param  array $params
+     * @param  array   $params
      * @return GiftCard
      */
     public function get($giftCardId, array $params = array())
@@ -48,7 +51,8 @@ class GiftCardService extends AbstractService
 
     /**
      * Create a gift card
-     * @link https://help.shopify.com/api/reference/gift_card#create
+     *
+     * @link   https://help.shopify.com/api/reference/gift_card#create
      * @param  GiftCard $giftCard
      * @return void
      */
@@ -57,15 +61,18 @@ class GiftCardService extends AbstractService
         $data = $giftCard->exportData();
         $endpoint = '/admin/gift_cards.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'gift_card' => $data
-        ));
+            )
+        );
         $giftCard->setData($response->gift_card);
     }
 
     /**
      * Update a Gift Card
-     * @link https://help.shopify.com/api/reference/gift_card#update
+     *
+     * @link   https://help.shopify.com/api/reference/gift_card#update
      * @param  GiftCard $giftCard
      * @return void
      */
@@ -74,15 +81,18 @@ class GiftCardService extends AbstractService
         $data = $giftCard->exportData();
         $endpoint = '/admin/gift_cards/'.$giftCard->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'gift_card' => $data
-        ));
+            )
+        );
         $giftCard->setData($response->gift_card);
     }
 
     /**
      * Disable a Gift Card
-     * @link https://help.shopify.com/api/reference/gift_card#disable
+     *
+     * @link   https://help.shopify.com/api/reference/gift_card#disable
      * @param  GiftCard $giftCard
      * @return void
      */
@@ -97,7 +107,8 @@ class GiftCardService extends AbstractService
 
     /**
      * Search for gift cards matching supplied query
-     * @link https://help.shopify.com/api/reference/gift_card#search
+     *
+     * @link   https://help.shopify.com/api/reference/gift_card#search
      * @param  SearchOptions $options
      * @return GiftCard[]
      */

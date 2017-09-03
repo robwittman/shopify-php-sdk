@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Metafield
  *
  * Metafields allow you to attach metadata, which is additional information, to a store's resources.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/metafield
+ * @link    https://help.shopify.com/api/reference/metafield
  */
 
 namespace Shopify\Object;
 
-class Metafield extends AbstractObject { }
+use Shopify\Enum\Fields\MetafieldFields;
+
+class Metafield extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return MetafieldFields::getInstance();
+    }
+}

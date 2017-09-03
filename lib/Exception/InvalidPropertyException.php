@@ -2,4 +2,7 @@
 
 namespace Shopify\Exception;
 
-class InvalidPropertyException extends ShopifySdkException { }
+class InvalidPropertyException extends ShopifySdkException
+{
+ 
+}

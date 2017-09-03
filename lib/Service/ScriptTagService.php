@@ -8,7 +8,8 @@ class ScriptTagService extends AbstractService
 {
     /**
      * Get a list of all ScriptTags
-     * @link https://help.shopify.com/api/reference/scripttag#index
+     *
+     * @link   https://help.shopify.com/api/reference/scripttag#index
      * @param  array $params
      * @return ScriptTag[]
      */
@@ -20,7 +21,8 @@ class ScriptTagService extends AbstractService
 
     /**
      * Receive a count of all ScriptTags
-     * @link https://help.shopify.com/api/reference/scripttag#count
+     *
+     * @link   https://help.shopify.com/api/reference/scripttag#count
      * @param  array $params
      * @return integer
      */
@@ -32,9 +34,10 @@ class ScriptTagService extends AbstractService
 
     /**
      * Receive a single Script Tag
-     * @link https://help.shopify.com/api/reference/scripttag#show
+     *
+     * @link   https://help.shopify.com/api/reference/scripttag#show
      * @param  integer $scriptTagId
-     * @param  array $params
+     * @param  array   $params
      * @return ScriptTag
      */
     public function get($scriptTagId, array $params = array())
@@ -45,7 +48,8 @@ class ScriptTagService extends AbstractService
 
     /**
      * Create a new script tag
-     * @link https://help.shopify.com/api/reference/scripttag#create
+     *
+     * @link   https://help.shopify.com/api/reference/scripttag#create
      * @param  ScriptTag $scriptTag
      * @return void
      */
@@ -53,31 +57,37 @@ class ScriptTagService extends AbstractService
     {
         $data = $scriptTag->exportData();
         $request = $this->createRequest('/admin/script_tags.json', static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'script_tag' => $data
-        ));
+            )
+        );
         $scriptTag->setData($response->script_tag);
     }
 
     /**
      * Update a script tag
-     * @link https://help.shopify.com/api/reference/scripttag#update
+     *
+     * @link   https://help.shopify.com/api/reference/scripttag#update
      * @param  ScriptTag $scriptTag
      * @return void
      */
     public function update(ScriptTag $scriptTag)
     {
         $data = $scriptTag->exportData();
-        $request = $this->createRequest('/admin/script_tags/'.$script_tag->getId()'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $request = $this->createRequest('/admin/script_tags/'.$script_tag->getId().'.json', static::REQUEST_METHOD_PUT);
+        $response = $this->send(
+            $request, array(
             'script_tag' => $data
-        ));
+            )
+        );
         $scriptTag->setData($response->script_tag);
     }
 
     /**
      * Delete a script tag
-     * @link https://help.shopify.com/api/reference/scripttag#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/scripttag#destroy
      * @param  ScriptTag $scriptTag
      * @return void
      */

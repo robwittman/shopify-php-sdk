@@ -8,9 +8,10 @@ class TransactionService extends AbstractService
 {
     /**
      * Recieve a list of all Transactions
-     * @link https://help.shopify.com/api/reference/transaction#index
+     *
+     * @link   https://help.shopify.com/api/reference/transaction#index
      * @param  integer $orderId
-     * @param  array $params
+     * @param  array   $params
      * @return Transaction[]
      */
     public function all($orderId, array $params = array())
@@ -21,9 +22,10 @@ class TransactionService extends AbstractService
 
     /**
      * Receive a count of all transactions
-     * @link https://help.shopify.com/api/reference/transaction#count
-     * @param integer $orderId
-     * @param  array $params
+     *
+     * @link   https://help.shopify.com/api/reference/transaction#count
+     * @param  integer $orderId
+     * @param  array   $params
      * @return integer
      */
     public function count($orderId, array $params = array())
@@ -34,10 +36,11 @@ class TransactionService extends AbstractService
 
     /**
      * Get a single Transaction
-     * @link https://help.shopify.com/api/reference/transaction#show
+     *
+     * @link   https://help.shopify.com/api/reference/transaction#show
      * @param  integer $orderId
      * @param  integer $transactionId
-     * @param  array $params
+     * @param  array   $params
      * @return Transaction
      */
     public function get($orderId, $transactionId, array $params = array())
@@ -48,7 +51,8 @@ class TransactionService extends AbstractService
 
     /**
      * Create a new transaction
-     * @link https://help.shopify.com/api/reference/transaction#create
+     *
+     * @link   https://help.shopify.com/api/reference/transaction#create
      * @param  Transaction $transaction
      * @return void
      */
@@ -56,9 +60,11 @@ class TransactionService extends AbstractService
     {
         $data = $transaction->exportData();
         $request = $this->createRequest('/admin/transactions.json', static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'transaction' => $data
-        ));
+            )
+        );
         $transaction->setData($response->transaction);
     }
 }

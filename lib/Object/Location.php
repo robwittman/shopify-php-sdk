@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Location
  *
  * A Location represents a geographical location where your stores, headquarters,
@@ -30,11 +29,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/location
+ * @link    https://help.shopify.com/api/reference/location
  */
 
 namespace Shopify\Object;
 
-class Location extends AbstractObject { }
+use Shopify\Enum\Fields\LocationFields;
+
+class Location extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return LocationFields::getInstance();
+    }
+}

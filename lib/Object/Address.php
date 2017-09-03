@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Address
  *
  * Represents an Address object
@@ -28,10 +27,18 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
  */
 
 namespace Shopify\Object;
 
-class Address extends AbstractObject { }
+use Shopify\Enum\Fields\AddressFields;
+
+class Address extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return AddressFields::getInstance();
+    }
+}

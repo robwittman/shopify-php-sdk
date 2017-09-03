@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\MarketingEvent
  *
  * Marketing events represent actions taken by your app, on behalf of a merchant,
@@ -34,10 +33,18 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
  */
 
 namespace Shopify\Object;
 
-class MarketingEvent extends AbstractObject { }
+use Shopify\Enum\Fields\MarketingEventFields;
+
+class MarketingEvent extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return MarketingEventFields::getInstance();
+    }
+}

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\ScriptTag
  *
  * The ScriptTag resource represents remote javascripts which are loaded into the
@@ -31,11 +30,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/scripttag
+ * @link    https://help.shopify.com/api/reference/scripttag
  */
 
 namespace Shopify\Object;
 
-class ScriptTag extends AbstractObject { }
+use Shopify\Enum\Fields\ScriptTagFields;
+
+class ScriptTag extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ScriptTagFields::getInstance();
+    }
+}

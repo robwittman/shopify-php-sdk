@@ -8,7 +8,8 @@ class FulfillmentEventService extends AbstractService
 {
     /**
      * Receive a list of all fulfillmen events
-     * @link https://help.shopify.com/api/reference/fulfillmentevent#index
+     *
+     * @link   https://help.shopify.com/api/reference/fulfillmentevent#index
      * @param  integer $orderId
      * @param  integer $fulfillmentId
      * @return FulfillmentEvent[]
@@ -22,7 +23,8 @@ class FulfillmentEventService extends AbstractService
 
     /**
      * Get a specific fulfillment event
-     * @link https://help.shopify.com/api/reference/fulfillmentevent#show
+     *
+     * @link   https://help.shopify.com/api/reference/fulfillmentevent#show
      * @param  integer $orderId
      * @param  integer $fulfillmentId
      * @param  integer $fulfillmentEventId
@@ -37,9 +39,10 @@ class FulfillmentEventService extends AbstractService
 
     /**
      * Create a fulfillment event
-     * @link https://help.shopify.com/api/reference/fulfillmentevent#create
-     * @param  integer           $orderId
-     * @param  integer           $fulfillmentId
+     *
+     * @link   https://help.shopify.com/api/reference/fulfillmentevent#create
+     * @param  integer          $orderId
+     * @param  integer          $fulfillmentId
      * @param  FulfillmentEvent $fulfillmentEvent
      * @return void
      */
@@ -48,17 +51,20 @@ class FulfillmentEventService extends AbstractService
         $data = $fulfillmentEvent->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'fulfillment_event' => $data
-        ));
+            )
+        );
         $fulfillmentEvent->setData($response->fulfillment_event);
     }
 
     /**
      * Delete a fufillment events
-     * @link https://help.shopify.com/api/reference/fulfillmentevent#destroy
-     * @param  integer           $orderId
-     * @param  integer           $fulfillmentId
+     *
+     * @link   https://help.shopify.com/api/reference/fulfillmentevent#destroy
+     * @param  integer          $orderId
+     * @param  integer          $fulfillmentId
      * @param  FulfillmentEvent $fulfillmentEvent
      * @return void
      */

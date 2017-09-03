@@ -23,7 +23,7 @@ class OAuthHelper
         $this->api = $api;
         $this->apiKey = $api->getApiKey();
         $this->apiSecret = $api->getApiSecret();
-        $this->myshopifyDomain = $api->getM<?pyshopifyDomain();
+        $this->myshopifyDomain = $api->getMyshopifyDomain();
         $this->storage = $storage;
     }
 

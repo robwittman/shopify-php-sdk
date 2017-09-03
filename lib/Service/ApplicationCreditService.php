@@ -9,7 +9,7 @@ class ApplicationCreditService extends AbstractService
     /**
      * Retrieve all application credits
      *
-     * @link https://help.shopify.com/api/reference/applicationcredit#index
+     * @link   https://help.shopify.com/api/reference/applicationcredit#index
      * @param  array $params
      * @return ApplicationCredit[]
      */
@@ -23,9 +23,9 @@ class ApplicationCreditService extends AbstractService
     /**
      * Receive a single ApplicationCredit
      *
-     * @link https://help.shopify.com/api/reference/applicationcredit#show
+     * @link   https://help.shopify.com/api/reference/applicationcredit#show
      * @param  integer $applicationCreditId
-     * @param  array $params
+     * @param  array   $params
      * @return ApplicationCredit
      */
     public function get($applicationCreditId, array $params = array())
@@ -38,7 +38,7 @@ class ApplicationCreditService extends AbstractService
     /**
      * Create an application credit
      *
-     * @link https://help.shopify.com/api/reference/applicationcredit#create
+     * @link   https://help.shopify.com/api/reference/applicationcredit#create
      * @param  ApplicationCredit $applicationCredit
      * @return void
      */
@@ -47,9 +47,11 @@ class ApplicationCreditService extends AbstractService
         $data = $applicationCredit->exportData();
         $endpoint = '/admin/application_credits.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'application_credit' => $data
-        ));
+            )
+        );
         $applicationCredit->setData($response->application_credit);
     }
 }

@@ -2,4 +2,7 @@
 
 namespace Shopify\Object;
 
-class AccessToken extends AbstractObject { }
+class AccessToken extends AbstractObject
+{
+ 
+}

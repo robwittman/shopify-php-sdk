@@ -8,7 +8,8 @@ class CustomerService extends AbstractService
 {
     /**
      * Get all customers
-     * @link https://help.shopify.com/api/reference/customer#index
+     *
+     * @link   https://help.shopify.com/api/reference/customer#index
      * @param  array $params
      * @return Customer[]
      */
@@ -21,7 +22,8 @@ class CustomerService extends AbstractService
 
     /**
      * Search for customers matching suppliied query
-     * @link https://help.shopify.com/api/reference/customer#search
+     *
+     * @link   https://help.shopify.com/api/reference/customer#search
      * @param  SearchOptions $options
      * @return Customer[]
      */
@@ -34,7 +36,8 @@ class CustomerService extends AbstractService
 
     /**
      * Receive a count of all customers
-     * @link https://help.shopify.com/api/reference/customer#count
+     *
+     * @link   https://help.shopify.com/api/reference/customer#count
      * @return integer
      */
     public function count()
@@ -46,9 +49,10 @@ class CustomerService extends AbstractService
 
     /**
      * Receive a single customer
-     * @link https://help.shopify.com/api/reference/customer#show
+     *
+     * @link   https://help.shopify.com/api/reference/customer#show
      * @param  integer $customerId
-     * @param  array $params
+     * @param  array   $params
      * @return Customer
      */
     public function get($customerId, array $params = array())
@@ -60,7 +64,8 @@ class CustomerService extends AbstractService
 
     /**
      * Create a customer
-     * @link https://help.shopify.com/api/reference/customer#create
+     *
+     * @link   https://help.shopify.com/api/reference/customer#create
      * @param  Customer $customer
      * @return void
      */
@@ -69,15 +74,18 @@ class CustomerService extends AbstractService
         $data = $customer->exportData();
         $endpoint = '/admin/customers.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'customer' => $data
-        ));
+            )
+        );
         $customer->setData($response->customer);
     }
 
     /**
      * Update a customer
-     * @link https://help.shopify.com/api/reference/customer#update
+     *
+     * @link   https://help.shopify.com/api/reference/customer#update
      * @param  Customer $customer
      * @return void
      */
@@ -86,15 +94,18 @@ class CustomerService extends AbstractService
         $data = $customer->exportData();
         $endpoint = '/admin/customers/'.$customer->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'customer' => $data
-        ));
+            )
+        );
         $customer->setData($response->customer);
     }
 
     /**
      * Delete a customer
-     * @link https://help.shopify.com/api/reference/customer#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/customer#destroy
      * @param  Customer $customer
      * @return void
      */
@@ -107,7 +118,8 @@ class CustomerService extends AbstractService
 
     /**
      * Create account activation URL
-     * @link https://help.shopify.com/api/reference/customer#account_activation_url
+     *
+     * @link   https://help.shopify.com/api/reference/customer#account_activation_url
      * @param  integer $customerId
      * @return string
      */
@@ -121,8 +133,9 @@ class CustomerService extends AbstractService
 
     /**
      * Send an invite
-     * @todo Return CustomInvite, instead of raw object
-     * @link https://help.shopify.com/api/reference/customer#send_invite
+     *
+     * @todo   Return CustomInvite, instead of raw object
+     * @link   https://help.shopify.com/api/reference/customer#send_invite
      * @param  integer $customerId
      * @return CustomerInvite
      */
@@ -131,9 +144,11 @@ class CustomerService extends AbstractService
         $data = is_null($invite) ? array() : $invite->exportData();
         $endpoint = '/admin/customers/'.$customerId.'/send_invite.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'customer_invite' => $data
-        ));
+            )
+        );
         return $response->customer_invite;
     }
 }

@@ -53,11 +53,12 @@ class PrivateApi implements ApiInterface
     public function init()
     {
         $args = array(
-        'base_uri' => "https://{$this->myshopify_domain}",
-        'headers' => array(
-            'Authorization' => $this->createBasicAuthHeader(
-                $this->api_key,
-                $this->password
+            'base_uri' => "https://{$this->myshopify_domain}",
+            'headers' => array(
+                'Authorization' => $this->createBasicAuthHeader(
+                    $this->api_key,
+                    $this->password
+                )
             )
         );
         $this->http_handler = new Client($args);

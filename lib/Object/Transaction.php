@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Transaction
  *
  * Transactions are created for every order that results in an exchange of money.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/transaction
+ * @link    https://help.shopify.com/api/reference/transaction
  */
 
 namespace Shopify\Object;
 
-class Transaction extends AbstractObject { }
+use Shopify\Enum\Fields\TransactionFields;
+
+class Transaction extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return TransactionFields::getInstance();
+    }
+}

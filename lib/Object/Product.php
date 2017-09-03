@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Product
  *
  * A product is an individual item for sale in a Shopify store. Products are often
@@ -32,11 +31,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/product
+ * @link    https://help.shopify.com/api/reference/product
  */
 
 namespace Shopify\Object;
 
-class Product extends AbstractObject { }
+use Shopify\Enum\Fields\ProductFields;
+
+class Product extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ProductFields::getInstance();
+    }
+}

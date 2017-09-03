@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\CustomCollection
  *
  * A custom collection is a grouping of products that a shop owner can create to
@@ -30,11 +29,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/customcollection
+ * @link    https://help.shopify.com/api/reference/customcollection
  */
 
 namespace Shopify\Object;
 
-class CustomCollection extends AbstractObject { }
+use Shopify\Enum\Fields\CustomCollectionFields;
+
+class CustomCollection extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return CustomCollectionFields::getInstance();
+    }
+}

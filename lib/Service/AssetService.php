@@ -8,9 +8,10 @@ class AssetService extends AbstractService
 {
     /**
      * Receive a list of all assets
-     * @link https://help.shopify.com/api/reference/asset#index
+     *
+     * @link   https://help.shopify.com/api/reference/asset#index
      * @param  integer $themeId
-     * @param  array $params
+     * @param  array   $params
      * @return Asset[]
      */
     public function all($themeId, array $params = array())
@@ -20,9 +21,10 @@ class AssetService extends AbstractService
 
     /**
      * Receive a single asset
-     * @link https://help.shopify.com/api/reference/asset#show
+     *
+     * @link   https://help.shopify.com/api/reference/asset#show
      * @param  integer $themeId
-     * @param  array $params
+     * @param  array   $params
      * @return Article
      */
     public function get($themeId, array $params = array())
@@ -32,9 +34,10 @@ class AssetService extends AbstractService
 
     /**
      * Creating or modifying an asset
-     * @link https://help.shopify.com/api/reference/asset#update
+     *
+     * @link   https://help.shopify.com/api/reference/asset#update
      * @param  integer $themeId
-     * @param  Asset  $asset
+     * @param  Asset   $asset
      * @return
      */
     public function put($themeId, Asset $asset)
@@ -44,9 +47,10 @@ class AssetService extends AbstractService
 
     /**
      * Remove an asset from the database
-     * @link https://help.shopify.com/api/reference/asset#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/asset#destroy
      * @param  integer $themeId
-     * @param  Asset  $asset
+     * @param  Asset   $asset
      * @return void
      */
     public function delete($themeId, Asset $asset)

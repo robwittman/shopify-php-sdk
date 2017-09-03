@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Discount
  *
  * Discounts (or discount codes) can be created, disabled, enabled and destroyed
@@ -35,11 +34,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/discount
+ * @link    https://help.shopify.com/api/reference/discount
  */
 
 namespace Shopify\Object;
 
-class Discount extends AbstractObject { }
+use Shopify\Enum\Fields\DiscountFields;
+
+class Discount extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return DiscountFields::getInstance();
+    }
+}

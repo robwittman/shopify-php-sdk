@@ -9,7 +9,7 @@ class AbandonedCheckoutsService extends AbstractService
     /**
      * List all abandonded checkouts
      *
-     * @link https://help.shopify.com/api/reference/abandoned_checkouts#index
+     * @link   https://help.shopify.com/api/reference/abandoned_checkouts#index
      * @param  array $params
      * @return AbandonedCheckout[]
      */
@@ -23,7 +23,7 @@ class AbandonedCheckoutsService extends AbstractService
     /**
      * Get a count of checkouts
      *
-     * @link https://help.shopify.com/api/reference/abandoned_checkouts#count
+     * @link   https://help.shopify.com/api/reference/abandoned_checkouts#count
      * @param  array $params
      * @return integer
      */

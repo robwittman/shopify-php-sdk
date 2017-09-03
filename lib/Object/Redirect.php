@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Redirect
  *
  * A redirect causes a visitor on a specific path on the shop's site to be automatically
@@ -31,11 +30,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/redirect
+ * @link    https://help.shopify.com/api/reference/redirect
  */
 
 namespace Shopify\Object;
 
-class Redirect extends AbstractObject { }
+use Shopify\Enum\Fields\RedirectFields;
+
+class Redirect extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return RedirectFields::getInstance();
+    }
+}

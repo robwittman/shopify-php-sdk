@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\ShippingZone
  *
  * This is used to view shipping zones, their countries, provinces, and shipping rates.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/shipping_zone
+ * @link    https://help.shopify.com/api/reference/shipping_zone
  */
 
 namespace Shopify\Object;
 
-class ShippingZone extends AbstractObject { }
+use Shopify\Enum\Fields\ShippingZoneFields;
+
+class ShippingZone extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ShippingZoneFields::getInstance();
+    }
+}

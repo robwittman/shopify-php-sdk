@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\LineItem
  *
  * Object representing a single Line Item for an order
@@ -28,10 +27,18 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
  */
 
 namespace Shopify\Object;
 
-class LineItem extends AbstractObject { }
+use Shopify\Enum\Fields\LineItemFields;
+
+class LineItem extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return LineItemFields::getInstance();
+    }
+}

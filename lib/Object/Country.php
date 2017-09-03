@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Country
  *
  * Shop owners can specify the country or countries they will ship their products
@@ -30,11 +29,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/country
+ * @link    https://help.shopify.com/api/reference/country
  */
 
 namespace Shopify\Object;
 
-class Country extends AbstractObject { }
+use Shopify\Enum\Fields\CountryFields;
+
+class Country extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return CountryFields::getInstance();
+    }
+}

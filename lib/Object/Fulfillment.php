@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Fulfillment
  *
  * A fulfillment represents a shipment of one or more items in an order. When
@@ -30,11 +29,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/fulfillment
+ * @link    https://help.shopify.com/api/reference/fulfillment
  */
 
 namespace Shopify\Object;
 
-class Fulfillment extends AbstractObject { }
+use Shopify\Enum\Fields\FulfillmentFields;
+
+class Fulfillment extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return FulfillmentFields::getInstance();
+    }
+}

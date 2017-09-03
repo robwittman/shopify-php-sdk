@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\GiftCard
  *
  * A gift card is a an alternative payment method, and has a code which is entered
@@ -31,11 +30,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/gift_card
+ * @link    https://help.shopify.com/api/reference/gift_card
  */
 
 namespace Shopify\Object;
 
-class GiftCard extends AbstractObject { }
+use Shopify\Enum\Fields\GiftCardFields;
+
+class GiftCard extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return GiftCardFields::getInstance();
+    }
+}

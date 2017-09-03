@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Collect
  *
  * A collect is an object that connects a product to a custom collection.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/collect
+ * @link    https://help.shopify.com/api/reference/collect
  */
 
 namespace Shopify\Object;
 
-class Collect extends AbstractObject { }
+use Shopify\Enum\Fields\CollectFields;
+
+class Collect extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return CollectFields::getInstance();
+    }
+}

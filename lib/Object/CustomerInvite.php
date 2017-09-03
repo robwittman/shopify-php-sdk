@@ -2,4 +2,12 @@
 
 namespace Shopify\Object;
 
-class CustomerInvite extends AbstractObject { }
+use Shopify\Enum\Fields\CustomerInviteFields;
+
+class CustomerInvite extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return CustomerInviteFields::getInstance();
+    }
+}

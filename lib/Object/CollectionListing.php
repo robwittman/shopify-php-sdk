@@ -2,4 +2,12 @@
 
 namespace Shopify\Object;
 
-class CollectionListing extends AbstractObject { }
+use Shopify\Enum\Fields\CollectionListingFields;
+
+class CollectionListing extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return CollectionListingFields::getInstance();
+    }
+}

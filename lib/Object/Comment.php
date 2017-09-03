@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Comment
  *
  * A comment is a reader's response to an article in a blog. They appear on the
@@ -29,11 +28,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/comment
+ * @link    https://help.shopify.com/api/reference/comment
  */
 
 namespace Shopify\Object;
 
-class Comment extends AbstractObject { }
+use Shopify\Enum\Fields\CommentFields;
+
+class Comment extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return CommentFields::getInstance();
+    }
+}

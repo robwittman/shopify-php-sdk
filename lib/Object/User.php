@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\User
  *
  * MIT License
@@ -26,11 +25,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/user
+ * @link    https://help.shopify.com/api/reference/user
  */
 
 namespace Shopify\Object;
 
-class User extends AbstractObject { }
+use Shopify\Enum\Fields\UserFields;
+
+class User extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return UserFields::getInstance();
+    }
+}

@@ -8,7 +8,8 @@ class RecurringApplicationChargeService extends AbstractService
 {
     /**
      * Retrieve all Recurring Application Charges
-     * @link https://help.shopify.com/api/reference/recurringapplicationcharge#index
+     *
+     * @link   https://help.shopify.com/api/reference/recurringapplicationcharge#index
      * @param  array $params
      * @return RecurringApplicationCharge[]
      */
@@ -21,9 +22,10 @@ class RecurringApplicationChargeService extends AbstractService
 
     /**
      * Receive a single recurring application charge
-     * @link https://help.shopify.com/api/reference/recurringapplicationcharge#show
+     *
+     * @link   https://help.shopify.com/api/reference/recurringapplicationcharge#show
      * @param  integer $recurringApplicationChargeId
-     * @param  array $params
+     * @param  array   $params
      * @return RecurringApplicationCharge
      */
     public function get($recurringApplicationChargeId, array $params = array())
@@ -35,7 +37,8 @@ class RecurringApplicationChargeService extends AbstractService
 
     /**
      * Create a new recurring application charge
-     * @link https://help.shopify.com/api/reference/recurringapplicationcharge#create
+     *
+     * @link   https://help.shopify.com/api/reference/recurringapplicationcharge#create
      * @param  RecurringApplicationCharge $recurringApplicationCharge
      * @return void
      */
@@ -44,15 +47,18 @@ class RecurringApplicationChargeService extends AbstractService
         $data = $recurringApplicationCharge->exportData();
         $endpoint = '/admin/recurring_application_charges.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'recurring_application_charge' => $data
-        ));
-        $recurringApplicationCharge->setData($response->recurring_application_charge)
+            )
+        );
+        $recurringApplicationCharge->setData($response->recurring_application_charge);
     }
 
     /**
      * Remove an existing recurring application charge
-     * @link https://help.shopify.com/api/reference/recurringapplicationcharge#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/recurringapplicationcharge#destroy
      * @param  RecurringApplicationCharge $recurringApplicationCharge
      * @return void
      */
@@ -65,7 +71,8 @@ class RecurringApplicationChargeService extends AbstractService
 
     /**
      * Activate a recurring application charge
-     * @link https://help.shopify.com/api/reference/recurringapplicationcharge#activate
+     *
+     * @link   https://help.shopify.com/api/reference/recurringapplicationcharge#activate
      * @param  RecurringApplicationCharge $recurringApplicationCharge
      * @return boolean
      */

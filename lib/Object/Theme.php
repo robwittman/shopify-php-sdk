@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Theme
  *
  * A theme is the look and feel template for your Shopify shop.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/theme
+ * @link    https://help.shopify.com/api/reference/theme
  */
 
 namespace Shopify\Object;
 
-class Theme extends AbstractObject { }
+use Shopify\Enum\Fields\ThemeFields;
+
+class Theme extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ThemeFields::getInstance();
+    }
+}

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Customer
  *
  * A customer resource instance represents a customer account with the shop.
@@ -32,10 +31,18 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/customer
+ * @link    https://help.shopify.com/api/reference/customer
  */
 namespace Shopify\Object;
 
-class Customer extends AbstractObject { }
+use Shopify\Enum\Fields\CustomerFields;
+
+class Customer extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return CustomerFields::getInstance();
+    }
+}

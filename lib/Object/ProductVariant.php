@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\ProductVariant
  *
  * A product variant is a different version of a product, such as differing sizes or differing colors.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/product_variant
+ * @link    https://help.shopify.com/api/reference/product_variant
  */
 
 namespace Shopify\Object;
 
-class ProductVariant extends AbstractObject { }
+use Shopify\Enum\Fields\ProductVariantFields;
+
+class ProductVariant extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ProductVariantFields::getInstance();
+    }
+}

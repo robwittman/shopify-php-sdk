@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\UsageCharge
  *
  * Usage charges are part of Shopify's application billing API. The usage_charge
@@ -31,11 +30,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/usagecharge
+ * @link    https://help.shopify.com/api/reference/usagecharge
  */
 
 namespace Shopify\Object;
 
-class UsageCharge extends AbstractObject { }
+use Shopify\Enum\Fields\UsageChargeFields;
+
+class UsageCharge extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return UsageChargeFields::getInstance();
+    }
+}

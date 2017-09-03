@@ -8,8 +8,9 @@ class RedirectService extends AbstractService
 {
     /**
      * Receive a list of all redirects
-     * @link https://help.shopify.com/api/reference/redirect#index
-     * @param  ListOptions  $options
+     *
+     * @link   https://help.shopify.com/api/reference/redirect#index
+     * @param  ListOptions $options
      * @return Redirect[]
      */
     public function all(array $params = array())
@@ -20,7 +21,8 @@ class RedirectService extends AbstractService
 
     /**
      * Receive a count of all redirects
-     * @link https://help.shopify.com/api/reference/redirect#count
+     *
+     * @link   https://help.shopify.com/api/reference/redirect#count
      * @param  array $params
      * @return integer
      */
@@ -32,9 +34,10 @@ class RedirectService extends AbstractService
 
     /**
      * Receive a singel redirect
-     * @link https://help.shopify.com/api/reference/redirect#show
+     *
+     * @link   https://help.shopify.com/api/reference/redirect#show
      * @param  integer $redirectId
-     * @param  array $params
+     * @param  array   $params
      * @return Redirect
      */
     public function get($redirectId, array $params = array())
@@ -45,7 +48,8 @@ class RedirectService extends AbstractService
 
     /**
      * Create a new redirect
-     * @link https://help.shopify.com/api/reference/redirect#create
+     *
+     * @link   https://help.shopify.com/api/reference/redirect#create
      * @param  Redirect $redirect
      * @return void
      */
@@ -53,31 +57,37 @@ class RedirectService extends AbstractService
     {
         $data = $redirect->exportData();
         $request = $this->createRequest('/admin/redirects.json', static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'redirect' => $data
-        ));
+            )
+        );
         $redirect->setData($response->redirect);
     }
 
     /**
      * Modify an existing redirect
-     * @link https://help.shopify.com/api/reference/redirect#update
+     *
+     * @link   https://help.shopify.com/api/reference/redirect#update
      * @param  Redirect $redirect
      * @return void
      */
     public function update(Redirect &$redirect)
     {
         $data = $redirect->exportData();
-        $request = $this->createRequest('/admin/redirects/'.$redirect->getId()'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $request = $this->createRequest('/admin/redirects/'.$redirect->getId().'.json', static::REQUEST_METHOD_PUT);
+        $response = $this->send(
+            $request, array(
             'redirect' => $data
-        ));
+            )
+        );
         $redirect->setData($response->redirect);
     }
 
     /**
      * Remove a redirect
-     * @link https://help.shopify.com/api/reference/redirect#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/redirect#destroy
      * @param  Redirect $redirect
      * @return void
      */

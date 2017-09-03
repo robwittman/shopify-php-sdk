@@ -8,7 +8,8 @@ class ProductService extends AbstractService
 {
     /**
      * Receive a lists of all Products
-     * @link https://help.shopify.com/api/reference/product#index
+     *
+     * @link   https://help.shopify.com/api/reference/product#index
      * @param  array $params
      * @return Product[]
      */
@@ -16,12 +17,14 @@ class ProductService extends AbstractService
     {
         $endpoint = '/admin/products.json';
         $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Product::class);
+        $response = $this->send($request);
+        return $this->createCollection(Product::class, $response['products']);
     }
 
     /**
      * Receive a count of all Products
-     * @link https://help.shopify.com/api/reference/product#count
+     *
+     * @link   https://help.shopify.com/api/reference/product#count
      * @param  array $params
      * @return integer
      */
@@ -34,21 +37,24 @@ class ProductService extends AbstractService
 
     /**
      * Receive a single product
-     * @link https://help.shopify.com/api/reference/product#show
+     *
+     * @link   https://help.shopify.com/api/reference/product#show
      * @param  integer $productId
-     * @param  array $params
+     * @param  array   $params
      * @return Product
      */
     public function get($productId, array $params = array())
     {
         $endpoint = '/admin/products/'.$productId.'.json';
         $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, Product::class);
+        $response = $this->send($request, $params);
+        return $this->createObject(Product::class, $response['product']);
     }
 
     /**
      * Create a new Product
-     * @link https://help.shopify.com/api/reference/product#create
+     *
+     * @link   https://help.shopify.com/api/reference/product#create
      * @param  Product $product
      * @return void
      */
@@ -57,15 +63,18 @@ class ProductService extends AbstractService
         $data = $product->exportData();
         $endpoint = '/admin/products.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'product' => $data
-        ));
+            )
+        );
         $product->setData($response->product);
     }
 
     /**
      * Modify an existing product
-     * @link https://help.shopify.com/api/reference/product#update
+     *
+     * @link   https://help.shopify.com/api/reference/product#update
      * @param  Product $product
      * @return void
      */
@@ -74,15 +83,18 @@ class ProductService extends AbstractService
         $data = $product->exportData();
         $endpoint = '/admin/products/'.$product->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'product' => $data
-        ));
+            )
+        );
         $product->setData($response->product);
     }
 
     /**
      * Remove a producct
-     * @link https://help.shopify.com/api/reference/product#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/product#destroy
      * @param  Product $product
      * @return void
      */

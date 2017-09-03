@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\AbstractObject
  *
  * Base class which all Shopify objects extend from
@@ -28,23 +27,35 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
  */
 
 namespace Shopify\Object;
 
 use Shopify\Exception\ShopifySdkException;
+use Shopify\Exception\InvalidPropertyException;
 
-abstract class AbstractObject
+use Shopify\Enum\Fields\AbstractObjectEnum;
+
+abstract class AbstractObject implements \JsonSerializable
 {
     private $changedFields = array();
 
     protected $data = array();
 
+    protected $types = array();
+
+    public function __construct()
+    {
+        $enum = static::getFieldsEnum();
+        $this->types = $enum->getFieldTypes();
+        $this->data = array_fill_keys($enum->getFields(), null);
+    }
+
     public function __get($key)
     {
-        if (!array_key_exists($this->data, $key)) {
+        if (!array_key_exists($key, $this->data)) {
             throw new InvalidPropertyException(
                 "Property '{$key}' does not exist for ".get_called_class()
             );
@@ -54,13 +65,23 @@ abstract class AbstractObject
 
     public function __set($key, $value)
     {
+        if (!array_key_exists($key, $this->data)) {
+            return $this;
+        }
+        if (!is_null($value) && !$this->isValidValue($key, $value)) {
+            throw new \InvalidArgumentException(
+                "Invalid type for property '{$key}'"
+            );
+        }
         $this->data[$key] = $value;
+        $this->changedFields[$key] = $value;
+        return $this;
     }
 
     public function setDataWithoutValidation($data)
     {
         foreach ($data as $key => $value) {
-            $this->set($key, $value);
+
         }
         $this->clearHistory();
     }
@@ -72,8 +93,98 @@ abstract class AbstractObject
 
     public function setData($data)
     {
+        $this->changedFields = array();
+        if (!is_array($data) && !is_object($data)) {
+            return null;
+        }
         foreach ($data as $key => $value) {
-            $this->set($key, $value);
+            if (!array_key_exists($key, $this->data)) {
+                continue;
+            }
+            $type = $this->types[$key];
+            $value = $this->castToType($value, $type);
+            $this->{$key} = $value;
+        }
+    }
+
+    public function castToType($value, $type)
+    {
+        if (is_null($value)) {
+            return null;
+        }
+        if ($type == 'string') {
+            return (string) $value;
+        } elseif ($type == 'integer') {
+            return (integer) $value;
+        } elseif ($type == 'boolean') {
+            return (boolean) $value;
+        } elseif ($type == 'array') {
+            if (is_object($value)) {
+                $value = (array) $value;
+            }
+            return $value;
+        } elseif ($type == 'object') {
+            if (is_array($value)) {
+                $value = (object) $value;
+            }
+            return $value;
+        } elseif ($type == 'float') {
+            if (!is_float($value)) {
+                $value = (float) $value;
+            }
+            return $value;
+        } elseif ($type == 'DateTime') {
+            if (!is_a($value, \DateTime::class)) {
+                $value = new \DateTime($value);
+            }
+            return $value;
+        } else {
+            if (substr($type, -2) == '[]') {
+                return array_map(
+                    function ($data) use ($type) {
+                        $className = '\\Shopify\\Object\\'.str_replace('[]', '', $type);
+                        $obj = new $className();
+                        $obj->setData($data);
+                        return $obj;
+                    }, $value
+                );
+            } else {
+                $className = '\\Shopify\\Object\\'.$type;
+                $obj = new $className();
+                $obj->setData($value);
+                return $obj;
+            }
+        }
+    }
+
+    public function isValidValue($key, $value)
+    {
+        $type = $this->types[$key];
+        switch ($type) {
+        case 'string':
+            return is_string($value) || is_integer($value) || is_bool($value);
+        case 'integer':
+            return is_numeric($value);
+        case 'boolean':
+            return is_bool($value);
+        case 'array':
+            return is_array($value);
+        case 'object':
+            return is_object($value);
+        case 'float':
+            return is_float($value);
+        case 'DateTime':
+            return is_a($value, \DateTime::class);
+        }
+        if (substr($type, -2) == '[]') {
+            foreach ($value as $obj) {
+                if (!is_a($obj, '\\Shopify\\Object\\'.str_replace('[]', '', $type))) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return is_a($value, '\\Shopify\\Object\\'.$type);
         }
     }
 
@@ -81,10 +192,18 @@ abstract class AbstractObject
     {
         $results = array();
         foreach ($this->changedFields as $field => $value) {
-            if (is_a($value, self::class)) {
+            $type = $this->types[$field];
+            if (substr($type, -2) == '[]') {
+                $results[$field] = array_map(
+                    function ($obj) {
+                        return $obj->exportData();
+                    }, $value
+                );
+            } elseif (is_a($value, AbstractObject::class)) {
                 $value = $value->exportData();
+            } else {
+                $results[$field] = $value;
             }
-            $results[$field] = $value;
         }
         return $results;
     }
@@ -92,21 +211,6 @@ abstract class AbstractObject
     public function getPropertyName($function)
     {
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $function));
-    }
-
-    public function getSetter($propertyName)
-    {
-        return 'set'.$this->toPascalCase($propertyName);
-    }
-
-    public function getGetter($propertyName)
-    {
-        return 'get'.$this->toPascalCase($propertyName);
-    }
-
-    public function toPascalCase($propertyName)
-    {
-        return str_replace('_','',ucwords($propertyName, '_'));
     }
 
     public function cast($type, $value)
@@ -121,9 +225,11 @@ abstract class AbstractObject
         }
         if (class_exists($type) && is_subclass_of(self::class, $type)) {
             if ($list) {
-                $value = array_map(function($data) use ($type) {
-                    return $this->instantiate($type, $data);
-                }, $value);
+                $value = array_map(
+                    function ($data) use ($type) {
+                        return $this->instantiate($type, $data);
+                    }, $value
+                );
             } else {
                 $value = $this->instantiate($type, $value);
             }
@@ -134,5 +240,23 @@ abstract class AbstractObject
     public static function className()
     {
         return get_called_class();
+    }
+
+    public function getType($property)
+    {
+        if (array_key_exists($property, $this->types)) {
+            return $this->types[$param];
+        }
+        return null;
+    }
+
+    public static function getFieldsEnum()
+    {
+        return AbstractObjectEnum::getInstance();
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->data;
     }
 }

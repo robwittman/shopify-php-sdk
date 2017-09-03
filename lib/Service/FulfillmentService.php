@@ -32,20 +32,24 @@ class FulfillmentService extends AbstractService
         $data = $fulfillment->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'fulfillment' => $data
-        ));
+            )
+        );
         $fulfillment->setData($response->fulfillment);
     }
 
     public function update($orderId, Fulfillment &$fulfillment)
     {
         $data = $fulfillment->exportData();
-        $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillment->gtId()'.json';
+        $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillment->gtId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'fulfillment' => $data
-        ));
+            )
+        );
         $fulfillment->setData($response->fulfillment);
     }
 

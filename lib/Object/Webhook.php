@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Webhook
  *
  * Webhooks are a useful tool for apps that want to execute code after a specific
@@ -39,11 +38,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/webhook
+ * @link    https://help.shopify.com/api/reference/webhook
  */
 
 namespace Shopify\Object;
 
-class Webhook extends AbstractObject { }
+use Shopify\Enum\Fields\WebhookFields;
+
+class Webhook extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return WebhookFields::getInstance();
+    }
+}

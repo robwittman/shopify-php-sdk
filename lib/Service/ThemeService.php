@@ -8,9 +8,10 @@ class ThemeService extends AbstractService
 {
     /**
      * Receive a single theme
-     * @link https://help.shopify.com/api/reference/theme#show
-     * @param  integer  $themeId
-     * @param  array $params
+     *
+     * @link   https://help.shopify.com/api/reference/theme#show
+     * @param  integer $themeId
+     * @param  array   $params
      * @return Theme
      */
     public function get($themeId, array $params = array())
@@ -21,7 +22,8 @@ class ThemeService extends AbstractService
 
     /**
      * Receive a list of all themes
-     * @link https://help.shopify.com/api/reference/theme#index
+     *
+     * @link   https://help.shopify.com/api/reference/theme#index
      * @param  array $params
      * @return Theme[]
      */
@@ -33,40 +35,47 @@ class ThemeService extends AbstractService
 
     /**
      * Create a new theme
-     * @link https://help.shopify.com/api/reference/theme#create
-     * @param  Theme  $theme
+     *
+     * @link   https://help.shopify.com/api/reference/theme#create
+     * @param  Theme $theme
      * @return void
      */
     public function create(Theme &$theme)
     {
         $data = $theme->exportData();
         $request = $this->createRequest('/admin/themes.json', static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'theme' => $data
-        ));
+            )
+        );
         $theme->setData($response->theme);
     }
 
     /**
      * Update a theme
-     * @link https://help.shopify.com/api/reference/theme#update
-     * @param  Theme  $theme
+     *
+     * @link   https://help.shopify.com/api/reference/theme#update
+     * @param  Theme $theme
      * @return void
      */
     public function update(Theme &$theme)
     {
         $data = $theme->exportData();
-        $request = $this->createRequest('/admin/themes/'.$theme->getId()'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $request = $this->createRequest('/admin/themes/'.$theme->getId().'.json', static::REQUEST_METHOD_PUT);
+        $response = $this->send(
+            $request, array(
             'theme' => $data
-        ));
+            )
+        );
         $theme->setData($response->theme);
     }
 
     /**
      * Delete a theme
-     * @link https://help.shopify.com/api/reference/theme#destroy
-     * @param  Theme  $theme
+     *
+     * @link   https://help.shopify.com/api/reference/theme#destroy
+     * @param  Theme $theme
      * @return void
      */
     public function delete(Theme $theme)

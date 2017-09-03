@@ -8,9 +8,10 @@ class ArticleService extends AbstractService
 {
     /**
      * Receive a list of Articles
-     * @link https://help.shopify.com/api/reference/article#index
+     *
+     * @link   https://help.shopify.com/api/reference/article#index
      * @param  integer $blogId
-     * @param  array $params
+     * @param  array   $params
      * @return Article[]
      */
     public function all($blogId, array $params = array())
@@ -22,9 +23,10 @@ class ArticleService extends AbstractService
 
     /**
      * Receive acount of all Articles
-     * @link https://help.shopify.com/api/reference/article#count
+     *
+     * @link   https://help.shopify.com/api/reference/article#count
      * @param  integer $blogId
-     * @param  array $params
+     * @param  array   $params
      * @return integer
      */
     public function count($blogId, array $params = array())
@@ -36,10 +38,11 @@ class ArticleService extends AbstractService
 
     /**
      * Receive a single article
-     * @link https://help.shopify.com/api/reference/article#show
+     *
+     * @link   https://help.shopify.com/api/reference/article#show
      * @param  integer $blogId
      * @param  integer $articleId
-     * @param  array $params
+     * @param  array   $params
      * @return Article
      */
     public function get($blogId, $articleId, array $params = array())
@@ -51,8 +54,9 @@ class ArticleService extends AbstractService
 
     /**
      * Create a new Article
-     * @link https://help.shopify.com/api/reference/article#create
-     * @param  integer  $blogId
+     *
+     * @link   https://help.shopify.com/api/reference/article#create
+     * @param  integer $blogId
      * @param  Article $article
      * @return void
      */
@@ -61,16 +65,19 @@ class ArticleService extends AbstractService
         $data = $article->exportData();
         $endpoint = '/admin/blogs/'.$blogId.'/articles.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'article' => $data
-        ));
+            )
+        );
         $article->setData($response->article);
     }
 
     /**
      * Modify an existing article
-     * @link https://help.shopify.com/api/reference/article#update
-     * @param  integer  $blogId
+     *
+     * @link   https://help.shopify.com/api/reference/article#update
+     * @param  integer $blogId
      * @param  Article $article
      * @return void
      */
@@ -79,16 +86,19 @@ class ArticleService extends AbstractService
         $data = $article->exportData();
         $endpoint = '/admin/blogs/'.$blogId.'/articles/'.$article->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'article' => $data
-        ));
+            )
+        );
         $article->setData($response->article);
     }
 
     /**
      * Remove an article from the database
-     * @link https://help.shopify.com/api/reference/article#destroy
-     * @param integer $blogId
+     *
+     * @link   https://help.shopify.com/api/reference/article#destroy
+     * @param  integer $blogId
      * @param  Article $article
      * @return void
      */
@@ -103,7 +113,8 @@ class ArticleService extends AbstractService
 
     /**
      * Get a list of all the authors
-     * @link https://help.shopify.com/api/reference/article#authors
+     *
+     * @link   https://help.shopify.com/api/reference/article#authors
      * @return arrays
      */
     public function authors()
@@ -116,7 +127,8 @@ class ArticleService extends AbstractService
 
     /**
      * Get a list of all the tags
-     * @link https://help.shopify.com/api/reference/article#tags
+     *
+     * @link   https://help.shopify.com/api/reference/article#tags
      * @return array
      */
     public function tags()

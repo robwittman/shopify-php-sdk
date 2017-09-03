@@ -69,6 +69,6 @@ class Inflector
 
     public static function snakeToPascal($propertyName)
     {
-        return str_replace('_','',ucwords($propertyName, '_'));
+        return str_replace('_', '', ucwords($propertyName, '_'));
     }
 }

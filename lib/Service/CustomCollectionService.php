@@ -8,7 +8,8 @@ class CustomCollectionService extends AbstractService
 {
     /**
      * Receive a list of all custom collections
-     * @link https://help.shopify.com/api/reference/customcollection#index
+     *
+     * @link   https://help.shopify.com/api/reference/customcollection#index
      * @param  array $params
      * @return CustomCollection[]
      */
@@ -21,7 +22,8 @@ class CustomCollectionService extends AbstractService
 
     /**
      * Receive a count of all custom collections
-     * @link https://help.shopify.com/api/reference/customcollection#count
+     *
+     * @link   https://help.shopify.com/api/reference/customcollection#count
      * @param  array $params
      * @return integer
      */
@@ -34,9 +36,10 @@ class CustomCollectionService extends AbstractService
 
     /**
      * Receive a single custom collection
-     * @link https://help.shopify.com/api/reference/customcollection#show
-     * @param  integer  $customCollectionId
-     * @param  array $params
+     *
+     * @link   https://help.shopify.com/api/reference/customcollection#show
+     * @param  integer $customCollectionId
+     * @param  array   $params
      * @return CustomCollection
      */
     public function get($customCollectionId, array $params = array())
@@ -48,7 +51,8 @@ class CustomCollectionService extends AbstractService
 
     /**
      * Create a new collection
-     * @link https://help.shopify.com/api/reference/customcollection#create
+     *
+     * @link   https://help.shopify.com/api/reference/customcollection#create
      * @param  CustomCollection $customCollection
      * @return void
      */
@@ -57,15 +61,18 @@ class CustomCollectionService extends AbstractService
         $data = $customCollection->exportData();
         $endpoint = '/admin/custom_collections.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'custom_collection' => $data
-        ));
+            )
+        );
         $customCollection->setData($response->custom_collection);
     }
 
     /**
      * Update a custom collection
-     * @link https://help.shopify.com/api/reference/customcollection#update
+     *
+     * @link   https://help.shopify.com/api/reference/customcollection#update
      * @param  CustomCollection $customCollection
      * @return void
      */
@@ -74,15 +81,18 @@ class CustomCollectionService extends AbstractService
         $data = $customCollection->exportData();
         $endpoint = '/admin/custom_collections/'.$customCollection->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'custom_collection' => $data
-        ));
+            )
+        );
         $customCollection->setData($response->custom_collection);
     }
 
     /**
      * Delete a custom collection
-     * @link https://help.shopify.com/api/reference/customcollection#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/customcollection#destroy
      * @param  CustomCollection $customCollection
      * @return void
      */

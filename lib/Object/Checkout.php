@@ -2,4 +2,12 @@
 
 namespace Shopify\Object;
 
-class Checkout extends AbstractObject { }
+use Shopify\Enum\Fields\CheckoutFields;
+
+class Checkout extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return CheckoutFields::getInstance();
+    }
+}

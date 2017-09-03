@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\ApplicationCredit
  *
  * If a merchant requests a refund for an application charge, you can use ApplicationCredit
@@ -37,11 +36,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/applicationcredit
+ * @link    https://help.shopify.com/api/reference/applicationcredit
  */
 
 namespace Shopify\Object;
 
-class ApplicationCredit extends AbstractObject { }
+use Shopify\Enum\Fields\ApplicationCreditFields;
+
+class ApplicationCredit extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ApplicationCreditFields::getInstance();
+    }
+}

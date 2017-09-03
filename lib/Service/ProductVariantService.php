@@ -8,9 +8,10 @@ class ProductVariantService extends AbstractService
 {
     /**
      * Receive a list of Product Variants
-     * @link https://help.shopify.com/api/reference/product_variant#index
-     * @param  integer  $productId
-     * @param  array $params
+     *
+     * @link   https://help.shopify.com/api/reference/product_variant#index
+     * @param  integer $productId
+     * @param  array   $params
      * @return ProductVariant[]
      */
     public function all($productId, array $params = array())
@@ -21,7 +22,8 @@ class ProductVariantService extends AbstractService
 
     /**
      * Receive a count of all Variant
-     * @link https://help.shopify.com/api/reference/product_variant#count
+     *
+     * @link   https://help.shopify.com/api/reference/product_variant#count
      * @param  integer $productId
      * @return integer
      */
@@ -33,9 +35,10 @@ class ProductVariantService extends AbstractService
 
     /**
      * Receive a single product variant
-     * @link https://help.shopify.com/api/reference/product_variant#show
+     *
+     * @link   https://help.shopify.com/api/reference/product_variant#show
      * @param  integer $productVariantId
-     * @param  array $params
+     * @param  array   $params
      * @return ProductVariant
      */
     public function get($productVariantId, array $params = array())
@@ -47,8 +50,9 @@ class ProductVariantService extends AbstractService
 
     /**
      * Create a new product variant
-     * @link https://help.shopify.com/api/reference/product_variant#create
-     * @param  integer         $productId
+     *
+     * @link   https://help.shopify.com/api/reference/product_variant#create
+     * @param  integer        $productId
      * @param  ProductVariant $productVariant
      * @return void
      */
@@ -57,15 +61,18 @@ class ProductVariantService extends AbstractService
         $data = $productVariant->exportData();
         $endpoint = '/admin/products/'.$productId.'/variants.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'variant' => $data
-        ));
+            )
+        );
         $productVariant->setData($response->variant);
     }
 
     /**
      * Modify an existing product variant
-     * @link https://help.shopify.com/api/reference/product_variant#update
+     *
+     * @link   https://help.shopify.com/api/reference/product_variant#update
      * @param  ProductVariant $productVariant
      * @return void
      */
@@ -74,16 +81,19 @@ class ProductVariantService extends AbstractService
         $data = $productVariant->exportData();
         $endpoint = '/admin/variants/'.$productVariant->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'variant' => $data
-        ));
+            )
+        );
         $productVariant->setData($response->variant);
     }
 
     /**
      * Delete a product variant
-     * @link https://help.shopify.com/api/reference/product_variant#destroy
-     * @param  integer         $productId
+     *
+     * @link   https://help.shopify.com/api/reference/product_variant#destroy
+     * @param  integer        $productId
      * @param  ProductVariant $productVariant
      * @return void
      */

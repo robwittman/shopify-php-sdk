@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Policy
  *
  * The list of policies that a merchant has configured for their store, such as their refund or privacy policies.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/policy
+ * @link    https://help.shopify.com/api/reference/policy
  */
 
 namespace Shopify\Object;
 
-class Location extends AbstractObject { }
+use Shopify\Enum\Fields\PolicyFields;
+
+class Policy extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return PolicyFields::getInstance();
+    }
+}

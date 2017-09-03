@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Shop
  *
  * The Shopify API's shop object is a collection of the general settings and information about the shop.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/shop
+ * @link    https://help.shopify.com/api/reference/shop
  */
 
 namespace Shopify\Object;
 
-class Shop extends AbstractObject { }
+use Shopify\Enum\Fields\ShopFields;
+
+class Shop extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ShopFields::getInstance();
+    }
+}

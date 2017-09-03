@@ -8,8 +8,9 @@ class UsageChargeService extends AbstractService
 {
     /**
      * Create a usage charges
-     * @link https://help.shopify.com/api/reference/usagecharge#create
-     * @param integer $recurringApplicationChargeId
+     *
+     * @link   https://help.shopify.com/api/reference/usagecharge#create
+     * @param  integer     $recurringApplicationChargeId
      * @param  UsageCharge $usageCharge
      * @return void
      */
@@ -17,18 +18,21 @@ class UsageChargeService extends AbstractService
     {
         $data = $usageCharge->exportData();
         $request = $this->createRequest('/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json', static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'usage_charge' => $data
-        ));
+            )
+        );
         $usageCharge->setData($response->usage_charge);
     }
 
     /**
      * Receive a single usage charge
-     * @link https://help.shopify.com/api/reference/usagecharge#show
+     *
+     * @link   https://help.shopify.com/api/reference/usagecharge#show
      * @param  integer $recurringApplicationChargeId
      * @param  integer $usageChargeId
-     * @param  array $params
+     * @param  array   $params
      * @return UsageCharge
      */
     public function get($recurringApplicationChargeId, $usageChargeId, array $params = array())
@@ -39,9 +43,10 @@ class UsageChargeService extends AbstractService
 
     /**
      * Retrieve all usage charges
-     * @link https://help.shopify.com/api/reference/usagecharge#index
+     *
+     * @link   https://help.shopify.com/api/reference/usagecharge#index
      * @param  integer $recurringApplicationChargeId
-     * @param  array $params
+     * @param  array   $params
      * @return UsageCharge[]
      */
     public function all($recurringApplicationChargeId, array $params = array())

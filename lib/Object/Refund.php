@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Refund
  *
  * A refund is a record of the money returned to the customer, and/or the return
@@ -29,11 +28,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/refund
+ * @link    https://help.shopify.com/api/reference/refund
  */
 
 namespace Shopify\Object;
 
-class Refund extends AbstractObject { }
+use Shopify\Enum\Fields\RefundFields;
+
+class Refund extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return RefundFields::getInstance();
+    }
+}

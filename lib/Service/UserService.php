@@ -8,7 +8,8 @@ class UserService extends AbstractService
 {
     /**
      * Receive a list of all Users
-     * @link https://help.shopify.com/api/reference/user#index
+     *
+     * @link   https://help.shopify.com/api/reference/user#index
      * @return User[]
      */
     public function all()
@@ -19,8 +20,9 @@ class UserService extends AbstractService
 
     /**
      * Receive a single user
-     * @link https://help.shopify.com/api/reference/user#show
-     * @param integer $userId
+     *
+     * @link   https://help.shopify.com/api/reference/user#show
+     * @param  integer $userId
      * @return User
      */
     public function get($userId)

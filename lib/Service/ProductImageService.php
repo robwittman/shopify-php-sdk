@@ -8,9 +8,10 @@ class ProductImageService extends AbstractService
 {
     /**
      * Receive a list of all product images
-     * @link https://help.shopify.com/api/reference/product_image#index
+     *
+     * @link   https://help.shopify.com/api/reference/product_image#index
      * @param  integer $productId
-     * @param  array $params
+     * @param  array   $params
      * @return ProductImage[]
      */
     public function all($productId, array $params = array())
@@ -22,9 +23,10 @@ class ProductImageService extends AbstractService
 
     /**
      * Receive a count of all Product Images
-     * @link https://help.shopify.com/api/reference/product_image#count
+     *
+     * @link   https://help.shopify.com/api/reference/product_image#count
      * @param  integer $productId
-     * @param  array $params
+     * @param  array   $params
      * @return integer
      */
     public function count($productId, array $params = array())
@@ -36,10 +38,11 @@ class ProductImageService extends AbstractService
 
     /**
      * Get a single product image
-     * @link https://help.shopify.com/api/reference/product_image#show
+     *
+     * @link   https://help.shopify.com/api/reference/product_image#show
      * @param  integer $productId
      * @param  integer $productImageId
-     * @param  array $params
+     * @param  array   $params
      * @return ProductImage
      */
     public function get($productId, $productImageId, array $params = array())
@@ -51,8 +54,9 @@ class ProductImageService extends AbstractService
 
     /**
      * Create a new product Image
-     * @link https://help.shopify.com/api/reference/product_image#create
-     * @param  integer        $productId
+     *
+     * @link   https://help.shopify.com/api/reference/product_image#create
+     * @param  integer      $productId
      * @param  ProductImage $productImage
      * @return void
      */
@@ -61,16 +65,19 @@ class ProductImageService extends AbstractService
         $data = $productImage->exportData();
         $endpoint = '/admin/products/'.$productId.'/images.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'image' => $data
-        ));
+            )
+        );
         $productImage->setData($response->image);
     }
 
     /**
      * Modify an existing product image
-     * @link https://help.shopify.com/api/reference/product_image#update
-     * @param  integer        $productId
+     *
+     * @link   https://help.shopify.com/api/reference/product_image#update
+     * @param  integer      $productId
      * @param  ProductImage $productImage
      * @return void
      */
@@ -79,16 +86,19 @@ class ProductImageService extends AbstractService
         $data = $productImage->exportData();
         $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'image' => $data
-        ));
+            )
+        );
         $productImage->setData($response->image);
     }
 
     /**
      * Delete a product image
-     * @link https://help.shopify.com/api/reference/product_image#destroy
-     * @param  integer       $productId
+     *
+     * @link   https://help.shopify.com/api/reference/product_image#destroy
+     * @param  integer      $productId
      * @param  ProductImage $productImage
      * @return void
      */

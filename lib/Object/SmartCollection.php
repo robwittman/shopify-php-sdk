@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\SmartCollection
  *
  * A smart collection is a grouping of products defined by simple rules set by
@@ -31,11 +30,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/smartcollection
+ * @link    https://help.shopify.com/api/reference/smartcollection
  */
 
 namespace Shopify\Object;
 
-class SmartCollection extends AbstractObject { }
+use Shopify\Enum\Fields\SmartCollectionFields;
+
+class SmartCollection extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return SmartCollectionFields::getInstance();
+    }
+}

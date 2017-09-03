@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Report
  *
  * You can use the Reports Publishing API to publish reports to the Reports page
@@ -31,10 +30,18 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/report
+ * @link    https://help.shopify.com/api/reference/report
  */
 namespace Shopify\Object;
 
-class Report extends AbstractObject { }
+use Shopify\Enum\Fields\ReportFields;
+
+class Report extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ReportFields::getInstance();
+    }
+}

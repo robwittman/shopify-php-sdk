@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Blog
  *
  * In addition to an online storefront, Shopify shops come with a built-in
@@ -29,11 +28,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/blog
+ * @link    https://help.shopify.com/api/reference/blog
  */
 
 namespace Shopify\Object;
 
-class Blog extends AbstractObject { }
+use Shopify\Enum\Fields\BlogFields;
+
+class Blog extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return BlogFields::getInstance();
+    }
+}

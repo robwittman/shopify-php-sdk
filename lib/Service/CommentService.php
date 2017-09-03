@@ -8,7 +8,8 @@ class CommentService extends AbstractService
 {
     /**
      * Receive a list of all comments
-     * @link https://help.shopify.com/api/reference/comment#index
+     *
+     * @link   https://help.shopify.com/api/reference/comment#index
      * @param  array $params
      * @return Comment[]
      */
@@ -21,7 +22,8 @@ class CommentService extends AbstractService
 
     /**
      * Receive a count of all comments
-     * @link https://help.shopify.com/api/reference/comment#count
+     *
+     * @link   https://help.shopify.com/api/reference/comment#count
      * @param  array $params
      * @return integer
      */
@@ -34,9 +36,10 @@ class CommentService extends AbstractService
 
     /**
      * Receive a single comment
-     * @link https://help.shopify.com/api/reference/comment#show
+     *
+     * @link   https://help.shopify.com/api/reference/comment#show
      * @param  integer $commentId
-     * @param  array $params
+     * @param  array   $params
      * @return Comment
      */
     public function get($commentId, array $params = array())
@@ -48,7 +51,8 @@ class CommentService extends AbstractService
 
     /**
      * Create a new comment
-     * @link https://help.shopify.com/api/reference/comment#create
+     *
+     * @link   https://help.shopify.com/api/reference/comment#create
      * @param  Comment $comment
      * @return void
      */
@@ -57,15 +61,18 @@ class CommentService extends AbstractService
         $data = $comment->exportData();
         $endpoint = '/admin/comments.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'comment' => $data
-        ));
+            )
+        );
         $comment->setData($response->comment);
     }
 
     /**
      * Modify an existing comment
-     * @link https://help.shopify.com/api/reference/comment#update
+     *
+     * @link   https://help.shopify.com/api/reference/comment#update
      * @param  Comment $comment
      * @return void
      */
@@ -74,15 +81,18 @@ class CommentService extends AbstractService
         $data = $comment->exportData();
         $endpoint = '/admin/comments/'.$comment->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'comment' => $data
-        ));
+            )
+        );
         $comment->setData($response->comment);
     }
 
     /**
      * Mark comment as spam
-     * @link https://help.shopify.com/api/reference/comment#spam
+     *
+     * @link   https://help.shopify.com/api/reference/comment#spam
      * @param  Comment $comment
      * @return void
      */
@@ -96,7 +106,8 @@ class CommentService extends AbstractService
 
     /**
      * Unmark as spam
-     * @link https://help.shopify.com/api/reference/comment#not_spam
+     *
+     * @link   https://help.shopify.com/api/reference/comment#not_spam
      * @param  Comment $comment
      * @return void
      */
@@ -110,7 +121,8 @@ class CommentService extends AbstractService
 
     /**
      * Approve a comment
-     * @link https://help.shopify.com/api/reference/comment#approve
+     *
+     * @link   https://help.shopify.com/api/reference/comment#approve
      * @param  Comment $comment
      * @return void
      */
@@ -124,7 +136,8 @@ class CommentService extends AbstractService
 
     /**
      * Remove a comment
-     * @link https://help.shopify.com/api/reference/comment#remove
+     *
+     * @link   https://help.shopify.com/api/reference/comment#remove
      * @param  Comment $comment
      * @return void
      */
@@ -138,7 +151,8 @@ class CommentService extends AbstractService
 
     /**
      * Retore a comment
-     * @link https://help.shopify.com/api/reference/comment#restore
+     *
+     * @link   https://help.shopify.com/api/reference/comment#restore
      * @param  Comment $comment
      * @return void
      */

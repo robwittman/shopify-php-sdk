@@ -8,7 +8,8 @@ class LocationService extends AbstractService
 {
     /**
      * Get all locations
-     * @link https://help.shopify.com/api/reference/location#index
+     *
+     * @link   https://help.shopify.com/api/reference/location#index
      * @param  array $params
      * @return Location[]
      */
@@ -21,9 +22,10 @@ class LocationService extends AbstractService
 
     /**
      * Get a single location
-     * @link https://help.shopify.com/api/reference/location#show
+     *
+     * @link   https://help.shopify.com/api/reference/location#show
      * @param  integer $locationId
-     * @param  array $params
+     * @param  array   $params
      * @return Location
      */
     public function get($locationId, array $params = array())

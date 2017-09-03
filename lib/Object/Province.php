@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Province
  *
  * Shop owners can specify which country or countries they will ship to and these
@@ -33,11 +32,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/province
+ * @link    https://help.shopify.com/api/reference/province
  */
 
 namespace Shopify\Object;
 
-class Province extends AbstractObject { }
+use Shopify\Enum\Fields\ProvinceFields;
+
+class Province extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ProvinceFields::getInstance();
+    }
+}

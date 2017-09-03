@@ -8,7 +8,8 @@ class SmartCollectionService extends AbstractService
 {
     /**
      * Receive a list of all SmartCollection
-     * @link https://help.shopify.com/api/reference/smartcollection#index
+     *
+     * @link   https://help.shopify.com/api/reference/smartcollection#index
      * @param  array $params
      * @return SmartCollection[]
      */
@@ -20,7 +21,8 @@ class SmartCollectionService extends AbstractService
 
     /**
      * Receive a count of smart collections
-     * @link https://help.shopify.com/api/reference/smartcollection#count
+     *
+     * @link   https://help.shopify.com/api/reference/smartcollection#count
      * @return integer
      */
     public function count()
@@ -31,9 +33,10 @@ class SmartCollectionService extends AbstractService
 
     /**
      * Receive a single smart collection
-     * @link https://help.shopify.com/api/reference/smartcollection#show
+     *
+     * @link   https://help.shopify.com/api/reference/smartcollection#show
      * @param  integer $smartCollectionId
-     * @param  array $params
+     * @param  array   $params
      * @return SmartCollection
      */
     public function get($smartCollectionId, array $params = array())
@@ -44,7 +47,8 @@ class SmartCollectionService extends AbstractService
 
     /**
      * Create a new smart collection
-     * @link https://help.shopify.com/api/reference/smartcollection#create
+     *
+     * @link   https://help.shopify.com/api/reference/smartcollection#create
      * @param  SmartCollection $smartCollection
      * @return void
      */
@@ -52,31 +56,37 @@ class SmartCollectionService extends AbstractService
     {
         $data = $smartCollection->exportData();
         $request = $this->createRequest('/admin/smart_collections.json', static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'smart_collection' => $data
-        ));
+            )
+        );
         $smartCollection->setData($response->smart_collection);
     }
 
     /**
      * Modify an existing smart collection
-     * @link https://help.shopify.com/api/reference/smartcollection#update
+     *
+     * @link   https://help.shopify.com/api/reference/smartcollection#update
      * @param  SmartCollection $smartCollection
      * @return void
      */
     public function update(SmartCollection &$smartCollection)
     {
         $data = $smartCollection->exportData();
-        $request = $this->createRequest('/admin/smart_collections/'.$smart_collection->getId()'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $request = $this->createRequest('/admin/smart_collections/'.$smart_collection->getId().'.json', static::REQUEST_METHOD_PUT);
+        $response = $this->send(
+            $request, array(
             'smart_collection' => $data
-        ));
+            )
+        );
         $smartCollection->setData($response->smart_collection);
     }
 
     /**
      * Delete an existing smart_collection
-     * @link https://help.shopify.com/api/reference/smartcollection#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/smartcollection#destroy
      * @param  SmartCollection $smartCollection
      * @return void
      */
@@ -88,8 +98,9 @@ class SmartCollectionService extends AbstractService
 
     /**
      * Set the ordering type or manual order of products
-     * @link https://help.shopify.com/api/reference/smartcollection#order
-     * @param  integer       $smatCollectionId
+     *
+     * @link   https://help.shopify.com/api/reference/smartcollection#order
+     * @param  integer      $smatCollectionId
      * @param  OrderOptions $options
      * @return void
      */

@@ -8,7 +8,8 @@ class PageService extends AbstractService
 {
     /**
      * Receive a list of all pages
-     * @link https://help.shopify.com/api/reference/page#index
+     *
+     * @link   https://help.shopify.com/api/reference/page#index
      * @param  array $params
      * @return Page[]
      */
@@ -21,7 +22,8 @@ class PageService extends AbstractService
 
     /**
      * Receive a count of all pages
-     * @link https://help.shopify.com/api/reference/page#count
+     *
+     * @link   https://help.shopify.com/api/reference/page#count
      * @param  array $params
      * @return integer
      */
@@ -34,9 +36,10 @@ class PageService extends AbstractService
 
     /**
      * Receive a single
-     * @link https://help.shopify.com/api/reference/page#show
+     *
+     * @link   https://help.shopify.com/api/reference/page#show
      * @param  integer $pageId
-     * @param  array $params
+     * @param  array   $params
      * @return Page
      */
     public function get($pageId, array $params = array())
@@ -48,8 +51,9 @@ class PageService extends AbstractService
 
     /**
      * Create a new page
-     * @link https://help.shopify.com/api/reference/page#create
-     * @param  Page   $page
+     *
+     * @link   https://help.shopify.com/api/reference/page#create
+     * @param  Page $page
      * @return void
      */
     public function create(Page &$page)
@@ -57,16 +61,19 @@ class PageService extends AbstractService
         $data = $page->exportData();
         $endpoint= '/admin/pages.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'page' => $data
-        ));
+            )
+        );
         $page->setData($response->page);
     }
 
     /**
      * Modify an existing page
-     * @link https://help.shopify.com/api/reference/page#update
-     * @param  Page   $page
+     *
+     * @link   https://help.shopify.com/api/reference/page#update
+     * @param  Page $page
      * @return void
      */
     public function update(Page &$page)
@@ -74,16 +81,19 @@ class PageService extends AbstractService
         $data = $page->exportData();
         $endpoint= '/admin/pages/'.$page->getId().'.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'page' => $data
-        ));
+            )
+        );
         $page->setData($response->page);
     }
 
     /**
      * Delete an existing page
-     * @link https://help.shopify.com/api/reference/page#destroy
-     * @param  Page   $page
+     *
+     * @link   https://help.shopify.com/api/reference/page#destroy
+     * @param  Page $page
      * @return void
      */
     public function delete(Page $page)

@@ -8,7 +8,8 @@ class DiscountService extends AbstractService
 {
     /**
      * Receive a list of all discounts
-     * @link https://help.shopify.com/api/reference/discount#index
+     *
+     * @link   https://help.shopify.com/api/reference/discount#index
      * @param  array $params
      * @return Discount[]
      */
@@ -21,7 +22,8 @@ class DiscountService extends AbstractService
 
     /**
      * Receive a single discount
-     * @link https://help.shopify.com/api/reference/discount#show
+     *
+     * @link   https://help.shopify.com/api/reference/discount#show
      * @param  integer $discountId
      * @return Discount
      */
@@ -34,7 +36,8 @@ class DiscountService extends AbstractService
 
     /**
      * Create a new discount
-     * @link https://help.shopify.com/api/reference/discount#create
+     *
+     * @link   https://help.shopify.com/api/reference/discount#create
      * @param  Discount $discount
      * @return void
      */
@@ -43,15 +46,18 @@ class DiscountService extends AbstractService
         $data = $discount->exportData();
         $endpoint = '/admin/discounts.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'discount' => $data
-        ));
+            )
+        );
         $discount->setData($response->discount);
     }
 
     /**
      * Delete a discount
-     * @link https://help.shopify.com/api/reference/discount#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/discount#destroy
      * @param  Discount $discount
      * @return void
      */
@@ -65,7 +71,8 @@ class DiscountService extends AbstractService
 
     /**
      * Disable a discount
-     * @link https://help.shopify.com/api/reference/discount#disable
+     *
+     * @link   https://help.shopify.com/api/reference/discount#disable
      * @param  Discount $discount
      * @return void
      */
@@ -79,7 +86,8 @@ class DiscountService extends AbstractService
 
     /**
      * Enable a discount
-     * @link https://help.shopify.com/api/reference/discount#enable
+     *
+     * @link   https://help.shopify.com/api/reference/discount#enable
      * @param  Discount $discount
      * @return void
      */

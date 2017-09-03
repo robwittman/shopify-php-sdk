@@ -71,7 +71,9 @@ class Api implements ApiInterface
 
     public function getHttpHandler()
     {
-        $this->init();
+        if (is_null($this->http_handler)) {
+            $this->init();
+        }
         return $this->http_handler;
     }
 
@@ -91,6 +93,7 @@ class Api implements ApiInterface
 
     /**
      * Set our LoggerInterface
+     *
      * @param Logger $logger
      */
     public function setLogger(Logger $logger)

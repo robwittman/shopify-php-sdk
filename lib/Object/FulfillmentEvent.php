@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\FulfillmentEvent
  *
  * A FulfillmentEvent represents a tracking event belonging to a fulfillment of
@@ -30,11 +29,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/fulfillmentevent
+ * @link    https://help.shopify.com/api/reference/fulfillmentevent
  */
 
 namespace Shopify\Object;
 
-class FulfillmentEvent extends AbstractObject { }
+use Shopify\Enum\Fields\FulfillmentEventFields;
+
+class FulfillmentEvent extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return FulfillmentEventFields::getInstance();
+    }
+}

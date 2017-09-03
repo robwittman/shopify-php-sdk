@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\RecurringApplicationCharge
  *
  * Request to charge a shop a recurring fee (every 30 days) by issuing this call
@@ -31,11 +30,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/recurringapplicationcharge
+ * @link    https://help.shopify.com/api/reference/recurringapplicationcharge
  */
 
 namespace Shopify\Object;
 
-class RecurringApplicationCharge extends AbstractObject { }
+use Shopify\Enum\Fields\RecurringApplicationChargeFields;
+
+class RecurringApplicationCharge extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return RecurringApplicationChargeFields::getInstance();
+    }
+}

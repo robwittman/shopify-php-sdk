@@ -10,3 +10,7 @@ composer.lock
 # Ignore PHPUnit coverage file
 clover.xml
 /coverage
+
+.phplint-cache
+
+.auth

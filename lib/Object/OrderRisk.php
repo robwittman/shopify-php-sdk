@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\OrderRisk
  *
  * The Order risk assessment is used to indicate to a merchant the fraud checks that have been done on an order.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/order_risks
+ * @link    https://help.shopify.com/api/reference/order_risks
  */
 
 namespace Shopify\Object;
 
-class OrderRisk extends AbstractObject { }
+use Shopify\Enum\Fields\OrderRiskFields;
+
+class OrderRisk extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return OrderRiskFields::getInstance();
+    }
+}

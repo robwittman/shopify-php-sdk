@@ -8,7 +8,8 @@ class ReportService extends AbstractService
 {
     /**
      * Retrieve a list of all Reports
-     * @link https://help.shopify.com/api/reference/report#index
+     *
+     * @link   https://help.shopify.com/api/reference/report#index
      * @param  array $params
      * @return Report[]
      */
@@ -20,9 +21,10 @@ class ReportService extends AbstractService
 
     /**
      * Receive a single report
-     * @link https://help.shopify.com/api/reference/report#show
+     *
+     * @link   https://help.shopify.com/api/reference/report#show
      * @param  integer $reportId
-     * @param  array $params
+     * @param  array   $params
      * @return Report
      */
     public function get($reportId, array $params = array())
@@ -33,7 +35,8 @@ class ReportService extends AbstractService
 
     /**
      * Create a new Report
-     * @link https://help.shopify.com/api/reference/report#create
+     *
+     * @link   https://help.shopify.com/api/reference/report#create
      * @param  Report $report
      * @return void
      */
@@ -41,31 +44,37 @@ class ReportService extends AbstractService
     {
         $data = $report->exportData();
         $request = $this->createRequest('/admin/reports.json', static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'report' => $data
-        ));
+            )
+        );
         $report->setData($response->report);
     }
 
     /**
      * Modify an existing Report
-     * @link https://help.shopify.com/api/reference/report#update
+     *
+     * @link   https://help.shopify.com/api/reference/report#update
      * @param  Report $report
      * @return void
      */
     public function update(Report &$report)
     {
         $data = $report->exportData();
-        $request = $this->createRequest('/admin/reports/'.$report->getId()'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send($request, array(
+        $request = $this->createRequest('/admin/reports/'.$report->getId().'.json', static::REQUEST_METHOD_PUT);
+        $response = $this->send(
+            $request, array(
             'report' => $data
-        ));
+            )
+        );
         $report->setData($response->report);
     }
 
     /**
      * Remove a previously created Report
-     * @link https://help.shopify.com/api/reference/report#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/report#destroy
      * @param  Report $report
      * @return void
      */

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Asset
  *
  * Assets are individual files that make up a shop's theme.
@@ -28,11 +27,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/asset
+ * @link    https://help.shopify.com/api/reference/asset
  */
 
 namespace Shopify\Object;
 
-class Asset extends AbstractObject { }
+use Shopify\Enum\Fields\AssetFields;
+
+class Asset extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return AssetFields::getInstance();
+    }
+}

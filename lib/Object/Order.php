@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\Order
  *
  * An order is a customer's completed request to purchase one or more products
@@ -30,11 +29,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/order
+ * @link    https://help.shopify.com/api/reference/order
  */
 
 namespace Shopify\Object;
 
-class Order extends AbstractObject { }
+use Shopify\Enum\Fields\OrderFields;
+
+class Order extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return OrderFields::getInstance();
+    }
+}

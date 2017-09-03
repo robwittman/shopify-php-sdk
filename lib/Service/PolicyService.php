@@ -8,7 +8,8 @@ class PolicyService extends AbstractService
 {
     /**
      * Receive a list of all Policies
-     * @link https://help.shopify.com/api/reference/policy#index
+     *
+     * @link   https://help.shopify.com/api/reference/policy#index
      * @return Policy[]
      */
     public function all()

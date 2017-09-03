@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\ProductImage
  *
  * Products are easier to sell if customers can see pictures of them, which is
@@ -29,11 +28,19 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
- * @link https://help.shopify.com/api/reference/product_image
+ * @link    https://help.shopify.com/api/reference/product_image
  */
 
 namespace Shopify\Object;
 
-class ProductImage extends AbstractObject { }
+use Shopify\Enum\Fields\ProductImageFields;
+
+class ProductImage extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ProductImageFields::getInstance();
+    }
+}

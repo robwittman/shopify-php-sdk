@@ -8,7 +8,8 @@ class CollectService extends AbstractService
 {
     /**
      * Receive a list of all collects
-     * @link https://help.shopify.com/api/reference/collect#index
+     *
+     * @link   https://help.shopify.com/api/reference/collect#index
      * @param  array $params
      * @return Collect[]
      */
@@ -21,7 +22,8 @@ class CollectService extends AbstractService
 
     /**
      * Receive a count of all collects
-     * @link https://help.shopify.com/api/reference/collect#count
+     *
+     * @link   https://help.shopify.com/api/reference/collect#count
      * @param  array $params
      * @return integer
      */
@@ -34,9 +36,10 @@ class CollectService extends AbstractService
 
     /**
      * Receive a single collect
-     * @link https://help.shopify.com/api/reference/collect#show
+     *
+     * @link   https://help.shopify.com/api/reference/collect#show
      * @param  integer $collectId
-     * @param  array $params
+     * @param  array   $params
      * @return Collect
      */
     public function get($collectId, array $params = array())
@@ -48,7 +51,8 @@ class CollectService extends AbstractService
 
     /**
      * Create a new collect
-     * @link https://help.shopify.com/api/reference/collect#create
+     *
+     * @link   https://help.shopify.com/api/reference/collect#create
      * @param  Collect $collect
      * @return void
      */
@@ -57,15 +61,18 @@ class CollectService extends AbstractService
         $data = $collect->exportData();
         $enpoint = '/admin/collects.json';
         $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request, array(
+        $response = $this->send(
+            $request, array(
             'collect' => $data
-        ));
+            )
+        );
         $collect->setData($response->collect);
     }
 
     /**
      * Remove a collect from the database
-     * @link https://help.shopify.com/api/reference/collect#destroy
+     *
+     * @link   https://help.shopify.com/api/reference/collect#destroy
      * @param  Collect $collect
      * @return void
      */

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Shopify\Object\ProductOption
  *
  * A ProductOption represents an option object for a product. It contains the name
@@ -29,10 +28,18 @@
  * SOFTWARE.
  *
  * @package Shopify
- * @author Rob Wittman <rob@ihsdigital.com>
+ * @author  Rob Wittman <rob@ihsdigital.com>
  * @license MIT
  */
 
 namespace Shopify\Object;
 
-class ProductOption extends AbstractObject { }
+use Shopify\Enum\Fields\ProductOptionFields;
+
+class ProductOption extends AbstractObject
+{
+    public static function getFieldsEnum()
+    {
+        return ProductOptionFields::getInstance();
+    }
+}

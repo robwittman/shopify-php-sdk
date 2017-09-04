@@ -39,14 +39,18 @@ class CollectService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/collect#show
      * @param  integer $collectId
-     * @param  array   $params
+     * @param  array   $fields
      * @return Collect
      */
-    public function get($collectId, array $params = array())
+    public function get($collectId, array $fields = array())
     {
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = implode(',', $fields);
+        }
         $endpoint = '/admin/collects/'.$collect->getId().'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Collect::class, $response['collect']);
     }
 
     /**

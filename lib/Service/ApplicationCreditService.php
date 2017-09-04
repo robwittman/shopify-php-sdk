@@ -31,7 +31,7 @@ class ApplicationCreditService extends AbstractService
     {
         $params = array();
         if (!empty($fields)) {
-            $params['fields'] = $fields;
+            $params['fields'] = implode(',', $fields);
         }
         $endpoint = '/admin/application_credits/'.$applicationCreditId.'.json';
         $data = $this->request($endpoint, 'GET', $params);

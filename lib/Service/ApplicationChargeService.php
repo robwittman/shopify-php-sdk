@@ -31,7 +31,7 @@ class ApplicationChargeService extends AbstractService
     {
         $params = array();
         if (!empty($fields)) {
-            $params['fields'] = $fields;
+            $params['fields'] = implode(',', $fields);
         }
         $data = $this->request('/admin/application_charges/'.$applicationChargeId.'.json', 'GET', $params);
         return $this->createObject(ApplicationCharge::class, $data['application_charge']);

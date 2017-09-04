@@ -49,7 +49,7 @@ class ArticleService extends AbstractService
     {
         $params = array();
         if (!empty($fields)) {
-            $params['fields'] = $fields;
+            $params['fields'] = implode(',', $fields);
         }
         $endpoint = '/admin/blogs/'.$blogId.'/articles/'.$articleId.'.json';
         $response = $this->request($endpoint, 'GET', $params);

@@ -15,8 +15,8 @@ class WebhookService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $request = $this->createRequest('/admin/webhooks.json');
-        return $this->getEdge($request, $params, Webhook::class);
+        $response = $this->request('/admin/webhooks.json', 'GET', $params);
+        return $this->createCollection(Webhook::class, $response['webhooks']);
     }
 
     /**
@@ -28,8 +28,8 @@ class WebhookService extends AbstractService
      */
     public function count(array $params = array())
     {
-        $request = $this->createRequest('/admin/webhooks/count.json');
-        return $this->getCount($request, $options);
+        $response = $this->request('/admin/webhooks/count.json', $params);
+        return $response['count'];
     }
 
     /**
@@ -37,13 +37,17 @@ class WebhookService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/webhook#show
      * @param  integer $webhookId
-     * @param  array   $params
+     * @param  array   $fields
      * @return Webhook
      */
-    public function get($webhookId, array $params = array())
+    public function get($webhookId, array $fields = array())
     {
-        $request = $this->createRequest('/admin/webhooks/'.$webhookId.'.json');
-        return $this->getNode($request, $params, Webhook::class);
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = implode(',', $fields);
+        }
+        $response = $this->request('/admin/webhooks/'.$webhookId.'.json', 'GET', $params);
+        return $this->createObject(Webhook::class, $response['webhook']);
     }
 
     /**
@@ -57,12 +61,10 @@ class WebhookService extends AbstractService
     {
         $data = $webhook->exportData();
         $request = $this->createRequest('/admin/webhooks.json', static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->create($endpoint, 'GET', array(
             'webhook' => $data
-            )
-        );
-        $webhook->setData($response->webhook);
+        ));
+        $webhook->setData($response['webhook']);
     }
 
     /**
@@ -75,13 +77,10 @@ class WebhookService extends AbstractService
     public function update(Webhook $webhook)
     {
         $data = $webhook->exportData();
-        $request = $this->createRequest('/admin/webhooks/'.$webhook->getId().'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request('/admin/webhooks/'.$webhook->id.'.json', 'PUT', array(
             'webhook' => $data
-            )
-        );
-        $webhook->setData($response->webhook);
+        ));
+        $webhook->setData($response['webhook']);
     }
 
     /**
@@ -93,7 +92,6 @@ class WebhookService extends AbstractService
      */
     public function delete(Webhook $webhook)
     {
-        $request = $this->createRequest('/admin/webhooks/'.$webhook->getId().'json', static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        $this->request('/admin/webhooks/'.$webhook->id.'.json', 'DELETE');
     }
 }

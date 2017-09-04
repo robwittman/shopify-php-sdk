@@ -38,11 +38,15 @@ class BlogService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/blog#show
      * @param  integer $blogId
-     * @param  array   $params
+     * @param  array   $fields
      * @return Blog
      */
-    public function get($blogId, array $params = array())
+    public function get($blogId, array $fields = array())
     {
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = implode(',', $fields);
+        }
         $endpoint = '/admin/blogs/'.$blogId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Blog::class, $response['blog']);
@@ -74,7 +78,7 @@ class BlogService extends AbstractService
      */
     public function update(Blog &$blog)
     {
-        
+
     }
 
     /**

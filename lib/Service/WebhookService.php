@@ -60,8 +60,7 @@ class WebhookService extends AbstractService
     public function create(Webhook &$webhook)
     {
         $data = $webhook->exportData();
-        $request = $this->createRequest('/admin/webhooks.json', static::REQUEST_METHOD_POST);
-        $response = $this->create($endpoint, 'GET', array(
+        $response = $this->request('/admin/webhooks.json', 'POST', array(
             'webhook' => $data
         ));
         $webhook->setData($response['webhook']);

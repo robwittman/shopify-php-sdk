@@ -51,6 +51,12 @@ class Api implements ApiInterface
     {
         return $this->myshopify_domain;
     }
+    
+    public function setMyshopifyDomain($domain)
+    {
+        $this->myshopify_domain = $domain;
+        return $this;
+    }
 
     public function setAccessToken($accessToken)
     {

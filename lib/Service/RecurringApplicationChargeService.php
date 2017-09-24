@@ -16,8 +16,8 @@ class RecurringApplicationChargeService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/recurring_application_charges.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, RecurringApplicationCharge::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(RecurringApplicationCharge::class, $response['recurring_application_charges']);
     }
 
     /**

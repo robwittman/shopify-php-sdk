@@ -16,8 +16,8 @@ class CountryService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/countries.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Country::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Country::class, $response['countries']);
     }
 
     /**
@@ -29,8 +29,8 @@ class CountryService extends AbstractService
     public function count()
     {
         $endpoint = '/admin/countries/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request);
+        $response = $this->request($endpoint, 'GET');
+        return $response['count'];
     }
 
     /**
@@ -38,14 +38,18 @@ class CountryService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/country#show
      * @param  integer $countryId
-     * @param  array   $params
+     * @param  array   $fields
      * @return Country
      */
-    public function get($countryId, array $params = array())
+    public function get($countryId, array $fields = array())
     {
-        $endpoint = '/admin/countries/'.$countryId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, Country::class);
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = implode(',', $fields);
+        }
+        $endpoint = '/admin/countrys/'.$countryId.'.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Country::class, $response['country']);
     }
 
     /**
@@ -59,13 +63,10 @@ class CountryService extends AbstractService
     {
         $data = $country->exportData();
         $endpoint = '/admin/countries.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'POST', array(
             'country' => $data
-            )
-        );
-        $country->setData($response->country);
+        ));
+        $country->setData($response['country']);
     }
 
     /**
@@ -78,14 +79,11 @@ class CountryService extends AbstractService
     public function update(Country &$country)
     {
         $data = $country->exportData();
-        $endpoint = '/admin/countries/'.$country->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/countries/'.$country->id.'.json';
+        $response = $this->request($endpoint, 'PUT', array(
             'country' => $data
-            )
-        );
-        $country->setData($response->country);
+        ));
+        $country->setData($response['country']);
     }
 
     /**
@@ -97,9 +95,6 @@ class CountryService extends AbstractService
      */
     public function delete(Country $country)
     {
-        $endpoint = '/admin/countries/'.$country->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $response = $this->send($request);
-        return;
+        return $this->request('/admin/countries/'.$country->id.'.json', 'DELETE');
     }
 }

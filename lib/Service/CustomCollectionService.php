@@ -16,8 +16,8 @@ class CustomCollectionService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/custom_collections.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, CustomCollection::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(CustomCollection::class, $response['custom_collections']);
     }
 
     /**
@@ -30,8 +30,8 @@ class CustomCollectionService extends AbstractService
     public function count(array $params = array())
     {
         $endpoint = '/admin/custom_collections/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request, $options);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -39,14 +39,18 @@ class CustomCollectionService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/customcollection#show
      * @param  integer $customCollectionId
-     * @param  array   $params
+     * @param  array   $fields
      * @return CustomCollection
      */
-    public function get($customCollectionId, array $params = array())
+    public function get($customCollectionId, array $fields = array())
     {
+        $params = array();
+        if (!empty($fields)) {
+            $params['fields'] = $fields;
+        }
         $endpoint = '/admin/custom_collections/'.$customCollectionId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, CustomCollection::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(CustomCollection::class, $response['custom_collection']);
     }
 
     /**
@@ -60,13 +64,10 @@ class CustomCollectionService extends AbstractService
     {
         $data = $customCollection->exportData();
         $endpoint = '/admin/custom_collections.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'POST', array(
             'custom_collection' => $data
-            )
-        );
-        $customCollection->setData($response->custom_collection);
+        ));
+        $customCollection->setData($response['custom_collection']);
     }
 
     /**
@@ -79,14 +80,11 @@ class CustomCollectionService extends AbstractService
     public function update(CustomCollection &$customCollection)
     {
         $data = $customCollection->exportData();
-        $endpoint = '/admin/custom_collections/'.$customCollection->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/custom_collections/'.$customCollection->id.'.json';
+        $response = $this->request($endpoint, 'PUT', array(
             'custom_collection' => $data
-            )
-        );
-        $customCollection->setData($response->custom_collection);
+        ));
+        $customCollection->setData($response['custom_collection']);
     }
 
     /**

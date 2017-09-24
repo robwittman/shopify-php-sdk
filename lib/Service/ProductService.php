@@ -80,7 +80,7 @@ class ProductService extends AbstractService
     public function update(Product &$product)
     {
         $data = $product->exportData();
-        $endpoint = '/admin/products/'.$product->getId().'.json';
+        $endpoint = '/admin/products/'.$product->id.'.json';
         $response = $this->request($endpoint, 'PUT', array(
             'product' => $data
         ));

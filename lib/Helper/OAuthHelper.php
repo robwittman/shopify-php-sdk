@@ -53,7 +53,7 @@ class OAuthHelper
 
         $request = new Request('POST', 'https://'.$this->api->getMyshopifyDomain().'/admin/oauth/access_token');
         $response = $this->api->getHttpHandler()->send($request, array('form_params' => $params));
-        $token = json_decode($response->getBody()->getContents());
+        $token = json_decode($response->getBody()->getContents(), true);
         return new AccessToken($token);
     }
 

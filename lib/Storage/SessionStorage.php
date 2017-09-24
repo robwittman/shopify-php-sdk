@@ -10,15 +10,12 @@ class SessionStorage implements PersistentStorageInterface
 
     public function __construct()
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            throw new ShopifySdkException(
-                "Sessions are not active. Please start one using session_start()"
-            );
-        }
+   
     }
 
     public function get($key)
     {
+        $this->assertSession();
         if (isset($_SESSION[$this->prefix . $key])) {
             return $_SESSION[$this->prefix . $key];
         }
@@ -27,6 +24,16 @@ class SessionStorage implements PersistentStorageInterface
 
     public function set($key, $value)
     {
+        $this->assertSession();
         $_SESSION[$this->prefix . $key] = $value;
+    }
+    
+    public function assertSession()
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            throw new ShopifySdkException(
+                "Sessions are not active. Please start one using session_start()"
+            );
+        }
     }
 }

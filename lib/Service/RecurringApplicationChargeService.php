@@ -61,7 +61,7 @@ class RecurringApplicationChargeService extends AbstractService
      */
     public function delete(RecurringApplicationCharge $recurringApplicationCharge)
     {
-        $endpoint= '/admin/recurring_application_charges/'.$recurringApplicationCharge->getId().'.json';
+        $endpoint= '/admin/recurring_application_charges/'.$recurringApplicationCharge->id.'.json';
         $response = $this->request($endpoint, 'DELETE');
     }
 
@@ -74,7 +74,7 @@ class RecurringApplicationChargeService extends AbstractService
      */
     public function activate(RecurringApplicationCharge $recurringApplicationCharge)
     {
-        $endpoint = '/admin/recurring_application_charges/'.$recurringApplicationCharge->getId().'/activate.json';
+        $endpoint = '/admin/recurring_application_charges/'.$recurringApplicationCharge->id.'/activate.json';
         $response = $this->request($endpoint, 'POST');
         $recurringApplicationCharge->setData($response['recurring_application_charge']);
     }

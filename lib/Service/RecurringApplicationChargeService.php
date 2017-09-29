@@ -31,8 +31,8 @@ class RecurringApplicationChargeService extends AbstractService
     public function get($recurringApplicationChargeId, array $params = array())
     {
         $endpoint = '/admin/recurring_application_charges/'.$recurringApplicationChargeId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, RecurringApplicationCharge::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(RecurringApplicationCharge::class, $response['recurring_application_charge']);
     }
 
     /**
@@ -46,13 +46,10 @@ class RecurringApplicationChargeService extends AbstractService
     {
         $data = $recurringApplicationCharge->exportData();
         $endpoint = '/admin/recurring_application_charges.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'POST', array(
             'recurring_application_charge' => $data
-            )
-        );
-        $recurringApplicationCharge->setData($response->recurring_application_charge);
+        ));
+        $recurringApplicationCharge->setData($response['recurring_application_charge']);
     }
 
     /**
@@ -65,8 +62,7 @@ class RecurringApplicationChargeService extends AbstractService
     public function delete(RecurringApplicationCharge $recurringApplicationCharge)
     {
         $endpoint= '/admin/recurring_application_charges/'.$recurringApplicationCharge->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        $response = $this->request($endpoint, 'DELETE');
     }
 
     /**
@@ -79,8 +75,7 @@ class RecurringApplicationChargeService extends AbstractService
     public function activate(RecurringApplicationCharge $recurringApplicationCharge)
     {
         $endpoint = '/admin/recurring_application_charges/'.$recurringApplicationCharge->getId().'/activate.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response= $this->send($request);
-        $recurringApplicationCharge->setData($response->recurring_application_charge);
+        $response = $this->request($endpoint, 'POST');
+        $recurringApplicationCharge->setData($response['recurring_application_charge']);
     }
 }

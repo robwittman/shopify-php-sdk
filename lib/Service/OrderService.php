@@ -60,9 +60,11 @@ class OrderService extends AbstractService
     {
         $data = $order->exportData();
         $endpoint = '/admin/orders.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'order' => $data
-        ));
+            )
+        );
         $order->setData($response['order']);
     }
 
@@ -122,9 +124,11 @@ class OrderService extends AbstractService
     {
         $data = $order->exportData();
         $endpoint= '/admin/orders/'.$order->id.'.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'order' => $data
-        ));
+            )
+        );
         $order->setData($response['order']);
     }
 

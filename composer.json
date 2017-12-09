@@ -33,7 +33,6 @@
     },
     "scripts" : {
         "lint" : "./vendor/bin/phplint ./ --exclude=vendor",
-        "test" : "./vendor/bin/phpunit",
         "phpcs" : "./vendor/bin/phpcs ./lib"
     }
 }

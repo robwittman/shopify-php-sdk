@@ -46,9 +46,11 @@ class ReportService extends AbstractService
     {
         $data = $report->exportData();
         $endpoint = '/admin/reports.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'report' => $data
-        ));
+            )
+        );
         $report->setData($response['report']);
     }
 
@@ -63,9 +65,11 @@ class ReportService extends AbstractService
     {
         $data = $report->exportData();
         $endpoint = '/admin/reports/'.$report->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'report' => $data
-        ));
+            )
+        );
         $report->setData($response['report']);
     }
 

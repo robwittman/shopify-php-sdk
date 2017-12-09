@@ -46,9 +46,11 @@ class ThemeService extends AbstractService
     {
         $data = $theme->exportData();
         $endpoint = '/admin/themes.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'theme' => $data
-        ));
+            )
+        );
         $theme->setData($response['theme']);
     }
 
@@ -63,9 +65,11 @@ class ThemeService extends AbstractService
     {
         $data = $theme->exportData();
         $endpoint = '/admin/themes/'.$theme->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'theme' => $data
-        ));
+            )
+        );
         $theme->setData($response['theme']);
     }
 

@@ -60,9 +60,11 @@ class RedirectService extends AbstractService
     {
         $endpoint = '/admin/redirects.json';
         $data = $redirect->exportData();
-        $response = $this->request($endpoint, "POST", array(
+        $response = $this->request(
+            $endpoint, "POST", array(
             'redirect' => $data
-        ));
+            )
+        );
         $redirect->setData($response['redirect']);
     }
 
@@ -77,9 +79,11 @@ class RedirectService extends AbstractService
     {
         $endpoint = '/admin/redirects/'.$redirect->id.'.json';
         $data = $redirect->exportData();
-        $response = $this->request($endpoint, "POST", array(
+        $response = $this->request(
+            $endpoint, "POST", array(
             'redirect' => $data
-        ));
+            )
+        );
         $redirect->setData($response['redirect']);
     }
 
@@ -93,7 +97,7 @@ class RedirectService extends AbstractService
     public function delete(Redirect $redirect)
     {
         $endpoint = '/admin/redirect/'.$redirect->id.'.json';
-        $response = $this->request($endpoint, 'DELETE'):
+        $response = $this->request($endpoint, 'DELETE');
         return;
     }
 }

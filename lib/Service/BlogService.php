@@ -64,9 +64,11 @@ class BlogService extends AbstractService
     {
         $data = $blog->exportData();
         $endpoint = '/admin/blogs.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'blog' => $data
-        ));
+            )
+        );
         $blog->setData($response['blog']);
     }
 

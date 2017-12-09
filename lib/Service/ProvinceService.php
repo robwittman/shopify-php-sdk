@@ -60,9 +60,11 @@ class ProvinceService extends AbstractService
     {
         $data = $province->exportData();
         $endpoint = '/admin/countries/'.$countryId.'/provinces/'.$province->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'province' => $data
-        ));
+            )
+        );
         $province->setData($response['province']);
     }
 }

@@ -60,9 +60,11 @@ class GiftCardService extends AbstractService
     {
         $data = $giftCard->exportData();
         $endpoint = '/admin/gift_cards.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'gift_card' => $data
-        ));
+            )
+        );
         $giftCard->setData($response['gift_card']);
     }
 
@@ -77,9 +79,11 @@ class GiftCardService extends AbstractService
     {
         $data = $giftCard->exportData();
         $endpoint = '/admin/gift_cards/'.$giftCard->id.'.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'gift_card' => $data
-        ));
+            )
+        );
         $giftCard->setData($response['gift_card']);
     }
 
@@ -108,7 +112,7 @@ class GiftCardService extends AbstractService
     public function search(array $params = array())
     {
         $endpoint = '/admin/gift_cards/search.json';
-        $response = $this->request($endpoint, 'GET', $params)
+        $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(GiftCard::class, $response['gift_cards']);
     }
 }

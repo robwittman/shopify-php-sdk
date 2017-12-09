@@ -73,9 +73,11 @@ class CustomerService extends AbstractService
     {
         $data = $customer->exportData();
         $endpoint = '/admin/customers.json';
-        $response = $this->request($endpoint, "POST", array(
+        $response = $this->request(
+            $endpoint, "POST", array(
             'customer' => $data
-        ));
+            )
+        );
         $customer->setData($response['customer']);
     }
 
@@ -90,9 +92,11 @@ class CustomerService extends AbstractService
     {
         $data = $customer->exportData();
         $endpoint = '/admin/customers/'.$customer->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'customer' => $data
-        ));
+            )
+        );
         $customer->setData($response['customer']);
     }
 
@@ -136,9 +140,11 @@ class CustomerService extends AbstractService
     {
         $data = is_null($invite) ? array() : $invite->exportData();
         $endpoint = '/admin/customers/'.$customerId.'/send_invite.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'custom_invite' => $data
-        ));
+            )
+        );
         return $response['customer_invite'];
     }
 }

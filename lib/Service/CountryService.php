@@ -63,9 +63,11 @@ class CountryService extends AbstractService
     {
         $data = $country->exportData();
         $endpoint = '/admin/countries.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'country' => $data
-        ));
+            )
+        );
         $country->setData($response['country']);
     }
 
@@ -80,9 +82,11 @@ class CountryService extends AbstractService
     {
         $data = $country->exportData();
         $endpoint = '/admin/countries/'.$country->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'country' => $data
-        ));
+            )
+        );
         $country->setData($response['country']);
     }
 

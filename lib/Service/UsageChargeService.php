@@ -18,9 +18,11 @@ class UsageChargeService extends AbstractService
     {
         $data = $usageCharge->exportData();
         $endpoint = '/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'usage_charge' => $data
-        ));
+            )
+        );
         $usageCharge->setData($response['usage_charge']);
     }
 

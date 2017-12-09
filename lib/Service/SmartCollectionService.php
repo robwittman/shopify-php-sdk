@@ -59,9 +59,11 @@ class SmartCollectionService extends AbstractService
     {
         $data = $smartCollection->exportData();
         $endpoint = '/admin/smart_collections.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'smart_collection' => $data
-        ));
+            )
+        );
         $smartCollection->setData($response['smart_collection']);
     }
 
@@ -76,9 +78,11 @@ class SmartCollectionService extends AbstractService
     {
         $data = $smartCollection->exportData();
         $endpoint = '/admin/smart_collections/'.$smart_collection->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'smart_collection' => $data
-        ));
+            )
+        );
         $smartCollection->setData($response['smart_collection']);
     }
 

@@ -60,9 +60,11 @@ class WebhookService extends AbstractService
     public function create(Webhook &$webhook)
     {
         $data = $webhook->exportData();
-        $response = $this->request('/admin/webhooks.json', 'POST', array(
+        $response = $this->request(
+            '/admin/webhooks.json', 'POST', array(
             'webhook' => $data
-        ));
+            )
+        );
         $webhook->setData($response['webhook']);
     }
 
@@ -76,9 +78,11 @@ class WebhookService extends AbstractService
     public function update(Webhook $webhook)
     {
         $data = $webhook->exportData();
-        $response = $this->request('/admin/webhooks/'.$webhook->id.'.json', 'PUT', array(
+        $response = $this->request(
+            '/admin/webhooks/'.$webhook->id.'.json', 'PUT', array(
             'webhook' => $data
-        ));
+            )
+        );
         $webhook->setData($response['webhook']);
     }
 

@@ -45,9 +45,11 @@ class DiscountService extends AbstractService
     {
         $data = $discount->exportData();
         $endpoint = '/admin/discounts.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'product' => $data
-        ));
+            )
+        );
         $discount->setData($response['discount']);
     }
 

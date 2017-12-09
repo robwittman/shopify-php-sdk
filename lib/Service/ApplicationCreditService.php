@@ -49,9 +49,11 @@ class ApplicationCreditService extends AbstractService
     {
         $data = $applicationCredit->exportData();
         $endpoint = '/admin/application_credits.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'application_charge' => $data
-        ));
+            )
+        );
         $applicationCredit->setData($response['application_credit']);
     }
 }

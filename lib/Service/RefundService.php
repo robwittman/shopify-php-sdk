@@ -50,9 +50,11 @@ class RefundService extends AbstractService
     {
         $data = $refund->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/refunds.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'refund' => $data
-        ));
+            )
+        );
         $refund->setData($response['refund']);
     }
 

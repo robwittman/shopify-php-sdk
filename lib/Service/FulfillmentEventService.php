@@ -17,7 +17,7 @@ class FulfillmentEventService extends AbstractService
     public function all($orderId, $fulfillmentId)
     {
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events.json';
-        $response = $this->request($endpoint, 'GET')
+        $response = $this->request($endpoint, 'GET');
         return $this->createCollection(FulfillmentEvent::class, $response['fulfillment_events']);
     }
 
@@ -50,9 +50,11 @@ class FulfillmentEventService extends AbstractService
     {
         $data = $fulfillmentEvent->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'fulfillment_event' => $data
-        ));
+            )
+        );
         $fulfillmentEvent->setData($response['fulfillment_event']);
     }
 

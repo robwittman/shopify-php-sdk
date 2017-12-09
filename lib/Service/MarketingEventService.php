@@ -59,9 +59,11 @@ class MarketingEventService extends AbstractService
     {
         $data = $marketingEvent->exportData();
         $endpoint = '/admin/marketing_events.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'marketing_event' => $data
-        ));
+            )
+        );
         $marketingEvent->setData($response['marketing_event']);
     }
 
@@ -76,9 +78,11 @@ class MarketingEventService extends AbstractService
     {
         $data = $marketingEvent->exportData();
         $endpoint = '/admin/marketing_events/'.$marketingEvent->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'marketing_event' => $data
-        ));
+            )
+        );
         $marketingEvent->setData($response['marketing_event']);
     }
 

@@ -64,9 +64,11 @@ class CustomCollectionService extends AbstractService
     {
         $data = $customCollection->exportData();
         $endpoint = '/admin/custom_collections.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'custom_collection' => $data
-        ));
+            )
+        );
         $customCollection->setData($response['custom_collection']);
     }
 
@@ -81,9 +83,11 @@ class CustomCollectionService extends AbstractService
     {
         $data = $customCollection->exportData();
         $endpoint = '/admin/custom_collections/'.$customCollection->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'custom_collection' => $data
-        ));
+            )
+        );
         $customCollection->setData($response['custom_collection']);
     }
 

@@ -65,9 +65,11 @@ class ProductVariantService extends AbstractService
     {
         $data = $productVariant->exportData();
         $endpoint = '/admin/products/'.$productId.'/variants.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'variant' => $data
-        ));
+            )
+        );
         $productVariant->setData($response['variant']);
     }
 
@@ -82,9 +84,11 @@ class ProductVariantService extends AbstractService
     {
         $data = $productVariant->exportData();
         $endpoint = '/admin/variants/'.$productVariant->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'variant' => $data
-        ));
+            )
+        );
         $productVariant->setData($response['variant']);
     }
 

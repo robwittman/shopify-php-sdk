@@ -63,9 +63,11 @@ class TransactionService extends AbstractService
     {
         $data = $transaction->exportData();
         $endpoint = '/admin/transactions.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'transaction' => $data
-        ));
+            )
+        );
         $transaction->setData($response['transaction']);
     }
 }

@@ -60,9 +60,11 @@ class CommentService extends AbstractService
     {
         $data = $comment->exportData();
         $endpoint = '/admin/comments.json';
-        $respoinse = $this->request($endpoint, 'POST', array(
+        $respoinse = $this->request(
+            $endpoint, 'POST', array(
             'comment' => $data
-        ));
+            )
+        );
         $comment->setData($response['comment']);
     }
 
@@ -77,9 +79,11 @@ class CommentService extends AbstractService
     {
         $data = $comment->exportData();
         $endpoint = '/admin/comments/'.$comment->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'comment' => $data
-        ));
+            )
+        );
         $comment->setData($response['comment']);
     }
 

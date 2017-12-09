@@ -9,18 +9,21 @@ abstract class AbstractApi implements ApiInterface
 {
     /**
      * Domain of the Shopify store
+     *
      * @var string
      */
     protected $myshopify_domain;
 
     /**
      * Guzzle client for making requests
+     *
      * @var Client
      */
     protected $http_handler;
 
     /**
      * Logging interface
+     *
      * @var LoggerInterface
      */
     protected $logger;
@@ -79,6 +82,7 @@ abstract class AbstractApi implements ApiInterface
 
     /**
      * Get current store domain
+     *
      * @return string
      */
     public function getMyshopifyDomain()
@@ -111,6 +115,7 @@ abstract class AbstractApi implements ApiInterface
     
     /**
      * Initialize our Client, using settings based on the app type
+     *
      * @var void
      */
     abstract public function init();

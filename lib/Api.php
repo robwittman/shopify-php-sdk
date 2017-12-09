@@ -15,30 +15,35 @@ class Api extends AbstractApi
 
     /**
      * Shopify API Key
+     *
      * @var string
      */
     protected $api_key;
 
     /**
      * Shopify API Secret
+     *
      * @var string
      */
     protected $api_secret;
 
     /**
      * OAuth access token
+     *
      * @var string
      */
     protected $access_token;
 
     /**
      * Storage Interface, used for storing OAuth nonces
+     *
      * @var PersistentStorageInterface
      */
     protected $storage;
 
     /**
      * Get our API key
+     *
      * @return string
      */
     public function getApiKey()
@@ -51,6 +56,7 @@ class Api extends AbstractApi
 
     /**
      * Get our API secret
+     *
      * @return string
      */
     public function getApiSecret()
@@ -76,6 +82,7 @@ class Api extends AbstractApi
 
     /**
      * Get the current access token
+     *
      * @return string
      */
     public function getAccessToken()
@@ -85,6 +92,7 @@ class Api extends AbstractApi
 
     /**
      * Set our persistent storage interface
+     *
      * @param PersistentStorageInterface $storage
      */
     public function setStorageInterface(PersistentStorageInterface $storage)
@@ -95,6 +103,7 @@ class Api extends AbstractApi
 
     /**
      * Initialize if not set, and return our storge interface
+     *
      * @return PersistentStorageInterface
      */
     public function getStorageInterface()
@@ -122,6 +131,7 @@ class Api extends AbstractApi
 
     /**
      * Return an instance of our OAuth helper
+     *
      * @return OAuthHelper
      */
     public function getOAuthHelper()

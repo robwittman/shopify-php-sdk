@@ -31,9 +31,11 @@ class FulfillmentService extends AbstractService
     {
         $data = $fulfillment->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'fulfillment' => $data
-        ));
+            )
+        );
         $fulfillment->setData($response['fulfillment']);
     }
 
@@ -41,9 +43,11 @@ class FulfillmentService extends AbstractService
     {
         $data = $fulfillment->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillment->gtId().'.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'fulfillment' => $data
-        ));
+            )
+        );
         $fulfillment->setData($response['fulfillment']);
     }
 

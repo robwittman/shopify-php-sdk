@@ -64,9 +64,11 @@ class CollectService extends AbstractService
     {
         $data = $collect->exportData();
         $endpoint = '/admin/collects.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'collect' => $data
-        ));
+            )
+        );
         $collect->setData($response['collect']);
     }
 

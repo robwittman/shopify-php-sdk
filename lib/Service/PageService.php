@@ -60,9 +60,11 @@ class PageService extends AbstractService
     {
         $data = $page->exportData();
         $endpoint= '/admin/pages.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'page' => $data
-        ));
+            )
+        );
         $page->setData($response['page']);
     }
 
@@ -77,9 +79,11 @@ class PageService extends AbstractService
     {
         $data = $page->exportData();
         $endpoint= '/admin/pages/'.$page->id.'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'page' => $data
-        ));
+            )
+        );
         $page->setData($response['page']);
     }
 

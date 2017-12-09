@@ -29,10 +29,10 @@ $client = new Shopify\Api(array(
 If you are using a Private App for use on an individual store:
 ```php
 $client = new Shopify\PrivateApi(array(
-    'api_key' => '',
-    'password' => '',
-    'shared_secret' => '<store>.myshopify.com',
-    'myshopify_domain' => ''
+    'api_key' => '<api-key>',
+    'password' => '<password>',
+    'shared_secret' => '<shared-secret>',
+    'myshopify_domain' => '<store>.myshopify.com'
 ));
 ```
 

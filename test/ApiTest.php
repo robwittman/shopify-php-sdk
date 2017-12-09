@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use Shopify\Storage\MemoryStorage;
 use Shopify\Storage\SessionStorage;
 
-class ApiTest extends ShopifyTest
+class ApiTest extends TestCase
 {
     public function testApiKey()
     {

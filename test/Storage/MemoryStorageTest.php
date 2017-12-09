@@ -2,10 +2,10 @@
 
 namespace Shopify\Test\Storage;
 
-use Shopify\Test\ShopifyTest;
+use Shopify\Test\TestCase;
 use Shopify\Storage\MemoryStorage;
 
-class MemoryStorageTest extends ShopifyTest
+class MemoryStorageTest extends TestCase
 {
     public function testGetSet()
     {

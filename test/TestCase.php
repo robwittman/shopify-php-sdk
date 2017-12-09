@@ -10,8 +10,16 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\RequestException;
 use Shopify\Api;
 
+session_start();
+
 class TestCase extends \PHPUnit\Framework\TestCase
 {
+    public function getApi(array $params = array())
+    {
+        $api = new Api($params);
+        return $api;
+    }
+
     public function getApiMock($file)
     {
         $json = null;

@@ -6,7 +6,7 @@ use Shopify\AbstractApi;
 use Psr\Log\LoggerInterface;
 use GuzzleHttp\Client;
 
-class AbstractApiTest extends ShopifyTest
+class AbstractApiTest extends TestCase
 {
     public function testConstruct()
     {

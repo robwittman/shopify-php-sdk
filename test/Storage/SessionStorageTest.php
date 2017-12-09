@@ -2,10 +2,10 @@
 
 namespace Shopify\Test\Storage;
 
-use Shopify\Test\ShopifyTest;
+use Shopify\Test\TestCase;
 use Shopify\Storage\SessionStorage;
 
-class SessionStorageTest extends ShopifyTest
+class SessionStorageTest extends TestCase
 {
     public function testGetSet()
     {

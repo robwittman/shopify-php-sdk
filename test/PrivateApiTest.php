@@ -5,7 +5,7 @@ namespace Shopify\Test;
 use Shopify\PrivateApi;
 use GuzzleHttp\Client;
 
-class PrivateApiTest extends ShopifyTest
+class PrivateApiTest extends TestCase
 {
     public function testCreateBasicAuthHeader()
     {

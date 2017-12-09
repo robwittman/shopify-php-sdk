@@ -14,8 +14,9 @@ class UserService extends AbstractService
      */
     public function all()
     {
-        $request = $this->createRequest('/admin/users.json');
-        return $this->getEdge($request, array(), User::class);
+        $endpoint = '/admin/users.json';
+        $response = $this->request($endpoint);
+        return $this->createCollection(User::class, $response['users']);
     }
 
     /**
@@ -27,7 +28,8 @@ class UserService extends AbstractService
      */
     public function get($userId)
     {
-        $request = $this->createRequest('/admin/users/'.$userId.'.json');
-        return $this->getNode($request, array(), User::class);
+        $endpoint = '/admin/users/'.$userId.'.json';
+        $response = $this->request($endpoint);
+        return $this->createObject(User::class, $response['user']);
     }
 }

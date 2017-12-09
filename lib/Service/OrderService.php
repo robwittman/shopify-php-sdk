@@ -16,8 +16,8 @@ class OrderService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/orders.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Order::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Order::class, $response['orders']);
     }
 
     /**
@@ -29,9 +29,9 @@ class OrderService extends AbstractService
      */
     public function count(array $params = array())
     {
-        $endpoint = '/admin/orders/cound.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request, $options);
+        $endpoint = '/admin/orders/count.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -45,8 +45,8 @@ class OrderService extends AbstractService
     public function get($orderId, array $params = array())
     {
         $endpoint = '/admin/orders/'.$orderId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, Order::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Order::class, $response['order']);
     }
 
     /**
@@ -60,13 +60,10 @@ class OrderService extends AbstractService
     {
         $data = $order->exportData();
         $endpoint = '/admin/orders.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, 'POST', array(
             'order' => $data
-            )
-        );
-        $order->setData($response->order);
+        ));
+        $order->setData($response['order']);
     }
 
     /**
@@ -79,14 +76,9 @@ class OrderService extends AbstractService
     public function close(Order &$order)
     {
         $data = $order->exportData();
-        $endpoint= '/admin/orders/'.$order->getId().'/close.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
-            'order' => $data
-            )
-        );
-        $order->setData($response->order);
+        $endpoint= '/admin/orders/'.$order->id.'/close.json';
+        $response = $this->request($endpoint, 'POST');
+        $order->setData($response['order']);
     }
 
     /**
@@ -99,14 +91,9 @@ class OrderService extends AbstractService
     public function open(Order &$order)
     {
         $data = $order->exportData();
-        $endpoint= '/admin/orders/'.$order->getId().'/open.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
-            'order' => $data
-            )
-        );
-        $order->setData($response->order);
+        $endpoint= '/admin/orders/'.$order->id.'/open.json';
+        $response = $this->request($endpoint, 'POST');
+        $order->setData($response['order']);
     }
 
     /**
@@ -119,14 +106,9 @@ class OrderService extends AbstractService
     public function cancel(Order &$order)
     {
         $data = $order->exportData();
-        $endpoint= '/admin/orders/'.$order->getId().'/cancel.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
-            'order' => $data
-            )
-        );
-        $order->setData($response->order);
+        $endpoint= '/admin/orders/'.$order->id.'/cancel.json';
+        $response = $this->request($endpoint, 'POST');
+        $order->setData($response['order']);
     }
 
     /**
@@ -139,14 +121,11 @@ class OrderService extends AbstractService
     public function update(Order &$order)
     {
         $data = $order->exportData();
-        $endpoint= '/admin/orders/'.$order->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $endpoint= '/admin/orders/'.$order->id.'.json';
+        $response = $this->request($endpoint, 'POST', array(
             'order' => $data
-            )
-        );
-        $order->setData($response->order);
+        ));
+        $order->setData($response['order']);
     }
 
     /**
@@ -158,8 +137,8 @@ class OrderService extends AbstractService
      */
     public function delete(Order &$order)
     {
-        $endpoint= '/admin/orders/'.$order->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        $endpoint= '/admin/orders/'.$order->id.'.json';
+        $this->request($endpoint, 'DELETE');
+        return;
     }
 }

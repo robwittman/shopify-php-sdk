@@ -16,8 +16,9 @@ class ThemeService extends AbstractService
      */
     public function get($themeId, array $params = array())
     {
-        $request = new Request('GET', '/admin/themes/'.$themeId.'.json');
-        return $this->getNode($request, $params, Theme::class);
+        $endpoint = '/admin/themes/'.$themeId.'.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Theme::class, $response['theme']);
     }
 
     /**
@@ -29,8 +30,9 @@ class ThemeService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $request = new Request('GET', '/admin/themes.json');
-        return $this->getEdge($request, $params, Theme::class);
+        $endpoint = '/admin/themes.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Theme::class, $response['themes']);
     }
 
     /**
@@ -43,13 +45,11 @@ class ThemeService extends AbstractService
     public function create(Theme &$theme)
     {
         $data = $theme->exportData();
-        $request = $this->createRequest('/admin/themes.json', static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/themes.json';
+        $response = $this->request($endpoint, 'POST', array(
             'theme' => $data
-            )
-        );
-        $theme->setData($response->theme);
+        ));
+        $theme->setData($response['theme']);
     }
 
     /**
@@ -62,13 +62,11 @@ class ThemeService extends AbstractService
     public function update(Theme &$theme)
     {
         $data = $theme->exportData();
-        $request = $this->createRequest('/admin/themes/'.$theme->getId().'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/themes/'.$theme->id.'.json';
+        $response = $this->request($endpoint, 'PUT', array(
             'theme' => $data
-            )
-        );
-        $theme->setData($response->theme);
+        ));
+        $theme->setData($response['theme']);
     }
 
     /**
@@ -80,7 +78,7 @@ class ThemeService extends AbstractService
      */
     public function delete(Theme $theme)
     {
-        $request = $this->createRequest('/admin/themes/'.$theme->getId().'.json', static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        $this->request('/admin/themes/'.$theme->id.'.json', 'DELETE');
+        return;
     }
 }

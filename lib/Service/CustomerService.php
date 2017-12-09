@@ -16,22 +16,22 @@ class CustomerService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/customers.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Customer::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Customer::class, $response['customers']);
     }
 
     /**
      * Search for customers matching suppliied query
      *
      * @link   https://help.shopify.com/api/reference/customer#search
-     * @param  SearchOptions $options
+     * @param  array $params
      * @return Customer[]
      */
-    public function search(SearchOptions $options = null)
+    public function search(array $params = array())
     {
         $endpoint = '/admin/customers/search.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Customer::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Customer::class, $response['customers']);
     }
 
     /**
@@ -43,8 +43,8 @@ class CustomerService extends AbstractService
     public function count()
     {
         $endpoint = '/admin/customers/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request);
+        $response = $this->request($endpoint);
+        return $response['count'];
     }
 
     /**
@@ -58,8 +58,8 @@ class CustomerService extends AbstractService
     public function get($customerId, array $params = array())
     {
         $endpoint = '/admin/customers/'.$customerId.'.json';;
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, Customer::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Customer::class, $response['customer']);
     }
 
     /**
@@ -73,13 +73,10 @@ class CustomerService extends AbstractService
     {
         $data = $customer->exportData();
         $endpoint = '/admin/customers.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, "POST", array(
             'customer' => $data
-            )
-        );
-        $customer->setData($response->customer);
+        ));
+        $customer->setData($response['customer']);
     }
 
     /**
@@ -92,14 +89,11 @@ class CustomerService extends AbstractService
     public function update(Customer &$customer)
     {
         $data = $customer->exportData();
-        $endpoint = '/admin/customers/'.$customer->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/customers/'.$customer->id.'.json';
+        $response = $this->request($endpoint, 'PUT', array(
             'customer' => $data
-            )
-        );
-        $customer->setData($response->customer);
+        ));
+        $customer->setData($response['customer']);
     }
 
     /**
@@ -111,9 +105,9 @@ class CustomerService extends AbstractService
      */
     public function delete(Customer $customer)
     {
-        $endpoint = '/admin/customers/'.$customer->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $response = $this->send($request);
+        $endpoint = '/admin/customers/'.$customer->id.'.json';
+        $response = $this->request($endpoint, 'DELETE');
+        return;
     }
 
     /**
@@ -126,9 +120,8 @@ class CustomerService extends AbstractService
     public function accountActivationUrl($customerId)
     {
         $endpoint = '/admin/customers/'.$customerId.'/account_activation_url.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request);
-        return $response->account_activation_url;
+        $response = $this->request($endpoint, 'POST');
+        return $response['account_activation_url'];
     }
 
     /**
@@ -143,12 +136,9 @@ class CustomerService extends AbstractService
     {
         $data = is_null($invite) ? array() : $invite->exportData();
         $endpoint = '/admin/customers/'.$customerId.'/send_invite.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
-            'customer_invite' => $data
-            )
-        );
-        return $response->customer_invite;
+        $response = $this->request($endpoint, 'POST', array(
+            'custom_invite' => $data
+        ));
+        return $response['customer_invite'];
     }
 }

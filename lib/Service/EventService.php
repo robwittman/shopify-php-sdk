@@ -16,8 +16,8 @@ class EventService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/events.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Event::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Event::class, $response['events']);
     }
 
     /**
@@ -30,8 +30,8 @@ class EventService extends AbstractService
     public function count(array $params = array())
     {
         $endpoint = '/admin/events/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request, $options);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -45,7 +45,7 @@ class EventService extends AbstractService
     public function get($eventId, array $params = array())
     {
         $endpoint = '/admin/events/'.$eventId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($endpoint, $options, Event::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Event::class, $response['event']);
     }
 }

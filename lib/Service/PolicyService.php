@@ -15,7 +15,7 @@ class PolicyService extends AbstractService
     public function all()
     {
         $endpoint = '/admin/policies.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, array(), Policy::class);
+        $response = $this->request($endpoint);
+        return $this->createCollection(Policy::class, $response['policies']);
     }
 }

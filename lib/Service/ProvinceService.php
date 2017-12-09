@@ -16,8 +16,8 @@ class ProvinceService extends AbstractService
     public function all($countryId, array $params = array())
     {
         $endpoint = '/admin/countries/'.$countryId.'/provinces.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Province::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Province::class, $response['provinces']);
     }
 
     /**
@@ -30,8 +30,8 @@ class ProvinceService extends AbstractService
     public function count($countryId)
     {
         $endpoint = '/admin/countries/'.$countryId.'/provinces/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($endpoint);
+        $response = $this->request($endpoint);
+        return $response['count'];
     }
 
     /**
@@ -45,8 +45,8 @@ class ProvinceService extends AbstractService
     public function get($countryId, $provinceId)
     {
         $endpoint = '/admin/countries/'.$countryId.'/provinces/'.$provinceId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, array(), Province::class);
+        $response = $this->request($endpoint);
+        return $this->createObject(Province::class, $response['province']);
     }
 
     /**
@@ -59,13 +59,10 @@ class ProvinceService extends AbstractService
     public function update($countryId, Province &$province)
     {
         $data = $province->exportData();
-        $endpoint = '/admin/countries/'.$countryId.'/provinces/'.$province->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/countries/'.$countryId.'/provinces/'.$province->id.'.json';
+        $response = $this->request($endpoint, 'PUT', array(
             'province' => $data
-            )
-        );
-        $province->setData($response->province);
+        ));
+        $province->setData($response['province']);
     }
 }

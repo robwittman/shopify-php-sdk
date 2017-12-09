@@ -17,13 +17,11 @@ class UsageChargeService extends AbstractService
     public function create($recurringApplicationChargeId, UsageCharge $usageCharge)
     {
         $data = $usageCharge->exportData();
-        $request = $this->createRequest('/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json', static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json';
+        $response = $this->request($endpoint, 'POST', array(
             'usage_charge' => $data
-            )
-        );
-        $usageCharge->setData($response->usage_charge);
+        ));
+        $usageCharge->setData($response['usage_charge']);
     }
 
     /**
@@ -37,8 +35,9 @@ class UsageChargeService extends AbstractService
      */
     public function get($recurringApplicationChargeId, $usageChargeId, array $params = array())
     {
-        $request= $this->createRequest('/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges/'.$usageChargeId.'.json');
-        return $this->getNode($request, $params, UsageCharge::class);
+        $endpoint = '/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges/'.$usageChargeId.'.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(UsageCharge::class, $response['usage_charge']);
     }
 
     /**
@@ -51,7 +50,8 @@ class UsageChargeService extends AbstractService
      */
     public function all($recurringApplicationChargeId, array $params = array())
     {
-        $request = $this->createRequest('/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json');
-        return $this->getEdge($request, $params, UsageCharge::class);
+        $endpoint = '/admin/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(UsageCharge::class, $response['usage_charges']);
     }
 }

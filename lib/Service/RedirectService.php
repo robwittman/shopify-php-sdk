@@ -15,8 +15,9 @@ class RedirectService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $request = $this->createRequest('/admin/redirects.json');
-        return $this->getEdge($request, $params, Redirect::class);
+        $endpoint = '/admin/redirects.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Redirect::class, $response['collections']);
     }
 
     /**
@@ -28,8 +29,9 @@ class RedirectService extends AbstractService
      */
     public function count(array $params = array())
     {
-        $request = $this->createRequest('/admin/redirects/count.json');
-        return $this->getCount($request, $options);
+        $endpoint = '/admin/redirects/count.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -42,8 +44,9 @@ class RedirectService extends AbstractService
      */
     public function get($redirectId, array $params = array())
     {
-        $request = $this->createRequest('/admin/redirects/'.$redirectId.'.json');
-        return $this->getNode($request, $params, Redirect::class);
+        $endpoint = '/admin/redirects/'.$redirectId.'.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Redirect::class, $response['redirects']);
     }
 
     /**
@@ -55,14 +58,12 @@ class RedirectService extends AbstractService
      */
     public function create(Redirect &$redirect)
     {
+        $endpoint = '/admin/redirects.json';
         $data = $redirect->exportData();
-        $request = $this->createRequest('/admin/redirects.json', static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, "POST", array(
             'redirect' => $data
-            )
-        );
-        $redirect->setData($response->redirect);
+        ));
+        $redirect->setData($response['redirect']);
     }
 
     /**
@@ -74,14 +75,12 @@ class RedirectService extends AbstractService
      */
     public function update(Redirect &$redirect)
     {
+        $endpoint = '/admin/redirects/'.$redirect->id.'.json';
         $data = $redirect->exportData();
-        $request = $this->createRequest('/admin/redirects/'.$redirect->getId().'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request($endpoint, "POST", array(
             'redirect' => $data
-            )
-        );
-        $redirect->setData($response->redirect);
+        ));
+        $redirect->setData($response['redirect']);
     }
 
     /**
@@ -93,7 +92,8 @@ class RedirectService extends AbstractService
      */
     public function delete(Redirect $redirect)
     {
-        $request = $this->createRequest('/admin/redirects/'.$redirect->getId().'json', static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        $endpoint = '/admin/redirect/'.$redirect->id.'.json';
+        $response = $this->request($endpoint, 'DELETE'):
+        return;
     }
 }

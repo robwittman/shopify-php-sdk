@@ -81,7 +81,7 @@ class ProductImageService extends AbstractService
     public function update($productId, ProductImage &$productImage)
     {
         $data = $productImage->exportData();
-        $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->getId().'.json';
+        $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->id.'.json';
         $response = $this->request($endpoint, 'PUT', array(
             'image' => $data
         ));
@@ -98,7 +98,7 @@ class ProductImageService extends AbstractService
      */
     public function delete($productId, ProductImage $productImage)
     {
-        $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->getId().'.json';
+        $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->id.'.json';
         return $this->request($endpoint, 'DELETE');
     }
 }

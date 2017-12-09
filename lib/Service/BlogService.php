@@ -3,6 +3,7 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Blog;
+use Shopify\Exception\ShopifySdkException;
 
 class BlogService extends AbstractService
 {
@@ -78,7 +79,7 @@ class BlogService extends AbstractService
      */
     public function update(Blog &$blog)
     {
-
+        throw new ShopifySdkException('BlogService::update() not implemented');
     }
 
     /**
@@ -90,6 +91,6 @@ class BlogService extends AbstractService
      */
     public function delete(Blog $blog)
     {
-
+        throw new ShopifySdkException('BlogService::delete() not implemented');
     }
 }

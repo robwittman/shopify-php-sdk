@@ -81,7 +81,7 @@ class ProductVariantService extends AbstractService
     public function update(ProductVariant &$productVariant)
     {
         $data = $productVariant->exportData();
-        $endpoint = '/admin/variants/'.$productVariant->getId().'.json';
+        $endpoint = '/admin/variants/'.$productVariant->id.'.json';
         $response = $this->request($endpoint, 'PUT', array(
             'variant' => $data
         ));
@@ -98,7 +98,7 @@ class ProductVariantService extends AbstractService
      */
     public function delete($productId, ProductVariant &$productVariant)
     {
-        $endpoint = '/admin/products/'.$productId.'/variants/'.$productVariant->getId().'.json';
+        $endpoint = '/admin/products/'.$productId.'/variants/'.$productVariant->id.'.json';
         $response = $this->request($endpoint, 'DELETE');
     }
 }

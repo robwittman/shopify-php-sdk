@@ -16,8 +16,8 @@ class LocationService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/locations.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Location::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Location::class, $response['locations']);
     }
 
     /**
@@ -31,7 +31,7 @@ class LocationService extends AbstractService
     public function get($locationId, array $params = array())
     {
         $endpoint = '/admin/locations/'.$locationId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, Location::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Location::class, $response['location']);
     }
 }

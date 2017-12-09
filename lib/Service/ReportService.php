@@ -15,8 +15,9 @@ class ReportService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $request = $this->createRequest('/admin/reports.json');
-        return $this->getEdge($request, $params, Report::class);
+        $endpoint = '/admin/reports.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Report::class, $response['reports']);
     }
 
     /**
@@ -29,8 +30,9 @@ class ReportService extends AbstractService
      */
     public function get($reportId, array $params = array())
     {
-        $request = $this->createRequest('/admin/reports/'.$reportId.'.json');
-        return $this->getNode($request, $params, Report::class);
+        $endpoint = '/admin/reports/'.$reportId.'.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Report::class, $response['report']);
     }
 
     /**
@@ -43,13 +45,11 @@ class ReportService extends AbstractService
     public function create(Report &$report)
     {
         $data = $report->exportData();
-        $request = $this->createRequest('/admin/reports.json', static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/reports.json';
+        $response = $this->request($endpoint, 'POST', array(
             'report' => $data
-            )
-        );
-        $report->setData($response->report);
+        ));
+        $report->setData($response['report']);
     }
 
     /**
@@ -62,13 +62,11 @@ class ReportService extends AbstractService
     public function update(Report &$report)
     {
         $data = $report->exportData();
-        $request = $this->createRequest('/admin/reports/'.$report->getId().'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/reports/'.$report->id.'.json';
+        $response = $this->request($endpoint, 'PUT', array(
             'report' => $data
-            )
-        );
-        $report->setData($response->report);
+        ));
+        $report->setData($response['report']);
     }
 
     /**
@@ -80,7 +78,7 @@ class ReportService extends AbstractService
      */
     public function delete(Report $report)
     {
-        $request = $this->createRequest('/admin/reports/'.$report->getId().'.json');
-        $this->send($request);
+         $this->request('/admin/reports/'.$report->id.'.json', 'DELETE');
+         return;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Shopify\Enum\Fields;
 
-class TransactionFields extends AbstractObjectEnum
+class ShippingZoneFields extends AbstractObjectEnum
 {
     const ID = 'id';
     const NAME = 'name';

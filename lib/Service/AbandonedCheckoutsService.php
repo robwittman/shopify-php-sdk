@@ -16,7 +16,7 @@ class AbandonedCheckoutsService extends AbstractService
     public function all(array $params = array())
     {
         $data = $this->request('/admin/checkouts.json', 'GET', $params);
-        return $this->createCollection(AbandonedCheckout::class, $data['abandoned_checkouts']);
+        return $this->createCollection(AbandonedCheckout::class, $data['checkouts']);
     }
 
     /**

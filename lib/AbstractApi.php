@@ -78,6 +78,28 @@ abstract class AbstractApi implements ApiInterface
     }
 
     /**
+     * Get current store domain
+     * @return string
+     */
+    public function getMyshopifyDomain()
+    {
+        return $this->myshopify_domain;
+    }
+
+    /**
+     * Set the current store domain. Initialize
+     * a new client, with new details
+     *
+     * @param string $domain
+     */
+    public function setMyshopifyDomain($domain)
+    {
+        $this->myshopify_domain = $domain;
+        $this->init();
+        return $this;
+    }
+
+    /**
      * Get our loggerInterface
      *
      * @return LoggerInterface
@@ -86,7 +108,7 @@ abstract class AbstractApi implements ApiInterface
     {
         return $this->logger;
     }
-
+    
     /**
      * Initialize our Client, using settings based on the app type
      * @var void

@@ -10,6 +10,9 @@ use Psr\Log\LoggerInterface;
 
 class Api extends AbstractApi
 {
+    const SHOPIFY_API_KEY_NAME = 'SHOPIFY_API_KEY';
+    const SHOPIFY_API_SECRET_NAME = 'SHOPIFY_API_SECRET';
+
     /**
      * Shopify API Key
      * @var string
@@ -56,28 +59,6 @@ class Api extends AbstractApi
             $this->loadApiSecretFromEnv();
         }
         return $this->api_secret;
-    }
-
-    /**
-     * Get current store domain
-     * @return string
-     */
-    public function getMyshopifyDomain()
-    {
-        return $this->myshopify_domain;
-    }
-
-    /**
-     * Set the current store domain. Initialize
-     * a new client, with new details
-     *
-     * @param string $domain
-     */
-    public function setMyshopifyDomain($domain)
-    {
-        $this->myshopify_domain = $domain;
-        $this->init();
-        return $this;
     }
 
     /**
@@ -146,5 +127,15 @@ class Api extends AbstractApi
     public function getOAuthHelper()
     {
         return new OAuthHelper($this, $this->getStorageInterface());
+    }
+
+    public function loadApiKeyFromEnv()
+    {
+        $this->api_key = getenv(self::SHOPIFY_API_KEY_NAME);
+    }
+
+    public function loadApiSecretFromEnv()
+    {
+        $this->api_secret = getenv(self::SHOPIFY_API_SECRET_NAME);
     }
 }

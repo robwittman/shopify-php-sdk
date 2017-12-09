@@ -12,15 +12,17 @@ class ApiTest extends ShopifyTest
 {
     public function testApiKey()
     {
-        $api = new Api();
-        $api->setApiKey('test-api-key');
+        $api = new Api(array(
+            'api_key' => 'test-api-key'
+        ));
         $this->assertEquals($api->getApiKey(), 'test-api-key');
     }
 
     public function testApiSecret()
     {
-        $api = new Api();
-        $api->setApiSecret('test-api-secret');
+        $api = new Api(array(
+            'api_secret' => 'test-api-secret'
+        ));
         $this->assertEquals($api->getApiSecret(), 'test-api-secret');
     }
 

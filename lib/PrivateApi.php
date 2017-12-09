@@ -39,7 +39,7 @@ class PrivateApi extends AbstractApi
         $this->http_handler = new Client($args);
     }
 
-    protected function createBasicAuthHeader($apiKey, $password)
+    public function createBasicAuthHeader($apiKey, $password)
     {
         $input = "{$apiKey}:{$password}";
         $input = base64_encode($input);

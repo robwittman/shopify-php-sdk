@@ -2,7 +2,7 @@
 
 namespace Shopify\Enum\Fields;
 
-class ApplicationCredit extends AbstractObjectEnum
+class ApplicationCreditFields extends AbstractObjectEnum
 {
     const DESCRIPTION = 'description';
     const ID = 'id';

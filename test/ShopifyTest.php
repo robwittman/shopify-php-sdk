@@ -12,13 +12,7 @@ class ShopifyTest extends \PHPUnit\Framework\TestCase
 {
     public function getApi($params)
     {
-        $api = new Api();
-        foreach ($params as $key => $value) {
-            $pascal = Inflector::snakeToPascal($key);
-            $method = 'set'.$pascal;
-            $api = $api->{$method}($value);
-        }
-        return $api;
+        return new Api($params);
     }
 
     public function testTrue()

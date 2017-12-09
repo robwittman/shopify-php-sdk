@@ -8,11 +8,6 @@ class SessionStorage implements PersistentStorageInterface
 {
     protected $prefix = 'SHPFY_';
 
-    public function __construct()
-    {
-   
-    }
-
     public function get($key)
     {
         $this->assertSession();
@@ -27,7 +22,7 @@ class SessionStorage implements PersistentStorageInterface
         $this->assertSession();
         $_SESSION[$this->prefix . $key] = $value;
     }
-    
+
     public function assertSession()
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {

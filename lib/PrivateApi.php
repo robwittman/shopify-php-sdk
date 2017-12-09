@@ -3,14 +3,25 @@
 namespace Shopify;
 
 use GuzzleHttp\Client;
+use Shopify\Exception\InvalidPropertyException;
 
-class PrivateApi implements ApiInterface
+class PrivateApi extends AbstractApi
 {
     protected $api_key;
     protected $password;
     protected $shared_secret;
-    protected $myshopify_domain;
-    protected $http_handler;
+
+    public function __construct(array $options = array())
+    {
+        foreach ($options as $key => $value) {
+            if (!property_exists($this, $key)) {
+                throw new \InvalidPropertyException(
+                    "Property '{$key}' does not exist on \Shopify\Api"
+                );
+            }
+            $this->{$key} = $value;
+        }
+    }
 
     public function getApiKey()
     {
@@ -25,29 +36,6 @@ class PrivateApi implements ApiInterface
     public function getSharedSecret()
     {
         return $this->shared_secret;
-    }
-
-    public function setMyshopifyDomain($myshopifyDomain)
-    {
-        $this->myshopify_domain = $myshopifyDomain;
-        return $this;
-    }
-
-    public function getMyshopifyDomain()
-    {
-        return $this->myshopify_domain;
-    }
-
-    public function setHttpHandler(Client $httpHandler)
-    {
-        $this->http_handler = $httpHandler;
-        return $this;
-    }
-
-    public function getHttpHandler()
-    {
-        $this->init();
-        return $this->http_handler;
     }
 
     public function init()

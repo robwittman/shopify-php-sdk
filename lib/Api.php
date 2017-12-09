@@ -2,35 +2,43 @@
 
 namespace Shopify;
 
-use GuzzleHttp\Client;
 use Shopify\Storage\PersistentStorageInterface;
 use Shopify\Storage\SessionStorage;
 use Shopify\Helper\OAuthHelper;
-use Psr\Log\LoggerInterface;
 use Shopify\Exception\InvalidPropertyException;
+use GuzzleHttp\Client;
+use Psr\Log\LoggerInterface;
 
-class Api implements ApiInterface
+class Api extends AbstractApi
 {
+    /**
+     * Shopify API Key
+     * @var string
+     */
     protected $api_key;
+
+    /**
+     * Shopify API Secret
+     * @var string
+     */
     protected $api_secret;
+
+    /**
+     * OAuth access token
+     * @var string
+     */
     protected $access_token;
-    protected $myshopify_domain;
-    protected $http_handler;
+
+    /**
+     * Storage Interface, used for storing OAuth nonces
+     * @var PersistentStorageInterface
+     */
     protected $storage;
-    protected $logger;
 
-    public function __construct(array $options = array())
-    {
-        foreach ($options as $key => $value) {
-            if (!property_exists($this, $key)) {
-                throw new \InvalidPropertyException(
-                    "Property '{$key}' does not exist on \Shopify\Api"
-                );
-            }
-            $this->{$key} = $value;
-        }
-    }
-
+    /**
+     * Get our API key
+     * @return string
+     */
     public function getApiKey()
     {
         if (is_null($this->api_key)) {
@@ -39,6 +47,10 @@ class Api implements ApiInterface
         return $this->api_key;
     }
 
+    /**
+     * Get our API secret
+     * @return string
+     */
     public function getApiSecret()
     {
         if (is_null($this->api_secret)) {
@@ -47,11 +59,21 @@ class Api implements ApiInterface
         return $this->api_secret;
     }
 
+    /**
+     * Get current store domain
+     * @return string
+     */
     public function getMyshopifyDomain()
     {
         return $this->myshopify_domain;
     }
-    
+
+    /**
+     * Set the current store domain. Initialize
+     * a new client, with new details
+     *
+     * @param string $domain
+     */
     public function setMyshopifyDomain($domain)
     {
         $this->myshopify_domain = $domain;
@@ -59,6 +81,12 @@ class Api implements ApiInterface
         return $this;
     }
 
+    /**
+     * Set current access token, and initialize a
+     * new client instance
+     *
+     * @param string $accessToken
+     */
     public function setAccessToken($accessToken)
     {
         $this->access_token = $accessToken;
@@ -66,31 +94,29 @@ class Api implements ApiInterface
         return $this;
     }
 
+    /**
+     * Get the current access token
+     * @return string
+     */
     public function getAccessToken()
     {
         return $this->access_token;
     }
 
-    public function setHttpHandler(Client $httpHandler)
-    {
-        $this->http_handler = $httpHandler;
-        return $this;
-    }
-
-    public function getHttpHandler()
-    {
-        if (is_null($this->http_handler)) {
-            $this->init();
-        }
-        return $this->http_handler;
-    }
-
+    /**
+     * Set our persistent storage interface
+     * @param PersistentStorageInterface $storage
+     */
     public function setStorageInterface(PersistentStorageInterface $storage)
     {
         $this->storage = $storage;
         return $this;
     }
 
+    /**
+     * Initialize if not set, and return our storge interface
+     * @return PersistentStorageInterface
+     */
     public function getStorageInterface()
     {
         if (is_null($this->storage)) {
@@ -100,16 +126,8 @@ class Api implements ApiInterface
     }
 
     /**
-     * Set our LoggerInterface
-     *
-     * @param Logger $logger
+     * {@inheritDoc}
      */
-    public function setLogger(Logger $logger)
-    {
-        $this->logger = $logger;
-        return $this;
-    }
-
     public function init()
     {
         $args = array();
@@ -122,6 +140,10 @@ class Api implements ApiInterface
         $this->http_handler = new Client($args);
     }
 
+    /**
+     * Return an instance of our OAuth helper
+     * @return OAuthHelper
+     */
     public function getOAuthHelper()
     {
         return new OAuthHelper($this, $this->getStorageInterface());

@@ -2,7 +2,6 @@
 
 namespace Shopify;
 
-use Shopify\Exception\InvalidPropertyException;
 use GuzzleHttp\Client;
 use Psr\Log\LoggerInterface;
 
@@ -35,8 +34,8 @@ abstract class AbstractApi implements ApiInterface
     {
         foreach ($options as $key => $value) {
             if (!property_exists($this, $key)) {
-                throw new \InvalidPropertyException(
-                    "Property '{$key}' does not exist on \Shopify\Api"
+                throw new \InvalidArgumentException(
+                    "Property '{$key}' does not exist on ".get_called_class()
                 );
             }
             $this->{$key} = $value;
@@ -46,7 +45,7 @@ abstract class AbstractApi implements ApiInterface
     /**
      * Set our Client instance
      *
-     * @param Client $httpHandler [description]
+     * @param Client $httpHandler
      */
     public function setHttpHandler(Client $httpHandler)
     {

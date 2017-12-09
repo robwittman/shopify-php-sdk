@@ -16,8 +16,8 @@ class DiscountService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/discounts.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Discount::class);
+        $request = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Discount::class, $response['discounts']);
     }
 
     /**
@@ -30,8 +30,8 @@ class DiscountService extends AbstractService
     public function get($discountId)
     {
         $endpoint = '/admin/discounts/'.$discountId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, array(), Discount::class);
+        $response = $this->request($endpoint);
+        return $this->createObject(Discount::class, $response['discount']);
     }
 
     /**
@@ -45,13 +45,10 @@ class DiscountService extends AbstractService
     {
         $data = $discount->exportData();
         $endpoint = '/admin/discounts.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
-            'discount' => $data
-            )
-        );
-        $discount->setData($response->discount);
+        $response = $this->request($endpoint, 'POST', array(
+            'product' => $data
+        ));
+        $discount->setData($response['discount']);
     }
 
     /**
@@ -63,9 +60,8 @@ class DiscountService extends AbstractService
      */
     public function delete(Discount $discount)
     {
-        $endpoint = '/admin/discounts/'.$discount->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $response = $this->send($request);
+        $endpoint = '/admin/discounts/'.$discount->id.'.json';
+        $this->request($endpoint, 'DELETE');
         return;
     }
 
@@ -78,10 +74,9 @@ class DiscountService extends AbstractService
      */
     public function disable(Discount &$discount)
     {
-        $endpoint = '/admin/discounts/'.$discount->getId().'/disable.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request);
-        $discount->setData($response->discount);
+        $endpoint = '/admin/discounts/'.$discount->id.'/disable.json';
+        $response = $this->request($endpoint, 'POST');
+        $discount->setData($response['discount']);
     }
 
     /**
@@ -93,9 +88,8 @@ class DiscountService extends AbstractService
      */
     public function enable(Discount $discount)
     {
-        $endpoint = '/admin/discounts/'.$discount->getId().'/enable.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request);
-        $discount->setData($response->discount);
+        $endpoint = '/admin/discounts/'.$discount->id.'/enable.json';
+        $response = $this->request($endpoint, 'POST');
+        $discount->setData($response['discount']);
     }
 }

@@ -5,7 +5,6 @@ namespace Shopify;
 use Shopify\Storage\PersistentStorageInterface;
 use Shopify\Storage\SessionStorage;
 use Shopify\Helper\OAuthHelper;
-use Shopify\Exception\InvalidPropertyException;
 use GuzzleHttp\Client;
 use Psr\Log\LoggerInterface;
 

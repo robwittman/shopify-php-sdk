@@ -34,7 +34,7 @@
 namespace Shopify\Object;
 
 use Shopify\Exception\ShopifySdkException;
-use Shopify\Exception\InvalidPropertyException;
+use Shopify\Exception\InvalidArgumentException;
 
 use Shopify\Enum\Fields\AbstractObjectEnum;
 
@@ -56,7 +56,7 @@ abstract class AbstractObject implements \JsonSerializable
     public function __get($key)
     {
         if (!array_key_exists($key, $this->data)) {
-            throw new InvalidPropertyException(
+            throw new InvalidArgumentException(
                 "Property '{$key}' does not exist for ".get_called_class()
             );
         }

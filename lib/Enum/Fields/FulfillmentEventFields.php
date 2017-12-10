@@ -2,7 +2,7 @@
 
 namespace Shopify\Enum\Fields;
 
-class FulfillmentEventFields extends AbstractObjectEnunm
+class FulfillmentEventFields extends AbstractObjectEnum
 {
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';

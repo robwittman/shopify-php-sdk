@@ -47,7 +47,7 @@ class ScriptTagService extends AbstractService
             $params['fields'] = implode(',', $fields);
         }
         $data = $this->request('/admin/script_tags/'.$scriptTagId.'.json', 'GET', $params);
-        return $this->createCollection(ScriptTag::class, $data['script_tags']);
+        return $this->createObject(ScriptTag::class, $data['script_tag']);
     }
 
     /**

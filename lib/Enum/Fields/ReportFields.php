@@ -2,7 +2,7 @@
 
 namespace Shopify\Enum\Fields;
 
-class ReportFields extends Abstrac
+class ReportFields extends AbstractObjectEnum
 {
     const CATEGORY = 'category';
     const ID = 'id';

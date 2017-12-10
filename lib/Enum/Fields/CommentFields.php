@@ -32,7 +32,7 @@ class CommentFields extends AbstractObjectEnum
             'published_at' => 'DateTime',
             'status' => 'string',
             'updated_at' => 'DateTime',
-            'user_agent' => 'object'
+            'user_agent' => 'string'
         );
     }
 }

@@ -17,7 +17,7 @@ class ProductVariantService extends AbstractService
     public function all($productId, array $params = array())
     {
         $endpoint = '/admin/products/'.$productId.'/variants.json';
-        $request = $this->request($endpoint, 'GET', $params);
+        $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(ProductVariant::class, $response['variants']);
     }
 

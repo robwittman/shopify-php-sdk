@@ -41,12 +41,12 @@
 
 namespace Shopify\Object;
 
-use Shopify\Enum\Fields\DiscountFields;
+use Shopify\Enum\Fields\DiscountCodeFields;
 
-class Discount extends AbstractObject
+class DiscountCode extends AbstractObject
 {
     public static function getFieldsEnum()
     {
-        return DiscountFields::getInstance();
+        return DiscountCodeFields::getInstance();
     }
 }

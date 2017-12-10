@@ -17,7 +17,7 @@ class RedirectService extends AbstractService
     {
         $endpoint = '/admin/redirects.json';
         $response = $this->request($endpoint, 'GET', $params);
-        return $this->createCollection(Redirect::class, $response['collections']);
+        return $this->createCollection(Redirect::class, $response['redirects']);
     }
 
     /**
@@ -46,7 +46,7 @@ class RedirectService extends AbstractService
     {
         $endpoint = '/admin/redirects/'.$redirectId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
-        return $this->createObject(Redirect::class, $response['redirects']);
+        return $this->createObject(Redirect::class, $response['redirect']);
     }
 
     /**

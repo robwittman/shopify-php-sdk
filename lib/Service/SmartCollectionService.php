@@ -45,7 +45,7 @@ class SmartCollectionService extends AbstractService
     {
         $endpoint = '/admin/smart_collections/'.$smartCollectionId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
-        return $this->createObject(SmartCollection::class, $response['smart_collections']);
+        return $this->createObject(SmartCollection::class, $response['smart_collection']);
     }
 
     /**

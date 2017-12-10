@@ -18,7 +18,7 @@ class MarketingEventService extends AbstractService
     {
         $endpoint = '/admin/marketing_events.json';
         $response = $this->request($endpoint, 'GET', $params);
-        return $this->createCollection(MarketingEvent::class, $response['marketing_event']);
+        return $this->createCollection(MarketingEvent::class, $response['marketing_events']);
     }
 
     /**

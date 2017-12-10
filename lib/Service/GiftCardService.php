@@ -46,7 +46,7 @@ class GiftCardService extends AbstractService
     {
         $endpoint = '/admin/gift_cards/'.$giftCardId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
-        return $this->createObject($response['gift_card']);
+        return $this->createObject(GiftCard::class, $response['gift_card']);
     }
 
     /**

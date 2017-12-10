@@ -2,7 +2,7 @@
 
 namespace Shopify\Enum\Fields;
 
-class GiftCardFieds extends AbstractObjectEnum
+class GiftCardFields extends AbstractObjectEnum
 {
     const ID = 'id';
     const API_CLIENT_ID = 'api_client_id';

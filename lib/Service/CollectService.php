@@ -48,7 +48,7 @@ class CollectService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }
-        $endpoint = '/admin/collects/'.$collect->getId().'.json';
+        $endpoint = '/admin/collects/'.$collectId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Collect::class, $response['collect']);
     }

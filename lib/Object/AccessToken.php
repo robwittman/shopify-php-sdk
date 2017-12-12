@@ -11,6 +11,6 @@ class AccessToken
     public function __construct(array $data)
     {
         $this->access_token = $data['access_token'];
-        $this->scopes = $data['scopes'];
+        $this->scopes = $data['scope'];
     }
 }

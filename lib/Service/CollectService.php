@@ -16,8 +16,8 @@ class CollectService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/collects.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Collect::class);
+        $data = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Collect::class, $data['collects']);
     }
 
     /**
@@ -30,8 +30,8 @@ class CollectService extends AbstractService
     public function count(array $params = array())
     {
         $endpoint = '/admin/collects/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request, $options);
+        $data = $this->request($endpoint);
+        return $data['count'];
     }
 
     /**
@@ -48,7 +48,7 @@ class CollectService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }
-        $endpoint = '/admin/collects/'.$collect->getId().'.json';
+        $endpoint = '/admin/collects/'.$collectId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Collect::class, $response['collect']);
     }
@@ -63,14 +63,13 @@ class CollectService extends AbstractService
     public function create(Collect &$collect)
     {
         $data = $collect->exportData();
-        $enpoint = '/admin/collects.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/collects.json';
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'collect' => $data
             )
         );
-        $collect->setData($response->collect);
+        $collect->setData($response['collect']);
     }
 
     /**
@@ -83,8 +82,7 @@ class CollectService extends AbstractService
     public function delete(Collect &$collect)
     {
         $endpoint = '/admin/collects/'.$collect->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $response = $this->send($request);
+        $this->request($endpoint, 'DELETE');
         return;
     }
 }

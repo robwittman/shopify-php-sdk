@@ -3,6 +3,7 @@
 namespace Shopify\Service;
 
 use Shopify\Object\ShippingZone;
+use Shopify\Exception\ShopifySdkException;
 
 class ShippingZoneService extends AbstractService
 {
@@ -14,6 +15,6 @@ class ShippingZoneService extends AbstractService
      */
     public function all()
     {
-
+        throw new ShopifySdkException("ShippingZoneService not implemented");
     }
 }

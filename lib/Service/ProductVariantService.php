@@ -17,7 +17,7 @@ class ProductVariantService extends AbstractService
     public function all($productId, array $params = array())
     {
         $endpoint = '/admin/products/'.$productId.'/variants.json';
-        $request = $this->request($endpoint, 'GET', $params);
+        $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(ProductVariant::class, $response['variants']);
     }
 
@@ -65,9 +65,11 @@ class ProductVariantService extends AbstractService
     {
         $data = $productVariant->exportData();
         $endpoint = '/admin/products/'.$productId.'/variants.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'variant' => $data
-        ));
+            )
+        );
         $productVariant->setData($response['variant']);
     }
 
@@ -81,10 +83,12 @@ class ProductVariantService extends AbstractService
     public function update(ProductVariant &$productVariant)
     {
         $data = $productVariant->exportData();
-        $endpoint = '/admin/variants/'.$productVariant->getId().'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $endpoint = '/admin/variants/'.$productVariant->id.'.json';
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'variant' => $data
-        ));
+            )
+        );
         $productVariant->setData($response['variant']);
     }
 
@@ -98,7 +102,7 @@ class ProductVariantService extends AbstractService
      */
     public function delete($productId, ProductVariant &$productVariant)
     {
-        $endpoint = '/admin/products/'.$productId.'/variants/'.$productVariant->getId().'.json';
+        $endpoint = '/admin/products/'.$productId.'/variants/'.$productVariant->id.'.json';
         $response = $this->request($endpoint, 'DELETE');
     }
 }

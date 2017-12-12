@@ -3,6 +3,7 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Refund;
+use Shopify\Exception\ShopifySdkException;
 
 class RefundService extends AbstractService
 {
@@ -16,8 +17,9 @@ class RefundService extends AbstractService
      */
     public function all($orderId, array $params = array())
     {
-        $request = $this->createRequest('/admin/orders/'.$orderId.'/refunds.json');
-        return $this->getEdge($request, $params, Refund::class);
+        $endpoint = '/admin/orders/'.$orderId.'/refunds.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Refund::class, $response['refunds']);
     }
 
     /**
@@ -31,8 +33,9 @@ class RefundService extends AbstractService
      */
     public function get($orderId, $refundId, array $params = array())
     {
-        $request= $this->createRequest('/admin/orders/'.$orderId.'/refunds/'.$refundId.'.json');
-        return $this->getNode($request, $params, Refund::class);
+        $endpoint = '/admin/orders/'.$orderId.'/refunds/'.$refundId.'.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Refund::class, $response['refund']);
     }
 
     /**
@@ -45,14 +48,14 @@ class RefundService extends AbstractService
      */
     public function create($orderId, Refund &$refund)
     {
-        $data= $refund->exportData();
-        $request = $this->createRequest('/admin/orders/'.$orderId.'/refunds.json', static::REQUEST_METHOD_POST);
-        $response= $this->send(
-            $request, array(
+        $data = $refund->exportData();
+        $endpoint = '/admin/orders/'.$orderId.'/refunds.json';
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'refund' => $data
             )
         );
-        $refund->setData($response->refund);
+        $refund->setData($response['refund']);
     }
 
     /**
@@ -63,6 +66,8 @@ class RefundService extends AbstractService
      */
     public function calculate()
     {
-
+        throw new ShopifySdkException(
+            "RefundService::calculate() not implemented"
+        );
     }
 }

@@ -3,6 +3,7 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Asset;
+use Shopify\Exception\ShopifySdkException;
 
 class AssetService extends AbstractService
 {
@@ -16,7 +17,7 @@ class AssetService extends AbstractService
      */
     public function all($themeId, array $params = array())
     {
-
+        throw new ShopifySdkException('AssetService::all() not implemented');
     }
 
     /**
@@ -29,7 +30,7 @@ class AssetService extends AbstractService
      */
     public function get($themeId, array $params = array())
     {
-
+        throw new ShopifySdkException('AssetService::get() not implemented');
     }
 
     /**
@@ -42,7 +43,7 @@ class AssetService extends AbstractService
      */
     public function put($themeId, Asset $asset)
     {
-
+        throw new ShopifySdkException('AssetService::put() not implemented');
     }
 
     /**
@@ -55,6 +56,6 @@ class AssetService extends AbstractService
      */
     public function delete($themeId, Asset $asset)
     {
-
+        throw new ShopifySdkException('AssetService::delete() not implemented');
     }
 }

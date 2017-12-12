@@ -17,6 +17,7 @@ class AbandonedCheckoutFields extends AbstractObjectEnum
     const DISCOUNT_CODES = 'discount_codes';
     const EMAIL = 'email';
     const GATEWAY = 'gateway';
+    const GIFT_CARD = 'gift_card';
     const ID = 'id';
     const LANDING_SITE = 'landing_site';
     const LINE_ITEMS = 'line_items';
@@ -52,6 +53,7 @@ class AbandonedCheckoutFields extends AbstractObjectEnum
             'discount_codes' => 'DiscountCode[]',
             'email' => 'string',
             'gateway' => 'string',
+            'gift_card' => 'GiftCard',
             'id' => 'string',
             'landing_site' => 'string',
             'line_items' => 'LineItem[]',

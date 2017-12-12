@@ -68,9 +68,11 @@ class ArticleService extends AbstractService
     {
         $data = $article->exportData();
         $endpoint = '/admin/blogs/'.$blogId.'/articles.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'article' => $data
-        ));
+            )
+        );
         $article->setData($response['article']);
     }
 
@@ -86,9 +88,11 @@ class ArticleService extends AbstractService
     {
         $data = $article->exportData();
         $endpoint = '/admin/blogs/'.$blogId.'/articles/'.$article->id.'.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'article' => $data
-        ));
+            )
+        );
         $article->setData($response['article']);
     }
 

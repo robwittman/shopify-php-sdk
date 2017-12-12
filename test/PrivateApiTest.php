@@ -5,7 +5,7 @@ namespace Shopify\Test;
 use Shopify\PrivateApi;
 use GuzzleHttp\Client;
 
-class PrivateApiTest extends ShopifyTest
+class PrivateApiTest extends TestCase
 {
     public function testCreateBasicAuthHeader()
     {
@@ -16,23 +16,26 @@ class PrivateApiTest extends ShopifyTest
 
     public function testApiKey()
     {
-        $api = new PrivateApi();
-        $api->setApiKey('api-key');
+        $api = new PrivateApi(array(
+            'api_key' => 'api-key'
+        ));
         $this->assertEquals($api->getApiKey(), 'api-key');
     }
 
     public function testPassword()
     {
-        $api = new PrivateApi();
-        $api->setPassword('api-passqword');
+        $api = new PrivateApi(array(
+            'password' => 'api-passqword'
+        ));
         $this->assertEquals($api->getPassword(), 'api-passqword');
     }
 
     public function testSharedSecret()
     {
         $secret = 'test-shared-secret';
-        $api = new PrivateApi();
-        $api->setSharedSecret($secret);
+        $api = new PrivateApi(array(
+            'shared_secret' => $secret
+        ));
         $this->assertEquals($api->getSharedSecret(), $secret);
     }
 

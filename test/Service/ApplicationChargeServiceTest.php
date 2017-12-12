@@ -37,7 +37,7 @@ class ApplicationChargeServiceTest extends TestCase
             'id' => 1234
         ));
         $service->activate($charge);
-        $this->assertEquals($charge->getStatus(), 'active');
+        $this->assertEquals($charge->status, 'active');
     }
 
     public function testCreate()
@@ -48,6 +48,6 @@ class ApplicationChargeServiceTest extends TestCase
         $service = new ApplicationChargeService($api);
         $charge = new ApplicationCharge();
         $service->create($charge);
-        $this->assertEquals($charge->getId(), 1234);
+        $this->assertEquals($charge->id, 1234);
     }
 }

@@ -36,7 +36,7 @@ class ArticleServiceTest extends TestCase
         $service = new ArticleService($api);
         $article = new Article();
         $service->create(1234, $article);
-        $this->assertEquals($article->getId(), 1234);
+        $this->assertEquals($article->id, 1234);
     }
 
     public function testUpdate()
@@ -47,6 +47,6 @@ class ArticleServiceTest extends TestCase
         $service = new ArticleService($api);
         $article = new Article();
         $service->create(1234, $article);
-        $this->assertEquals($article->getTitle(), 'New Title');
+        $this->assertEquals($article->title, 'New Title');
     }
 }

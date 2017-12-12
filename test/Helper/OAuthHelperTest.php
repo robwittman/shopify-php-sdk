@@ -4,9 +4,9 @@ namespace Shopify\Test\Helper;
 
 use Shopify\Api;
 use Shopify\Helper\OAuthHelper;
-use Shopify\Test\ShopifyTest;
+use Shopify\Test\TestCase;
 
-class OAuthHelperTest extends ShopifyTest
+class OAuthHelperTest extends TestCase
 {
     public function setUp()
     {

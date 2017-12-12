@@ -16,8 +16,9 @@ class TransactionService extends AbstractService
      */
     public function all($orderId, array $params = array())
     {
-        $request = $this->createRequest('/admin/orders/'.$orderId.'/transactions.json');
-        return $this->getEdge($request, $params, Transaction::class);
+        $endpoint = '/admin/orders/'.$orderId.'/transactions.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Transaction::class, $response['transactions']);
     }
 
     /**
@@ -30,8 +31,9 @@ class TransactionService extends AbstractService
      */
     public function count($orderId, array $params = array())
     {
-        $request = $this->createRequest('/admin/orders/'.$orderId.'/transactions/count.json');
-        return $this->getCount($request, $options);
+        $endpoint = '/admin/orders/'.$orderId.'/transactions/count.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -45,8 +47,9 @@ class TransactionService extends AbstractService
      */
     public function get($orderId, $transactionId, array $params = array())
     {
-        $request= $this->createRequest('/admin/orders/'.$orderId.'/transactions/'.$transactionId.'.json');
-        return $this->getNode($request, $params, Transaction::class);
+        $endpoint = '/admin/orders/'.$orderId.'/transactions/'.$transactionId.'.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Transaction::class, $response['transaction']);
     }
 
     /**
@@ -59,12 +62,12 @@ class TransactionService extends AbstractService
     public function create(Transaction &$transaction)
     {
         $data = $transaction->exportData();
-        $request = $this->createRequest('/admin/transactions.json', static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/transactions.json';
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'transaction' => $data
             )
         );
-        $transaction->setData($response->transaction);
+        $transaction->setData($response['transaction']);
     }
 }

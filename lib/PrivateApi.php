@@ -4,13 +4,11 @@ namespace Shopify;
 
 use GuzzleHttp\Client;
 
-class PrivateApi implements ApiInterface
+class PrivateApi extends AbstractApi
 {
     protected $api_key;
     protected $password;
     protected $shared_secret;
-    protected $myshopify_domain;
-    protected $http_handler;
 
     public function getApiKey()
     {
@@ -27,29 +25,6 @@ class PrivateApi implements ApiInterface
         return $this->shared_secret;
     }
 
-    public function setMyshopifyDomain($myshopifyDomain)
-    {
-        $this->myshopify_domain = $myshopifyDomain;
-        return $this;
-    }
-
-    public function getMyshopifyDomain()
-    {
-        return $this->myshopify_domain;
-    }
-
-    public function setHttpHandler(Client $httpHandler)
-    {
-        $this->http_handler = $httpHandler;
-        return $this;
-    }
-
-    public function getHttpHandler()
-    {
-        $this->init();
-        return $this->http_handler;
-    }
-
     public function init()
     {
         $args = array(
@@ -64,7 +39,7 @@ class PrivateApi implements ApiInterface
         $this->http_handler = new Client($args);
     }
 
-    protected function createBasicAuthHeader($apiKey, $password)
+    public function createBasicAuthHeader($apiKey, $password)
     {
         $input = "{$apiKey}:{$password}";
         $input = base64_encode($input);

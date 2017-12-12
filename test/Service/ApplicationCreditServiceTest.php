@@ -35,6 +35,6 @@ class ApplicationCreditServiceTest extends TestCase
         $service = new ApplicationCreditService($api);
         $credit = new ApplicationCredit();
         $service->create($credit);
-        $this->assertEquals($credit->getId(), 1234);
+        $this->assertEquals($credit->id, 1234);
     }
 }

@@ -47,7 +47,7 @@ class ScriptTagService extends AbstractService
             $params['fields'] = implode(',', $fields);
         }
         $data = $this->request('/admin/script_tags/'.$scriptTagId.'.json', 'GET', $params);
-        return $this->createCollection(ScriptTag::class, $data['script_tags']);
+        return $this->createObject(ScriptTag::class, $data['script_tag']);
     }
 
     /**
@@ -60,9 +60,11 @@ class ScriptTagService extends AbstractService
     public function create(ScriptTag &$scriptTag)
     {
         $data = $scriptTag->exportData();
-        $response = $this->request('/admin/script_tags.json', 'POST', array(
+        $response = $this->request(
+            '/admin/script_tags.json', 'POST', array(
             'script_tag' => $data
-        ));
+            )
+        );
         $scriptTag->setData($response['script_tag']);
     }
 
@@ -76,9 +78,11 @@ class ScriptTagService extends AbstractService
     public function update(ScriptTag $scriptTag)
     {
         $data = $scriptTag->exportData();
-        $response = $this->request('/admin/script_tags/'.$scriptTag->id.'.json', 'PUT', array(
+        $response = $this->request(
+            '/admin/script_tags/'.$scriptTag->id.'.json', 'PUT', array(
             'script_tag' => $data
-        ));
+            )
+        );
         $scriptTag->setData($response['script_tag']);
     }
 

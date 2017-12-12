@@ -2,12 +2,12 @@
 
 namespace Shopify\Object;
 
-use Shopify\Enum\Fields\TaxLinesFields;
+use Shopify\Enum\Fields\TaxLineFields;
 
-class TaxLines extends AbstractObject
+class TaxLine extends AbstractObject
 {
     public static function getFieldsEnum()
     {
-        return TaxLinesFields::getInstance();
+        return TaxLineFields::getInstance();
     }
 }

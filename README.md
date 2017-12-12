@@ -26,6 +26,16 @@ $client = new Shopify\Api(array(
 ));
 ```
 
+If you are using a Private App for use on an individual store:
+```php
+$client = new Shopify\PrivateApi(array(
+    'api_key' => '<api-key>',
+    'password' => '<password>',
+    'shared_secret' => '<shared-secret>',
+    'myshopify_domain' => '<store>.myshopify.com'
+));
+```
+
 Once the client is initialized, you can then create a service, and use it to communicate with the api
 
 ### Reading
@@ -84,7 +94,6 @@ header("Location: {$authorizationUrl}");
 ```
 
 At your `redirect_uri`, instantiate the helper again to get an access token
-
 ```php
 $client = new Shopify\Api($params);
 $helper = $client->getOAuthHelper();
@@ -93,6 +102,10 @@ $token = $helper->getAccessToken($code);
 echo $token->access_token;
 echo $token->scopes;
 ```
+
+By default, this uses simple session storage. You can implement a custom class that implements `PersistentStorageInterface`,
+pass that to `new Shopify\Api()`, and `OAuthHelper` will use that instead. This will be required if authorization requests and
+redirects may be directed to different servers.
 
 ### Using objects
 

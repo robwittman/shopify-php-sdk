@@ -16,8 +16,8 @@ class PageService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/pages.json';
-        $request = $this->creatRequest($endpoint);
-        return $this->getEdge($request, $params, Page::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Page::class, $response['pages']);
     }
 
     /**
@@ -30,8 +30,8 @@ class PageService extends AbstractService
     public function count(array $params = array())
     {
         $endpoint = '/admin/pages/count.json';
-        $request = $this->creatRequest($endpoint);
-        return $this->getCount($request, $options);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -45,8 +45,8 @@ class PageService extends AbstractService
     public function get($pageId, array $params = array())
     {
         $endpoint = '/admin/pages/'.$pageId.'.json';
-        $request = $this->creatRequest($endpoint);
-        return $this->getNode($request, $params, Page::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Page::class, $response['page']);
     }
 
     /**
@@ -60,13 +60,12 @@ class PageService extends AbstractService
     {
         $data = $page->exportData();
         $endpoint= '/admin/pages.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'page' => $data
             )
         );
-        $page->setData($response->page);
+        $page->setData($response['page']);
     }
 
     /**
@@ -79,14 +78,13 @@ class PageService extends AbstractService
     public function update(Page &$page)
     {
         $data = $page->exportData();
-        $endpoint= '/admin/pages/'.$page->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint= '/admin/pages/'.$page->id.'.json';
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'page' => $data
             )
         );
-        $page->setData($response->page);
+        $page->setData($response['page']);
     }
 
     /**
@@ -98,8 +96,8 @@ class PageService extends AbstractService
      */
     public function delete(Page $page)
     {
-        $endpoint = '/admin/pages/'.$page->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        $endpoint = '/admin/pages/'.$page->id.'.json';
+        $response = $this->request($endpoint, 'DELETE');
+        return;
     }
 }

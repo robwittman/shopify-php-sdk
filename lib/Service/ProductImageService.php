@@ -39,9 +39,9 @@ class ProductImageService extends AbstractService
     /**
      * Get a single product image
      *
-     * @link   https://help.shopify.com/api/reference/product_image#show
-     * @param  integer $productId
-     * @param  integer $productImageId
+     * @link  https://help.shopify.com/api/reference/product_image#show
+     * @param integer $productId
+     * @param integer $productImageId
      *
      * @return ProductImage
      */
@@ -64,9 +64,11 @@ class ProductImageService extends AbstractService
     {
         $data = $productImage->exportData();
         $endpoint = '/admin/products/'.$productId.'/images.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'image' => $data
-        ));
+            )
+        );
         $productImage->setData($response['image']);
     }
 
@@ -81,10 +83,12 @@ class ProductImageService extends AbstractService
     public function update($productId, ProductImage &$productImage)
     {
         $data = $productImage->exportData();
-        $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->getId().'.json';
-        $response = $this->request($endpoint, 'PUT', array(
+        $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->id.'.json';
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'image' => $data
-        ));
+            )
+        );
         $productImage->setData($response['image']);
     }
 
@@ -98,7 +102,7 @@ class ProductImageService extends AbstractService
      */
     public function delete($productId, ProductImage $productImage)
     {
-        $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->getId().'.json';
+        $endpoint = '/admin/products/'.$productId.'/images/'.$productImage->id.'.json';
         return $this->request($endpoint, 'DELETE');
     }
 }

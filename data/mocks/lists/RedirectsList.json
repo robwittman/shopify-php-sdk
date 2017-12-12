@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "id": 950115854,
+      "path": "\/ibook",
+      "target": "\/products\/macbook"
+    }
+  ]
+}

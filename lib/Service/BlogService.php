@@ -3,6 +3,7 @@
 namespace Shopify\Service;
 
 use Shopify\Object\Blog;
+use Shopify\Exception\ShopifySdkException;
 
 class BlogService extends AbstractService
 {
@@ -63,9 +64,11 @@ class BlogService extends AbstractService
     {
         $data = $blog->exportData();
         $endpoint = '/admin/blogs.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'blog' => $data
-        ));
+            )
+        );
         $blog->setData($response['blog']);
     }
 
@@ -78,7 +81,7 @@ class BlogService extends AbstractService
      */
     public function update(Blog &$blog)
     {
-
+        throw new ShopifySdkException('BlogService::update() not implemented');
     }
 
     /**
@@ -90,6 +93,6 @@ class BlogService extends AbstractService
      */
     public function delete(Blog $blog)
     {
-
+        throw new ShopifySdkException('BlogService::delete() not implemented');
     }
 }

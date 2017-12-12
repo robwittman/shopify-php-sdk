@@ -3,6 +3,7 @@
 namespace Shopify\Service;
 
 use Shopify\Object\MarketingEvent;
+use Shopify\Exception\ShopifySdkException;
 
 class MarketingEventService extends AbstractService
 {
@@ -16,8 +17,8 @@ class MarketingEventService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/marketing_events.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, MarketingEvent::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(MarketingEvent::class, $response['marketing_events']);
     }
 
     /**
@@ -29,8 +30,8 @@ class MarketingEventService extends AbstractService
     public function count()
     {
         $endpoint = '/admin/marketing_events/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request);
+        $response = $this->request($endpoint);
+        return $response['count'];
     }
 
     /**
@@ -43,8 +44,8 @@ class MarketingEventService extends AbstractService
     public function get($marketingEventId)
     {
         $endpoint = '/admin/marketing_events/'.$marketingEventId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, array(), MarketingEvent::class);
+        $response = $this->request($endpoint);
+        return $this->createObject(MarketingEvent::class, $response['marketing_event']);
     }
 
     /**
@@ -58,13 +59,12 @@ class MarketingEventService extends AbstractService
     {
         $data = $marketingEvent->exportData();
         $endpoint = '/admin/marketing_events.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'marketing_event' => $data
             )
         );
-        $marketingEvent->setData($response->marketing_event);
+        $marketingEvent->setData($response['marketing_event']);
     }
 
     /**
@@ -77,14 +77,13 @@ class MarketingEventService extends AbstractService
     public function update(MarketingEvent &$marketingEvent)
     {
         $data = $marketingEvent->exportData();
-        $endpoint = '/admin/marketing_events/'.$markketingEvent->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/marketing_events/'.$marketingEvent->id.'.json';
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'marketing_event' => $data
             )
         );
-        $marketingEvent->setData($response->marketing_event);
+        $marketingEvent->setData($response['marketing_event']);
     }
 
     /**
@@ -96,9 +95,9 @@ class MarketingEventService extends AbstractService
      */
     public function delete(MarketingEvent &$marketingEvent)
     {
-        $endpoint = '/admin/marketing_events/'.$marketingEvent->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_DELETE);
-        $this->send($request);
+        $endpoint = '/admin/marketing_events/'.$marketingEvent->id.'.json';
+        $response = $this->request($endpoint, 'DELETE');
+        return;
     }
 
     /**
@@ -110,6 +109,6 @@ class MarketingEventService extends AbstractService
      */
     public function createEngagements(MarketingEvent $marketingEvent)
     {
-
+        throw new ShopifySdkException('MarketingEventService::createEngagements() not implemented');
     }
 }

@@ -46,9 +46,11 @@ class RecurringApplicationChargeService extends AbstractService
     {
         $data = $recurringApplicationCharge->exportData();
         $endpoint = '/admin/recurring_application_charges.json';
-        $response = $this->request($endpoint, 'POST', array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'recurring_application_charge' => $data
-        ));
+            )
+        );
         $recurringApplicationCharge->setData($response['recurring_application_charge']);
     }
 

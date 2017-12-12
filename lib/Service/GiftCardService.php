@@ -16,8 +16,8 @@ class GiftCardService extends AbstractService
     public function all(array $params = array())
     {
         $endpoint = '/admin/gift_cards.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, GiftCard::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(GiftCard::class, $response['gift_cards']);
     }
 
     /**
@@ -30,8 +30,8 @@ class GiftCardService extends AbstractService
     public function count(array $params = array())
     {
         $endpoint = '/admin/gift_cards/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request, $options);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     /**
@@ -45,8 +45,8 @@ class GiftCardService extends AbstractService
     public function get($giftCardId, array $params = array())
     {
         $endpoint = '/admin/gift_cards/'.$giftCardId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, GiftCard::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(GiftCard::class, $response['gift_card']);
     }
 
     /**
@@ -60,13 +60,12 @@ class GiftCardService extends AbstractService
     {
         $data = $giftCard->exportData();
         $endpoint = '/admin/gift_cards.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'gift_card' => $data
             )
         );
-        $giftCard->setData($response->gift_card);
+        $giftCard->setData($response['gift_card']);
     }
 
     /**
@@ -79,14 +78,13 @@ class GiftCardService extends AbstractService
     public function update(GiftCard &$giftCard)
     {
         $data = $giftCard->exportData();
-        $endpoint = '/admin/gift_cards/'.$giftCard->getId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/gift_cards/'.$giftCard->id.'.json';
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'gift_card' => $data
             )
         );
-        $giftCard->setData($response->gift_card);
+        $giftCard->setData($response['gift_card']);
     }
 
     /**
@@ -99,23 +97,22 @@ class GiftCardService extends AbstractService
     public function disable(GiftCard &$giftCard)
     {
         $data = $giftCard->exportData();
-        $endpoint = '/admin/gift_cards/'.$giftCard->getId().'/disable.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send($request);
-        $giftCard->setData($response->gift_card);
+        $endpoint = '/admin/gift_cards/'.$giftCard->id.'/disable.json';
+        $response = $this->request($endpoint, 'POST');
+        $giftCard->setData($response['gift_card']);
     }
 
     /**
      * Search for gift cards matching supplied query
      *
      * @link   https://help.shopify.com/api/reference/gift_card#search
-     * @param  SearchOptions $options
+     * @param  array $params
      * @return GiftCard[]
      */
-    public function search(SearchOptions $options = null)
+    public function search(array $params = array())
     {
         $endpoint = '/admin/gift_cards/search.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, GiftCard::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(GiftCard::class, $response['gift_cards']);
     }
 }

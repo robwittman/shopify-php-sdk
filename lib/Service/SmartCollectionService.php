@@ -15,8 +15,9 @@ class SmartCollectionService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $request = $this->createRequest('/admin/smart_collections.json');
-        return $this->getEdge($request, $params, SmartCollection::class);
+        $endpoint = '/admin/smart_collections.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(SmartCollection::class, $response['smart_collections']);
     }
 
     /**
@@ -27,8 +28,9 @@ class SmartCollectionService extends AbstractService
      */
     public function count()
     {
-        $request = $this->createRequest('/admin/smart_collections/count.json');
-        return $this->getCount($request);
+        $endpoint = '/admin/smart_collections/count.json';
+        $response = $this->request($endpoint);
+        return $response['count'];
     }
 
     /**
@@ -41,8 +43,9 @@ class SmartCollectionService extends AbstractService
      */
     public function get($smartCollectionId, array $params = array())
     {
-        $request = $this->createRequest('/admin/smart_collections/'.$smartCollectionId.'.json');
-        return $this->getNode($request, $params, SmartCollection::class);
+        $endpoint = '/admin/smart_collections/'.$smartCollectionId.'.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(SmartCollection::class, $response['smart_collection']);
     }
 
     /**
@@ -55,13 +58,13 @@ class SmartCollectionService extends AbstractService
     public function create(SmartCollection &$smartCollection)
     {
         $data = $smartCollection->exportData();
-        $request = $this->createRequest('/admin/smart_collections.json', static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/smart_collections.json';
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'smart_collection' => $data
             )
         );
-        $smartCollection->setData($response->smart_collection);
+        $smartCollection->setData($response['smart_collection']);
     }
 
     /**
@@ -74,13 +77,13 @@ class SmartCollectionService extends AbstractService
     public function update(SmartCollection &$smartCollection)
     {
         $data = $smartCollection->exportData();
-        $request = $this->createRequest('/admin/smart_collections/'.$smart_collection->getId().'.json', static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $endpoint = '/admin/smart_collections/'.$smart_collection->id.'.json';
+        $response = $this->request(
+            $endpoint, 'PUT', array(
             'smart_collection' => $data
             )
         );
-        $smartCollection->setData($response->smart_collection);
+        $smartCollection->setData($response['smart_collection']);
     }
 
     /**

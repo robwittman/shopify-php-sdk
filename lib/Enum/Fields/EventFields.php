@@ -18,7 +18,7 @@ class EventFields extends AbstractObjectEnum
     public function getFieldTypes()
     {
         return array(
-            'arguments' => 'string',
+            'arguments' => 'array',
             'body' => 'string',
             'created_at' => 'DateTime',
             'id' => 'integer',

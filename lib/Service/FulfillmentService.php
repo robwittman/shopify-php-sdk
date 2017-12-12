@@ -9,74 +9,69 @@ class FulfillmentService extends AbstractService
     public function all($orderId, array $params = array())
     {
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getEdge($request, $params, Fulfillment::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createCollection(Fulfillment::class, $response['fulfillments']);
     }
 
     public function count($orderId, array $params = array())
     {
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/count.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getCount($request, $options);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $response['count'];
     }
 
     public function get($orderId, $fulfillmentId, array $params = array())
     {
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'.json';
-        $request = $this->createRequest($endpoint);
-        return $this->getNode($request, $params, Fulfillment::class);
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Fulfillment::class, $response['fulfillments']);
     }
 
     public function create($orderId, Fulfillment &$fulfillment)
     {
         $data = $fulfillment->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'fulfillment' => $data
             )
         );
-        $fulfillment->setData($response->fulfillment);
+        $fulfillment->setData($response['fulfillment']);
     }
 
     public function update($orderId, Fulfillment &$fulfillment)
     {
         $data = $fulfillment->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillment->gtId().'.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_PUT);
-        $response = $this->send(
-            $request, array(
+        $response = $this->request(
+            $endpoint, 'POST', array(
             'fulfillment' => $data
             )
         );
-        $fulfillment->setData($response->fulfillment);
+        $fulfillment->setData($response['fulfillment']);
     }
 
     public function complete($orderId, Fulfillment &$fulfillment)
     {
         $data = $fulfillment->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillment->getId().'/complete.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request);
-        $fulfillment->setData($response->fulfillment);
+        $response = $this->request($endpoint, 'POST');
+        $fulfillment->setData($response['fulfillment']);
     }
 
     public function cancel($orderId, Fulfillment &$fulfillment)
     {
         $data = $fulfillment->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillment->getId().'/cancel.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request);
-        $fulfillment->setData($response->fulfillment);
+        $response = $this->request($endpoint, 'POST');
+        $fulfillment->setData($response['fulfillment']);
     }
 
     public function open($orderId, Fulfillment &$fulfillment)
     {
         $data = $fulfillment->exportData();
         $endpoint = '/admin/orders/'.$orderId.'/fulfillments/'.$fulfillment->getId().'/open.json';
-        $request = $this->createRequest($endpoint, static::REQUEST_METHOD_POST);
-        $response = $this->send($request);
+        $response = $this->request($endpoint, 'POST');
         $fulfillment->setData($response->fulfillment);
     }
 }

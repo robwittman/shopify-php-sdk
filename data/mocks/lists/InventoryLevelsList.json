@@ -1,0 +1,16 @@
+{
+  "inventory_levels": [
+    {
+      "inventory_item_id": 2084329160713,
+      "location_id": 106790921,
+      "available": 1,
+      "updated_at": "2018-02-20T03:37:40-05:00"
+    },
+    {
+      "inventory_item_id": 2197022867465,
+      "location_id": 106790921,
+      "available": 0,
+      "updated_at": "2018-03-29T05:08:20-04:00"
+    }
+  ]
+}

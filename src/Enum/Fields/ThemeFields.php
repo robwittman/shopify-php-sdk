@@ -12,7 +12,7 @@ class ThemeFields extends AbstractObjectEnum
     const PREVIEWABLE = 'previewable';
     const PROCESSING = 'processing';
 
-    public function getFieldType()
+    public function getFieldTypes()
     {
         return array(
             'created_at' => 'DateTime',

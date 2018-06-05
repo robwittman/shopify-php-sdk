@@ -17,7 +17,9 @@ class AssetService extends AbstractService
      */
     public function all($themeId, array $params = array())
     {
-        throw new ShopifySdkException('AssetService::all() not implemented');
+        $endpoint = '/themes/'.$themeId.'/assets.json';
+        $response = $this->request($endpoint, 'GET', $params);
+        return $this->createObject(Asset::class, $response['assets']);
     }
 
     /**
@@ -28,9 +30,14 @@ class AssetService extends AbstractService
      * @param  array   $params
      * @throws ShopifySdkException
      */
-    public function get($themeId, array $params = array())
+    public function get($themeId, $assetKey)
     {
-        throw new ShopifySdkException('AssetService::get() not implemented');
+        $endpoint = '/themes/'.$themeId.'/assets.json';
+        $response = $this->request($endpoint, 'GET', [
+            'asset[key]' => $assetKey,
+            'theme_id' => $themeId,
+        ]);
+        return $this->createObject(Asset::class, $response['asset']);
     }
 
     /**
@@ -43,7 +50,10 @@ class AssetService extends AbstractService
      */
     public function put($themeId, Asset $asset)
     {
-        throw new ShopifySdkException('AssetService::put() not implemented');
+        $data = $asset->exportData();
+        $endpoint = '/themes/'.$themeId.'/assets.json';
+        $response = $this->request($endpoint, 'PUT', ['asset' => $data]);
+        $asset->setData($response['asset']);
     }
 
     /**

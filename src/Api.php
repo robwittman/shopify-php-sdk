@@ -120,7 +120,7 @@ class Api extends AbstractApi
      */
     public function init()
     {
-        $args = array();
+        $args = ['curl' => [CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2]];
         if (!is_null($this->myshopify_domain)) {
             $args['base_uri'] = sprintf(
                 "https://%s/admin/api/%s/",

@@ -205,7 +205,7 @@ abstract class AbstractObject implements \JsonSerializable
             } elseif (is_a($value, AbstractObject::class)) {
                 $results[$field] = $value->exportData();
             } elseif (is_a($value, \DateTime::class)) {
-                $result[$field] = $value->format(\DateTime::ATOM);
+                $results[$field] = $value->format(\DateTime::ATOM);
             } else {
                 $results[$field] = $value;
             }

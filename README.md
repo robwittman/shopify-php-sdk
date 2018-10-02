@@ -132,3 +132,4 @@ foreach ($product->variants as $variant) {
 [Shopify API Reference](https://help.shopify.com/api/reference)
 
 [SDK Usage Examples](https://github.com/RobbyBugatti/shopify-php/examples)
+ 

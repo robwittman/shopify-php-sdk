@@ -8,7 +8,7 @@ class CustomCollectionFields extends AbstractObjectEnum
     const HANDLE = 'handle';
     const IMAGE = 'image';
     const ID = 'id';
-    const METAFIELD = 'metafield';
+    const METAFIELDS = 'metafields';
     const PUBLISHED = 'published';
     const PUBLISHED_AT = 'published_at';
     const PUBLISHED_SCOPE = 'published_scope';
@@ -16,6 +16,7 @@ class CustomCollectionFields extends AbstractObjectEnum
     const TEMPLATE_SUFFIX = 'template_suffix';
     const TITLE = 'title';
     const UPDATED_AT = 'updated_at';
+	const COLLECTS = 'collects';
 
     public function getFieldTypes()
     {
@@ -24,14 +25,15 @@ class CustomCollectionFields extends AbstractObjectEnum
             'handle' => 'string',
             'image' => 'object',
             'id' => 'integer',
-            'metafield' => 'Metafield[]',
+            'metafields' => 'Metafield[]',
             'published' => "boolean",
             'published_at' => 'DateTime',
             'published_scope' => 'string',
             'sort_order' => 'string',
             'template_suffix' => 'string',
             'title' => 'string',
-            'updated_at' => 'DateTime'
+            'updated_at' => 'DateTime',
+			'collects' => 'Collect[]'
         );
     }
 }

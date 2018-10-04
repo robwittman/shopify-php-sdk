@@ -77,7 +77,7 @@ class SmartCollectionService extends AbstractService
     public function update(SmartCollection &$smartCollection)
     {
         $data = $smartCollection->exportData();
-        $endpoint = '/admin/smart_collections/'.$smart_collection->id.'.json';
+        $endpoint = '/admin/smart_collections/'.$smartCollection->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'smart_collection' => $data

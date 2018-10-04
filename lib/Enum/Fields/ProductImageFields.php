@@ -13,6 +13,7 @@ class ProductImageFields extends AbstractObjectEnum
     const WIDTH = 'width';
     const HEIGHT = 'height';
     const UPDATED_AT = 'updated_at';
+	const ATTACHMENT = 'attachment';
 
     public function getFieldTypes()
     {
@@ -23,6 +24,7 @@ class ProductImageFields extends AbstractObjectEnum
             'product_id' => 'integer',
             'variant_ids' => 'array',
             'src' => 'string',
+			'attachment' => 'string',
             'height' => 'integer',
             'width' => 'integer',
             'updated_at' => 'DateTime'

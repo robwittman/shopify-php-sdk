@@ -45,6 +45,25 @@ class AssetService extends AbstractService
     {
         throw new ShopifySdkException('AssetService::put() not implemented');
     }
+	
+	/**
+     * Modify an existing asset
+     *
+     * @link   https://help.shopify.com/en/api/reference/online_store/asset
+     * @param  Product $product
+     * @return void
+     */
+    public function update($themeId, Asset $asset)
+    {
+        $data = $asset->exportData();
+        $endpoint = '/admin/themes/'.$themeId.'/assets.json';
+        $response = $this->request(
+            $endpoint, 'PUT', array(
+            'asset' => $data
+            )
+        );
+        $asset->setData($response['asset']);
+    }
 
     /**
      * Remove an asset from the database

@@ -19,7 +19,7 @@ class AssetService extends AbstractService
     {
         $endpoint = '/themes/'.$themeId.'/assets.json';
         $response = $this->request($endpoint, 'GET', $params);
-        return $this->createObject(Asset::class, $response['assets']);
+        return $this->createCollection(Asset::class, $response['assets']);
     }
 
     /**

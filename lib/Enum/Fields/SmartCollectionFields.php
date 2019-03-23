@@ -9,6 +9,7 @@ class SmartCollectionFields extends AbstractObjectEnum
     const ID = 'id';
     const IMAGE = 'image';
     const PUBLISHED_AT = 'published_at';
+	const PUBLISHED = 'published';
     const PUBLISHED_SCOPE = 'published_scope';
     const RULES = 'rules';
     const DISJUNCTIVE = 'disjunctive';
@@ -16,6 +17,7 @@ class SmartCollectionFields extends AbstractObjectEnum
     const TEMPLATE_SUFFIX = 'template_suffix';
     const TITLE = 'title';
     const UPDATED_AT = 'updated_at';
+	const METAFIELDS = 'metafields';
 
     public function getFieldTypes()
     {
@@ -24,7 +26,9 @@ class SmartCollectionFields extends AbstractObjectEnum
             'handle' => 'string',
             'id' => 'integer',
             'image' => 'object',
+			'metafields' => 'Metafield[]',
             'published_at' => 'DateTime',
+			'published' => 'boolean',
             'published_scope' => 'string',
             'rules' => 'array',
             'disjunctive' => 'boolean',

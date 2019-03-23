@@ -52,7 +52,7 @@ abstract class AbstractService
             $args['query'] = $params;
         } else {
             $args['json'] = $params;
-        }
+		}
         $this->lastResponse = $handler->send($request, $args);
         return json_decode($this->lastResponse->getBody()->getContents(), true);
     }

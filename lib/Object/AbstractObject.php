@@ -73,7 +73,7 @@ abstract class AbstractObject implements \JsonSerializable
         }
         if (!is_null($value) && !$this->isValidValue($key, $value)) {
             throw new \InvalidArgumentException(
-                "Invalid type for property '{$key}'"
+                "Invalid type for property '{$key}', should be a ".$this->types[$key]." received ".print_r($value,1)
             );
         }
         $this->data[$key] = $value;
@@ -204,11 +204,9 @@ abstract class AbstractObject implements \JsonSerializable
                 );
             } elseif (is_a($value, AbstractObject::class)) {
                 $results[$field] = $value->exportData();
-            } elseif (is_a($value, \DateTime::class)) {
-                $results[$field] = $value->format(\DateTime::ATOM);
-            } else {
+           } else {
                 $results[$field] = $value;
-            }
+           }
         }
         return $results;
     }
@@ -250,7 +248,7 @@ abstract class AbstractObject implements \JsonSerializable
     public function getType($property)
     {
         if (array_key_exists($property, $this->types)) {
-            return $this->types[$param];
+            return $this->types[$property];
         }
         return null;
     }
@@ -264,4 +262,9 @@ abstract class AbstractObject implements \JsonSerializable
     {
         return $this->data;
     }
+	
+	public function getId()
+	{
+		return $this->id;
+	}
 }

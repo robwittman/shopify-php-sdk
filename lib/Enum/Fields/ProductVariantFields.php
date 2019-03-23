@@ -30,6 +30,7 @@ class ProductVariantFields extends AbstractObjectEnum
     const UPDATED_AT = 'updated_at';
     const WEIGHT = 'weight';
     const WEIGHT_UNIT = 'weight_unit';
+    const INVENTORY_ITEM_ID = 'inventory_item_id';
 
     public function getFieldTypes()
     {
@@ -59,7 +60,8 @@ class ProductVariantFields extends AbstractObjectEnum
             'title' => 'string',
             'updated_at' => 'DateTime',
             'weight' => 'string',
-            'weight_unit' => 'string'
+            'weight_unit' => 'string',
+            'inventory_item_id' => 'integer',
         );
     }
 }

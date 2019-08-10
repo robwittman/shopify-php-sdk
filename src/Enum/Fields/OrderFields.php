@@ -19,6 +19,7 @@ class OrderFields extends AbstractObjectEnum
     const CUSTOMER_LOCALE = 'customer_locale';
     const DISCOUNT_CODES = 'discount_codes';
     const EMAIL = 'email';
+    const CONTACT_EMAIL = 'contact_email';
     const FINANCIAL_STATUS = 'financial_status';
     const FULFILLMENTS = 'fulfillments';
     const FULFILLMENT_STATUS = 'fulfillment_status';
@@ -50,6 +51,7 @@ class OrderFields extends AbstractObjectEnum
     const TOTAL_DISCOUNTS = 'total_discounts';
     const TOTAL_LINE_ITEMS_PRICE = 'total_line_items_price';
     const TOTAL_PRICE = 'total_price';
+    const TOTAL_PRICE_USD = 'total_price_usd';
     const TOTAL_TAX = 'total_tax';
     const TOTAL_WEIGHT = 'total_weight';
     const UPDATED_AT = 'updated_at';
@@ -64,10 +66,11 @@ class OrderFields extends AbstractObjectEnum
             'browser_ip' => 'string',
             'buyer_accepts_marketing' => 'boolean',
             'cancel_reason' => 'string',
-            'cancelled_at' => 'boolean',
+            'cancelled_at' => 'DateTime',
             'cart_token' => 'string',
             'client_details' => 'object',
             'closed_at' => 'DateTime',
+            'contact_email' => 'string',
             'created_at' => 'DateTime',
             'currency' => 'string',
             'customer' => 'Customer',
@@ -105,6 +108,7 @@ class OrderFields extends AbstractObjectEnum
             'total_discounts' => 'string',
             'total_line_items_price' => 'string',
             'total_price' => 'string',
+            'total_price_usd' => 'string',
             'total_tax' => 'string',
             'total_weight' => 'string',
             'updated_at' => 'DateTime',

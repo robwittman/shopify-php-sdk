@@ -4,7 +4,7 @@ php:
     - 7.1
     - 7.2
     - 7.3
-script: phpunit
+script: ./vendor/bin/phpunit
 
 env:
     - AUTOLOAD=1

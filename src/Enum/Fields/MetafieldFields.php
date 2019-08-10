@@ -8,7 +8,7 @@ class MetafieldFields extends AbstractObjectEnum
     const DESCIRPTION = 'description';
     const ID = 'id';
     const KEY = 'key';
-    const NAMESPACE = 'namespace';
+    const METAFIELD_NAMESPACE = 'namespace';
     const OWNER_ID = 'owner_id';
     const OWNER_RESOURCE = 'owner_resource';
     const VALUE = 'value';

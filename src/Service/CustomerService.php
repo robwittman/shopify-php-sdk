@@ -110,7 +110,7 @@ class CustomerService extends AbstractService
     public function delete(Customer $customer)
     {
         $endpoint = '/customers/'.$customer->id.'.json';
-        $response = $this->request($endpoint, 'DELETE');
+        $this->request($endpoint, 'DELETE');
         return;
     }
 
@@ -134,6 +134,7 @@ class CustomerService extends AbstractService
      * @todo   Return CustomInvite, instead of raw object
      * @link   https://help.shopify.com/api/reference/customer#send_invite
      * @param  integer $customerId
+     * @param CustomerInvite $invite
      * @return CustomerInvite
      */
     public function sendInvite($customerId, CustomerInvite $invite = null)

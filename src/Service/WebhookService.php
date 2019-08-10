@@ -13,7 +13,7 @@ class WebhookService extends AbstractService
      * @param  array $params
      * @return Webhook[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $response = $this->request('/webhooks.json', 'GET', $params);
         return $this->createCollection(Webhook::class, $response['webhooks']);
@@ -26,7 +26,7 @@ class WebhookService extends AbstractService
      * @param  array $params
      * @return integer
      */
-    public function count(array $params = array())
+    public function count(array $params = [])
     {
         $response = $this->request('/webhooks/count.json', $params);
         return $response['count'];
@@ -40,9 +40,9 @@ class WebhookService extends AbstractService
      * @param  array   $fields
      * @return Webhook
      */
-    public function get($webhookId, array $fields = array())
+    public function get($webhookId, array $fields = [])
     {
-        $params = array();
+        $params = [];
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }

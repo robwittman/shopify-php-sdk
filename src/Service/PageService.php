@@ -13,7 +13,7 @@ class PageService extends AbstractService
      * @param  array $params
      * @return Page[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/pages.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -27,7 +27,7 @@ class PageService extends AbstractService
      * @param  array $params
      * @return integer
      */
-    public function count(array $params = array())
+    public function count(array $params = [])
     {
         $endpoint = '/pages/count.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -42,7 +42,7 @@ class PageService extends AbstractService
      * @param  array   $params
      * @return Page
      */
-    public function get($pageId, array $params = array())
+    public function get($pageId, array $params = [])
     {
         $endpoint = '/pages/'.$pageId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -97,7 +97,7 @@ class PageService extends AbstractService
     public function delete(Page $page)
     {
         $endpoint = '/pages/'.$page->id.'.json';
-        $response = $this->request($endpoint, 'DELETE');
+        $this->request($endpoint, 'DELETE');
         return;
     }
 }

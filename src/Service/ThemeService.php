@@ -14,7 +14,7 @@ class ThemeService extends AbstractService
      * @param  array   $params
      * @return Theme
      */
-    public function get($themeId, array $params = array())
+    public function get($themeId, array $params = [])
     {
         $endpoint = '/themes/'.$themeId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -28,7 +28,7 @@ class ThemeService extends AbstractService
      * @param  array $params
      * @return Theme[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/themes.json';
         $response = $this->request($endpoint, 'GET', $params);

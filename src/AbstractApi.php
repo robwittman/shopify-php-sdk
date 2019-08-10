@@ -58,6 +58,7 @@ abstract class AbstractApi implements ApiInterface
      * Set our Client instance
      *
      * @param Client $httpHandler
+     * @return $this
      */
     public function setHttpHandler(Client $httpHandler)
     {
@@ -82,6 +83,7 @@ abstract class AbstractApi implements ApiInterface
      * Set our LoggerInterface
      *
      * @param LoggerInterface $logger
+     * @return $this
      */
     public function setLogger(LoggerInterface $logger)
     {
@@ -104,6 +106,7 @@ abstract class AbstractApi implements ApiInterface
      * a new client, with new details
      *
      * @param string $domain
+     * @return $this
      */
     public function setMyshopifyDomain($domain)
     {

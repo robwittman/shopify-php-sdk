@@ -22,7 +22,7 @@ class ArticleService extends AbstractService
     }
 
     /**
-     * Receive acount of all Articles
+     * Receive a count of all Articles
      *
      * @link   https://help.shopify.com/api/reference/article#count
      * @param  integer $blogId
@@ -115,7 +115,7 @@ class ArticleService extends AbstractService
      * Get a list of all the authors
      *
      * @link   https://help.shopify.com/api/reference/article#authors
-     * @return arrays
+     * @return array
      */
     public function authors()
     {

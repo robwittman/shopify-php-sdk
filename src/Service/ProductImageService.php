@@ -14,7 +14,7 @@ class ProductImageService extends AbstractService
      * @param  array   $params
      * @return ProductImage[]
      */
-    public function all($productId, array $params = array())
+    public function all($productId, array $params = [])
     {
         $endpoint=  '/products/'.$productId.'/images.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -29,7 +29,7 @@ class ProductImageService extends AbstractService
      * @param  array   $params
      * @return integer
      */
-    public function count($productId, array $params = array())
+    public function count($productId, array $params = [])
     {
         $endpoint = '/products/'.$productId.'/images/count.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -103,6 +103,7 @@ class ProductImageService extends AbstractService
     public function delete($productId, ProductImage $productImage)
     {
         $endpoint = '/products/'.$productId.'/images/'.$productImage->id.'.json';
-        return $this->request($endpoint, 'DELETE');
+        $this->request($endpoint, 'DELETE');
+        return;
     }
 }

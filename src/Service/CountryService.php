@@ -13,7 +13,7 @@ class CountryService extends AbstractService
      * @param  array $params
      * @return Country[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/countries.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -41,7 +41,7 @@ class CountryService extends AbstractService
      * @param  array   $fields
      * @return Country
      */
-    public function get($countryId, array $fields = array())
+    public function get($countryId, array $fields = [])
     {
         $params = array();
         if (!empty($fields)) {
@@ -99,6 +99,7 @@ class CountryService extends AbstractService
      */
     public function delete(Country $country)
     {
-        return $this->request('/countries/'.$country->id.'.json', 'DELETE');
+        $this->request('/countries/'.$country->id.'.json', 'DELETE');
+        return;
     }
 }

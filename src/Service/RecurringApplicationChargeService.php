@@ -13,7 +13,7 @@ class RecurringApplicationChargeService extends AbstractService
      * @param  array $params
      * @return RecurringApplicationCharge[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/recurring_application_charges.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -28,7 +28,7 @@ class RecurringApplicationChargeService extends AbstractService
      * @param  array   $params
      * @return RecurringApplicationCharge
      */
-    public function get($recurringApplicationChargeId, array $params = array())
+    public function get($recurringApplicationChargeId, array $params = [])
     {
         $endpoint = '/recurring_application_charges/'.$recurringApplicationChargeId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -64,7 +64,8 @@ class RecurringApplicationChargeService extends AbstractService
     public function delete(RecurringApplicationCharge $recurringApplicationCharge)
     {
         $endpoint= '/recurring_application_charges/'.$recurringApplicationCharge->id.'.json';
-        $response = $this->request($endpoint, 'DELETE');
+        $this->request($endpoint, 'DELETE');
+        return;
     }
 
     /**
@@ -72,7 +73,7 @@ class RecurringApplicationChargeService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/recurringapplicationcharge#activate
      * @param  RecurringApplicationCharge $recurringApplicationCharge
-     * @return boolean
+     * @return void
      */
     public function activate(RecurringApplicationCharge $recurringApplicationCharge)
     {

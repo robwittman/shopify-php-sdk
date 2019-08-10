@@ -13,7 +13,7 @@ class GiftCardService extends AbstractService
      * @param  array $params
      * @return GiftCard[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/gift_cards.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -27,7 +27,7 @@ class GiftCardService extends AbstractService
      * @param  array $params
      * @return integer
      */
-    public function count(array $params = array())
+    public function count(array $params = [])
     {
         $endpoint = '/gift_cards/count.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -42,7 +42,7 @@ class GiftCardService extends AbstractService
      * @param  array   $params
      * @return GiftCard
      */
-    public function get($giftCardId, array $params = array())
+    public function get($giftCardId, array $params = [])
     {
         $endpoint = '/gift_cards/'.$giftCardId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -96,7 +96,6 @@ class GiftCardService extends AbstractService
      */
     public function disable(GiftCard &$giftCard)
     {
-        $data = $giftCard->exportData();
         $endpoint = '/gift_cards/'.$giftCard->id.'/disable.json';
         $response = $this->request($endpoint, 'POST');
         $giftCard->setData($response['gift_card']);
@@ -109,7 +108,7 @@ class GiftCardService extends AbstractService
      * @param  array $params
      * @return GiftCard[]
      */
-    public function search(array $params = array())
+    public function search(array $params = [])
     {
         $endpoint = '/gift_cards/search.json';
         $response = $this->request($endpoint, 'GET', $params);

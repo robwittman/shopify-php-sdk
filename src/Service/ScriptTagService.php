@@ -13,7 +13,7 @@ class ScriptTagService extends AbstractService
      * @param  array $params
      * @return ScriptTag[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $data = $this->request('/script_tags.json', 'GET', $params);
         return $this->createCollection(ScriptTag::class, $data['script_tags']);
@@ -26,7 +26,7 @@ class ScriptTagService extends AbstractService
      * @param  array $params
      * @return integer
      */
-    public function count(array $params = array())
+    public function count(array $params = [])
     {
         $data = $this->request('/script_tags/count.json', 'GET', $params);
         return $data['count'];
@@ -40,9 +40,9 @@ class ScriptTagService extends AbstractService
      * @param  array   $fields
      * @return ScriptTag
      */
-    public function get($scriptTagId, array $fields = array())
+    public function get($scriptTagId, array $fields = [])
     {
-        $params = array();
+        $params = [];
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }

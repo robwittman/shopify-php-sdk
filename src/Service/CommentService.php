@@ -13,7 +13,7 @@ class CommentService extends AbstractService
      * @param  array $params
      * @return Comment[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/comments.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -27,10 +27,10 @@ class CommentService extends AbstractService
      * @param  array $params
      * @return integer
      */
-    public function count(array $params = array())
+    public function count(array $params = [])
     {
         $endpoint = '/comments/count.json';
-        $response = $this->request($endpoint);
+        $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
 
@@ -42,10 +42,10 @@ class CommentService extends AbstractService
      * @param  array   $params
      * @return Comment
      */
-    public function get($commentId, array $params = array())
+    public function get($commentId, array $params = [])
     {
         $endpoint = '/comments/'.$commentId.'.json';
-        $response = $this->request($endpoint);
+        $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Comment::class, $response['comment']);
     }
 
@@ -144,7 +144,7 @@ class CommentService extends AbstractService
     }
 
     /**
-     * Retore a comment
+     * Restore a comment
      *
      * @link   https://help.shopify.com/api/reference/comment#restore
      * @param  Comment $comment

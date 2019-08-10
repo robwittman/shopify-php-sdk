@@ -72,6 +72,7 @@ class Api extends AbstractApi
      * new client instance
      *
      * @param string $accessToken
+     * @return $this
      */
     public function setAccessToken($accessToken)
     {
@@ -94,6 +95,7 @@ class Api extends AbstractApi
      * Set our persistent storage interface
      *
      * @param PersistentStorageInterface $storage
+     * @return $this
      */
     public function setStorageInterface(PersistentStorageInterface $storage)
     {

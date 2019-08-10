@@ -22,7 +22,7 @@ class BlogService extends AbstractService
     }
 
     /**
-     * Receivea count of all blogs
+     * Receive a count of all blogs
      *
      * @link   https://help.shopify.com/api/reference/blog#count
      * @return integer
@@ -77,7 +77,7 @@ class BlogService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/blog#update
      * @param  Blog $blog
-     * @return void
+     * @throws ShopifySdkException
      */
     public function update(Blog &$blog)
     {
@@ -85,11 +85,11 @@ class BlogService extends AbstractService
     }
 
     /**
-     * Removea blog from Database
+     * Remove a blog from Database
      *
      * @link   https://help.shopify.com/api/reference/blog#destroy
      * @param  Blog $blog
-     * @return void
+     * @throws ShopifySdkException
      */
     public function delete(Blog $blog)
     {

@@ -15,7 +15,7 @@ class RefundService extends AbstractService
      * @param  array   $params
      * @return Refund[]
      */
-    public function all($orderId, array $params = array())
+    public function all($orderId, array $params = [])
     {
         $endpoint = '/orders/'.$orderId.'/refunds.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -31,7 +31,7 @@ class RefundService extends AbstractService
      * @param  array   $params
      * @return Refund
      */
-    public function get($orderId, $refundId, array $params = array())
+    public function get($orderId, $refundId, array $params = [])
     {
         $endpoint = '/orders/'.$orderId.'/refunds/'.$refundId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -62,7 +62,7 @@ class RefundService extends AbstractService
      * Calculate a refund
      *
      * @link   https://help.shopify.com/api/reference/refund#calculate
-     * @return mixed
+     * @throws ShopifySdkException
      */
     public function calculate()
     {

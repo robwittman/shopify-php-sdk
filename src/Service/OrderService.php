@@ -13,7 +13,7 @@ class OrderService extends AbstractService
      * @param  array $params
      * @return Order[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/orders.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -27,7 +27,7 @@ class OrderService extends AbstractService
      * @param  array $params
      * @return integer
      */
-    public function count(array $params = array())
+    public function count(array $params = [])
     {
         $endpoint = '/orders/count.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -42,7 +42,7 @@ class OrderService extends AbstractService
      * @param  array   $params
      * @return Order
      */
-    public function get($orderId, array $params = array())
+    public function get($orderId, array $params = [])
     {
         $endpoint = '/orders/'.$orderId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -77,7 +77,6 @@ class OrderService extends AbstractService
      */
     public function close(Order &$order)
     {
-        $data = $order->exportData();
         $endpoint= '/orders/'.$order->id.'/close.json';
         $response = $this->request($endpoint, 'POST');
         $order->setData($response['order']);
@@ -92,7 +91,6 @@ class OrderService extends AbstractService
      */
     public function open(Order &$order)
     {
-        $data = $order->exportData();
         $endpoint= '/orders/'.$order->id.'/open.json';
         $response = $this->request($endpoint, 'POST');
         $order->setData($response['order']);
@@ -107,7 +105,6 @@ class OrderService extends AbstractService
      */
     public function cancel(Order &$order)
     {
-        $data = $order->exportData();
         $endpoint= '/orders/'.$order->id.'/cancel.json';
         $response = $this->request($endpoint, 'POST');
         $order->setData($response['order']);

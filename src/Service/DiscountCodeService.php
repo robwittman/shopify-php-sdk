@@ -14,7 +14,7 @@ class DiscountCodeService extends AbstractService
      * @param  array $params
      * @return DiscountCode[]
      */
-    public function all($priceRuleId, array $params = array())
+    public function all($priceRuleId, array $params = [])
     {
         $endpoint = '/price_rules/'.$priceRuleId.'/discount_codes.json';
         $response = $this->request($endpoint, 'GET', $params);

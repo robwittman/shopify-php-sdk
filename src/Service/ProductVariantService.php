@@ -14,7 +14,7 @@ class ProductVariantService extends AbstractService
      * @param  array   $params
      * @return ProductVariant[]
      */
-    public function all($productId, array $params = array())
+    public function all($productId, array $params = [])
     {
         $endpoint = '/products/'.$productId.'/variants.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -42,9 +42,9 @@ class ProductVariantService extends AbstractService
      * @param  array   $fields
      * @return ProductVariant
      */
-    public function get($productVariantId, array $fields = array())
+    public function get($productVariantId, array $fields = [])
     {
-        $params = array();
+        $params = [];
         if (!empty($fields)) {
             $params['fields'] = $fields;
         }
@@ -103,6 +103,7 @@ class ProductVariantService extends AbstractService
     public function delete($productId, ProductVariant &$productVariant)
     {
         $endpoint = '/products/'.$productId.'/variants/'.$productVariant->id.'.json';
-        $response = $this->request($endpoint, 'DELETE');
+        $this->request($endpoint, 'DELETE');
+        return;
     }
 }

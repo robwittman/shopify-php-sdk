@@ -13,7 +13,7 @@ class ReportService extends AbstractService
      * @param  array $params
      * @return Report[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/reports.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -28,7 +28,7 @@ class ReportService extends AbstractService
      * @param  array   $params
      * @return Report
      */
-    public function get($reportId, array $params = array())
+    public function get($reportId, array $params = [])
     {
         $endpoint = '/reports/'.$reportId.'.json';
         $response = $this->request($endpoint, 'GET', $params);

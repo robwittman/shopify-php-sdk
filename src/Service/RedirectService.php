@@ -10,10 +10,10 @@ class RedirectService extends AbstractService
      * Receive a list of all redirects
      *
      * @link   https://help.shopify.com/api/reference/redirect#index
-     * @param  ListOptions $options
+     * @param  array $params
      * @return Redirect[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/redirects.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -27,7 +27,7 @@ class RedirectService extends AbstractService
      * @param  array $params
      * @return integer
      */
-    public function count(array $params = array())
+    public function count(array $params = [])
     {
         $endpoint = '/redirects/count.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -42,7 +42,7 @@ class RedirectService extends AbstractService
      * @param  array   $params
      * @return Redirect
      */
-    public function get($redirectId, array $params = array())
+    public function get($redirectId, array $params = [])
     {
         $endpoint = '/redirects/'.$redirectId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -97,7 +97,7 @@ class RedirectService extends AbstractService
     public function delete(Redirect $redirect)
     {
         $endpoint = '/redirect/'.$redirect->id.'.json';
-        $response = $this->request($endpoint, 'DELETE');
+        $this->request($endpoint, 'DELETE');
         return;
     }
 }

@@ -13,7 +13,7 @@ class SmartCollectionService extends AbstractService
      * @param  array $params
      * @return SmartCollection[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/smart_collections.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -41,7 +41,7 @@ class SmartCollectionService extends AbstractService
      * @param  array   $params
      * @return SmartCollection
      */
-    public function get($smartCollectionId, array $params = array())
+    public function get($smartCollectionId, array $params = [])
     {
         $endpoint = '/smart_collections/'.$smartCollectionId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -105,10 +105,10 @@ class SmartCollectionService extends AbstractService
      * @link   https://help.shopify.com/api/reference/smartcollection#order
      * @param  integer      $smartCollectionId
      * @param  OrderOptions $options
-     * @return void
+     * @throws ShopifySdkException
      */
     public function order($smartCollectionId, OrderOptions $options)
     {
-
+        throw new ShopifySdkException("SmartCollectionService::order not implemented");
     }
 }

@@ -13,7 +13,7 @@ class AssetService extends AbstractService
      * @link   https://help.shopify.com/api/reference/asset#index
      * @param  integer $themeId
      * @param  array   $params
-     * @return Asset[]
+     * @throws ShopifySdkException
      */
     public function all($themeId, array $params = array())
     {
@@ -26,7 +26,7 @@ class AssetService extends AbstractService
      * @link   https://help.shopify.com/api/reference/asset#show
      * @param  integer $themeId
      * @param  array   $params
-     * @return Article
+     * @throws ShopifySdkException
      */
     public function get($themeId, array $params = array())
     {
@@ -39,7 +39,7 @@ class AssetService extends AbstractService
      * @link   https://help.shopify.com/api/reference/asset#update
      * @param  integer $themeId
      * @param  Asset   $asset
-     * @return
+     * @throws ShopifySdkException
      */
     public function put($themeId, Asset $asset)
     {
@@ -52,7 +52,7 @@ class AssetService extends AbstractService
      * @link   https://help.shopify.com/api/reference/asset#destroy
      * @param  integer $themeId
      * @param  Asset   $asset
-     * @return void
+     * @throws ShopifySdkException
      */
     public function delete($themeId, Asset $asset)
     {

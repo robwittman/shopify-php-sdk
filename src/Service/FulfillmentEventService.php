@@ -7,7 +7,7 @@ use Shopify\Object\FulfillmentEvent;
 class FulfillmentEventService extends AbstractService
 {
     /**
-     * Receive a list of all fulfillmen events
+     * Receive a list of all fulfillment events
      *
      * @link   https://help.shopify.com/api/reference/fulfillmentevent#index
      * @param  integer $orderId
@@ -59,7 +59,7 @@ class FulfillmentEventService extends AbstractService
     }
 
     /**
-     * Delete a fufillment events
+     * Delete a fulfillment events
      *
      * @link   https://help.shopify.com/api/reference/fulfillmentevent#destroy
      * @param  integer          $orderId
@@ -70,7 +70,7 @@ class FulfillmentEventService extends AbstractService
     public function delete($orderId, $fulfillmentId, FulfillmentEvent $fulfillmentEvent)
     {
         $endpoint = '/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events/'.$fulfillmentEvent->id.'.json';
-        $response = $this->request($endpoint, 'DELETE');
+        $this->request($endpoint, 'DELETE');
         return;
     }
 }

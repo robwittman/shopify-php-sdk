@@ -10,6 +10,7 @@ class ProvinceService extends AbstractService
      * Receive a list of all Provinces
      *
      * @link   https://help.shopify.com/api/reference/province#index
+     * @param  integer $countryId
      * @param  array $params
      * @return Province[]
      */
@@ -53,6 +54,7 @@ class ProvinceService extends AbstractService
      * Modify an existing province
      *
      * @link   https://help.shopify.com/api/reference/province#update
+     * @param  integer $countryId
      * @param  Province $province
      * @return void
      */

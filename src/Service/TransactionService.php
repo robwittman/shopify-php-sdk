@@ -7,14 +7,14 @@ use Shopify\Object\Transaction;
 class TransactionService extends AbstractService
 {
     /**
-     * Recieve a list of all Transactions
+     * Receive a list of all Transactions
      *
      * @link   https://help.shopify.com/api/reference/transaction#index
      * @param  integer $orderId
      * @param  array   $params
      * @return Transaction[]
      */
-    public function all($orderId, array $params = array())
+    public function all($orderId, array $params = [])
     {
         $endpoint = '/orders/'.$orderId.'/transactions.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -29,7 +29,7 @@ class TransactionService extends AbstractService
      * @param  array   $params
      * @return integer
      */
-    public function count($orderId, array $params = array())
+    public function count($orderId, array $params = [])
     {
         $endpoint = '/orders/'.$orderId.'/transactions/count.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -45,7 +45,7 @@ class TransactionService extends AbstractService
      * @param  array   $params
      * @return Transaction
      */
-    public function get($orderId, $transactionId, array $params = array())
+    public function get($orderId, $transactionId, array $params = [])
     {
         $endpoint = '/orders/'.$orderId.'/transactions/'.$transactionId.'.json';
         $response = $this->request($endpoint, 'GET', $params);

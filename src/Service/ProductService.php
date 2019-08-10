@@ -13,7 +13,7 @@ class ProductService extends AbstractService
      * @param  array $params
      * @return Product[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/products.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -27,7 +27,7 @@ class ProductService extends AbstractService
      * @param  array $params
      * @return integer
      */
-    public function count(array $params = array())
+    public function count(array $params = [])
     {
         $endpoint = '/products/count.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -42,7 +42,7 @@ class ProductService extends AbstractService
      * @param  array   $fields
      * @return Product
      */
-    public function get($productId, array $fields = array())
+    public function get($productId, array $fields = [])
     {
         $params = array();
         if (!empty($fields)) {
@@ -102,5 +102,6 @@ class ProductService extends AbstractService
     {
         $endpoint = '/products/'.$product->id.'.json';
         $this->request($endpoint, 'DELETE');
+        return;
     }
 }

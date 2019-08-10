@@ -13,7 +13,7 @@ class EventService extends AbstractService
      * @param  array $params
      * @return Event[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/events.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -27,7 +27,7 @@ class EventService extends AbstractService
      * @param  array $params
      * @return integer
      */
-    public function count(array $params = array())
+    public function count(array $params = [])
     {
         $endpoint = '/events/count.json';
         $response = $this->request($endpoint, 'GET', $params);

@@ -8,13 +8,13 @@ use Shopify\Exception\ShopifySdkException;
 class MarketingEventService extends AbstractService
 {
     /**
-     * Receieve a list of all Marketing Events
+     * Receive a list of all Marketing Events
      *
      * @link   https://help.shopify.com/api/reference/marketing_event#index
      * @param  array $params
      * @return MarketingEvent[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/marketing_events.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -96,7 +96,7 @@ class MarketingEventService extends AbstractService
     public function delete(MarketingEvent &$marketingEvent)
     {
         $endpoint = '/marketing_events/'.$marketingEvent->id.'.json';
-        $response = $this->request($endpoint, 'DELETE');
+        $this->request($endpoint, 'DELETE');
         return;
     }
 
@@ -105,7 +105,7 @@ class MarketingEventService extends AbstractService
      *
      * @link   https://help.shopify.com/api/reference/marketing_event#engagements
      * @param  MarketingEvent $marketingEvent
-     * @return void
+     * @throws ShopifySdkException
      */
     public function createEngagements(MarketingEvent $marketingEvent)
     {

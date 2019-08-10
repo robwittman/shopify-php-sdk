@@ -7,7 +7,7 @@ use Shopify\Object\AbandonedCheckout;
 class AbandonedCheckoutsService extends AbstractService
 {
     /**
-     * List all abandonded checkouts
+     * List all abandoned checkouts
      *
      * @link   https://help.shopify.com/api/reference/abandoned_checkouts#index
      * @param  array $params

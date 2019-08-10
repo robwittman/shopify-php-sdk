@@ -49,7 +49,7 @@ class ApplicationChargeService extends AbstractService
         $data = $applicationCharge->exportData();
         $endpoint = '/admin/application_charges.json';
         $response = $this->request(
-            '/admin/application_charges.json', 'POST', array(
+            $endpoint, 'POST', array(
             'application_charge' => $data
             )
         );

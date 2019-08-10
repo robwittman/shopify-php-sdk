@@ -13,7 +13,7 @@ class LocationService extends AbstractService
      * @param  array $params
      * @return Location[]
      */
-    public function all(array $params = array())
+    public function all(array $params = [])
     {
         $endpoint = '/locations.json';
         $response = $this->request($endpoint, 'GET', $params);
@@ -28,7 +28,7 @@ class LocationService extends AbstractService
      * @param  array   $params
      * @return Location
      */
-    public function get($locationId, array $params = array())
+    public function get($locationId, array $params = [])
     {
         $endpoint = '/locations/'.$locationId.'.json';
         $response = $this->request($endpoint, 'GET', $params);

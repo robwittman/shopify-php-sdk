@@ -26,7 +26,7 @@ abstract class AbstractService
     const REQUEST_METHOD_PUT = 'PUT';
     const REQUEST_METHOD_DELETE = 'DELETE';
 
-    public static function factory(ApiInterface $api): AbstractService
+    public static function factory(ApiInterface $api)
     {
         return new static($api);
     }

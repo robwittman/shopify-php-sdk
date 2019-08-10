@@ -19,11 +19,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Shopify\\" : "lib/",
+            "Shopify\\" : "src/",
             "Shopify\\Test\\" : "test/"
         },
         "files" : [
-            "lib/includes.php"
+            "src/includes.php"
         ]
     },
     "require-dev": {
@@ -33,6 +33,6 @@
     },
     "scripts" : {
         "lint" : "./vendor/bin/phplint ./ --exclude=vendor",
-        "phpcs" : "./vendor/bin/phpcs ./lib"
+        "phpcs" : "./vendor/bin/phpcs ./src"
     }
 }

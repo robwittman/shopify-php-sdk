@@ -8,5 +8,5 @@ use Shopify\Service\CustomerAddressService;
 
 class CustomerAddressServiceTest extends TestCase
 {
-    
+
 }

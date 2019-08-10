@@ -12,7 +12,7 @@ use Shopify\Api;
 
 session_start();
 
-class TestCase extends \PHPUnit\Framework\TestCase
+class TestCase extends \PHPUnit_Framework_TestCase
 {
     public function getApi(array $params = array())
     {

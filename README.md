@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/robwittman/shopify-php-sdk.svg?branch=master)](https://travis-ci.org/robwittman/shopify-php-sdk)
+
 # Shopify PHP SDK
 
 This SDK was created to enable rapid efficient development using Shopify's API.

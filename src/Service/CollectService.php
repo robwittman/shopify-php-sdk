@@ -15,7 +15,7 @@ class CollectService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $endpoint = '/collects.json';
+        $endpoint = 'collects.json';
         $data = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Collect::class, $data['collects']);
     }
@@ -29,7 +29,7 @@ class CollectService extends AbstractService
      */
     public function count(array $params = array())
     {
-        $endpoint = '/collects/count.json';
+        $endpoint = 'collects/count.json';
         $data = $this->request($endpoint, $params);
         return $data['count'];
     }
@@ -48,7 +48,7 @@ class CollectService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }
-        $endpoint = '/collects/'.$collectId.'.json';
+        $endpoint = 'collects/'.$collectId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Collect::class, $response['collect']);
     }
@@ -63,7 +63,7 @@ class CollectService extends AbstractService
     public function create(Collect &$collect)
     {
         $data = $collect->exportData();
-        $endpoint = '/collects.json';
+        $endpoint = 'collects.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'collect' => $data
@@ -81,7 +81,7 @@ class CollectService extends AbstractService
      */
     public function delete(Collect &$collect)
     {
-        $endpoint = '/collects/'.$collect->getId().'.json';
+        $endpoint = 'collects/'.$collect->getId().'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }

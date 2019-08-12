@@ -15,7 +15,7 @@ class ScriptTagService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $data = $this->request('/script_tags.json', 'GET', $params);
+        $data = $$this->request('script_tags.json', 'GET', $params);
         return $this->createCollection(ScriptTag::class, $data['script_tags']);
     }
 
@@ -28,7 +28,7 @@ class ScriptTagService extends AbstractService
      */
     public function count(array $params = [])
     {
-        $data = $this->request('/script_tags/count.json', 'GET', $params);
+        $data = $$this->request('script_tags/count.json', 'GET', $params);
         return $data['count'];
     }
 
@@ -46,7 +46,7 @@ class ScriptTagService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }
-        $data = $this->request('/script_tags/'.$scriptTagId.'.json', 'GET', $params);
+        $data = $$this->request('script_tags/'.$scriptTagId.'.json', 'GET', $params);
         return $this->createObject(ScriptTag::class, $data['script_tag']);
     }
 
@@ -95,6 +95,6 @@ class ScriptTagService extends AbstractService
      */
     public function delete(ScriptTag $scriptTag)
     {
-        $this->request('/script_tags/'.$scriptTag->id.'.json', 'DELETE');
+        $$this->request('script_tags/'.$scriptTag->id.'.json', 'DELETE');
     }
 }

@@ -18,9 +18,9 @@ class MetafieldService extends AbstractService
     public function all(array $params = array(), $ownerResource = '', $ownerId = '')
     {
         if ($ownerResource && $ownerId) {
-            $endpoint = '/admin/' . $ownerResource . '/' . $ownerId . '/metafields.json';
+            $endpoint = 'admin/' . $ownerResource . '/' . $ownerId . '/metafields.json';
         } else {
-            $endpoint = '/admin/metafields.json';
+            $endpoint = 'admin/metafields.json';
         }
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Metafield::class, $response['metafields']);
@@ -34,7 +34,7 @@ class MetafieldService extends AbstractService
      */
     public function count(array $params = array())
     {
-        $endpoint = '/admin/metafields/count.json';
+        $endpoint = 'admin/metafields/count.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
@@ -52,7 +52,7 @@ class MetafieldService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = $fields;
         }
-        $endpoint = '/admin/metafields/'.$metafieldId.'.json';
+        $endpoint = 'admin/metafields/'.$metafieldId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Metafield::class, $response['metafield']);
     }
@@ -69,9 +69,9 @@ class MetafieldService extends AbstractService
     {
         $data = $metafield->exportData();
         if ($ownerResource && $ownerId) {
-            $endpoint = '/admin/' . $ownerResource . '/' . $ownerId . '/metafields.json';
+            $endpoint = 'admin/' . $ownerResource . '/' . $ownerId . '/metafields.json';
         } else {
-            $endpoint = '/admin/metafields.json';
+            $endpoint = 'admin/metafields.json';
         }
         $response = $this->request(
             $endpoint, 'POST', array(
@@ -90,7 +90,7 @@ class MetafieldService extends AbstractService
     public function update(Metafield &$metafield)
     {
         $data = $metafield->exportData();
-        $endpoint = '/admin/metafields/'.$metafield->id.'.json';
+        $endpoint = 'admin/metafields/'.$metafield->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
                 'metafield' => $data
@@ -107,7 +107,7 @@ class MetafieldService extends AbstractService
      */
     public function delete(Metafield &$metafield)
     {
-        $endpoint = '/admin/metafields/'.$metafield->id.'.json';
+        $endpoint = 'admin/metafields/'.$metafield->id.'.json';
         $this->request($endpoint, 'DELETE');
     }
 }

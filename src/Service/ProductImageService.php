@@ -31,7 +31,7 @@ class ProductImageService extends AbstractService
      */
     public function count($productId, array $params = [])
     {
-        $endpoint = '/products/'.$productId.'/images/count.json';
+        $endpoint = 'products/'.$productId.'/images/count.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
@@ -47,7 +47,7 @@ class ProductImageService extends AbstractService
      */
     public function get($productId, $productImageId)
     {
-        $endpoint = '/products/'.$productId.'/images/'.$productImageId.'.json';
+        $endpoint = 'products/'.$productId.'/images/'.$productImageId.'.json';
         $response = $this->request($endpoint, 'GET');
         return $this->createObject(ProductImage::class, $response['image']);
     }
@@ -63,7 +63,7 @@ class ProductImageService extends AbstractService
     public function create($productId, ProductImage &$productImage)
     {
         $data = $productImage->exportData();
-        $endpoint = '/products/'.$productId.'/images.json';
+        $endpoint = 'products/'.$productId.'/images.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'image' => $data
@@ -83,7 +83,7 @@ class ProductImageService extends AbstractService
     public function update($productId, ProductImage &$productImage)
     {
         $data = $productImage->exportData();
-        $endpoint = '/products/'.$productId.'/images/'.$productImage->id.'.json';
+        $endpoint = 'products/'.$productId.'/images/'.$productImage->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'image' => $data
@@ -102,7 +102,7 @@ class ProductImageService extends AbstractService
      */
     public function delete($productId, ProductImage $productImage)
     {
-        $endpoint = '/products/'.$productId.'/images/'.$productImage->id.'.json';
+        $endpoint = 'products/'.$productId.'/images/'.$productImage->id.'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }

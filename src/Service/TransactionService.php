@@ -16,7 +16,7 @@ class TransactionService extends AbstractService
      */
     public function all($orderId, array $params = [])
     {
-        $endpoint = '/orders/'.$orderId.'/transactions.json';
+        $endpoint = 'orders/'.$orderId.'/transactions.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Transaction::class, $response['transactions']);
     }
@@ -31,7 +31,7 @@ class TransactionService extends AbstractService
      */
     public function count($orderId, array $params = [])
     {
-        $endpoint = '/orders/'.$orderId.'/transactions/count.json';
+        $endpoint = 'orders/'.$orderId.'/transactions/count.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
@@ -47,7 +47,7 @@ class TransactionService extends AbstractService
      */
     public function get($orderId, $transactionId, array $params = [])
     {
-        $endpoint = '/orders/'.$orderId.'/transactions/'.$transactionId.'.json';
+        $endpoint = 'orders/'.$orderId.'/transactions/'.$transactionId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Transaction::class, $response['transaction']);
     }
@@ -62,7 +62,7 @@ class TransactionService extends AbstractService
     public function create(Transaction &$transaction)
     {
         $data = $transaction->exportData();
-        $endpoint = '/transactions.json';
+        $endpoint = 'transactions.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'transaction' => $data

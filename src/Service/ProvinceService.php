@@ -16,7 +16,7 @@ class ProvinceService extends AbstractService
      */
     public function all($countryId, array $params = array())
     {
-        $endpoint = '/countries/'.$countryId.'/provinces.json';
+        $endpoint = 'countries/'.$countryId.'/provinces.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Province::class, $response['provinces']);
     }
@@ -30,7 +30,7 @@ class ProvinceService extends AbstractService
      */
     public function count($countryId)
     {
-        $endpoint = '/countries/'.$countryId.'/provinces/count.json';
+        $endpoint = 'countries/'.$countryId.'/provinces/count.json';
         $response = $this->request($endpoint);
         return $response['count'];
     }
@@ -45,7 +45,7 @@ class ProvinceService extends AbstractService
      */
     public function get($countryId, $provinceId)
     {
-        $endpoint = '/countries/'.$countryId.'/provinces/'.$provinceId.'.json';
+        $endpoint = 'countries/'.$countryId.'/provinces/'.$provinceId.'.json';
         $response = $this->request($endpoint);
         return $this->createObject(Province::class, $response['province']);
     }
@@ -61,7 +61,7 @@ class ProvinceService extends AbstractService
     public function update($countryId, Province &$province)
     {
         $data = $province->exportData();
-        $endpoint = '/countries/'.$countryId.'/provinces/'.$province->id.'.json';
+        $endpoint = 'countries/'.$countryId.'/provinces/'.$province->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'province' => $data

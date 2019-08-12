@@ -15,7 +15,7 @@ class ApplicationChargeService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $data = $this->request('/application_charges.json', 'GET', $params);
+        $data = $$this->request('application_charges.json', 'GET', $params);
         return $this->createCollection(ApplicationCharge::class, $data['application_charges']);
     }
 
@@ -33,7 +33,7 @@ class ApplicationChargeService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }
-        $data = $this->request('/application_charges/'.$applicationChargeId.'.json', 'GET', $params);
+        $data = $$this->request('application_charges/'.$applicationChargeId.'.json', 'GET', $params);
         return $this->createObject(ApplicationCharge::class, $data['application_charge']);
     }
 
@@ -47,7 +47,7 @@ class ApplicationChargeService extends AbstractService
     public function create(ApplicationCharge &$applicationCharge)
     {
         $data = $applicationCharge->exportData();
-        $endpoint = '/admin/application_charges.json';
+        $endpoint = 'admin/application_charges.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'application_charge' => $data
@@ -65,7 +65,7 @@ class ApplicationChargeService extends AbstractService
      */
     public function activate(ApplicationCharge &$applicationCharge)
     {
-        $response = $this->request('/admin/application_charges/'.$applicationCharge->id.'/activate.json', 'POST');
+        $response = $$this->request('admin/application_charges/'.$applicationCharge->id.'/activate.json', 'POST');
         $applicationCharge->setData($response['application_charge']);
     }
 }

@@ -16,7 +16,7 @@ class BlogService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $endpoint = '/blogs.json';
+        $endpoint = 'blogs.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Blog::class, $response['blogs']);
     }
@@ -29,7 +29,7 @@ class BlogService extends AbstractService
      */
     public function count()
     {
-        $endpoint = '/blogs/count.json';
+        $endpoint = 'blogs/count.json';
         $response = $this->request($endpoint, 'GET');
         return $response['count'];
     }
@@ -48,7 +48,7 @@ class BlogService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }
-        $endpoint = '/blogs/'.$blogId.'.json';
+        $endpoint = 'blogs/'.$blogId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Blog::class, $response['blog']);
     }
@@ -63,7 +63,7 @@ class BlogService extends AbstractService
     public function create(Blog &$blog)
     {
         $data = $blog->exportData();
-        $endpoint = '/blogs.json';
+        $endpoint = 'blogs.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'blog' => $data

@@ -16,7 +16,7 @@ class FulfillmentEventService extends AbstractService
      */
     public function all($orderId, $fulfillmentId)
     {
-        $endpoint = '/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events.json';
+        $endpoint = 'orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events.json';
         $response = $this->request($endpoint, 'GET');
         return $this->createCollection(FulfillmentEvent::class, $response['fulfillment_events']);
     }
@@ -32,7 +32,7 @@ class FulfillmentEventService extends AbstractService
      */
     public function get($orderId, $fulfillmentId, $fulfillmentEventId)
     {
-        $endpoint = '/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events/'.$fulfillmentEventId.'.json';
+        $endpoint = 'orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events/'.$fulfillmentEventId.'.json';
         $response = $this->request($endpoint);
         return $this->createObject(FulfillmentEvent::class, $response['fulfillment_event']);
     }
@@ -49,7 +49,7 @@ class FulfillmentEventService extends AbstractService
     public function create($orderId, $fulfillmentId, FulfillmentEvent &$fulfillmentEvent)
     {
         $data = $fulfillmentEvent->exportData();
-        $endpoint = '/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events.json';
+        $endpoint = 'orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'fulfillment_event' => $data
@@ -69,7 +69,7 @@ class FulfillmentEventService extends AbstractService
      */
     public function delete($orderId, $fulfillmentId, FulfillmentEvent $fulfillmentEvent)
     {
-        $endpoint = '/orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events/'.$fulfillmentEvent->id.'.json';
+        $endpoint = 'orders/'.$orderId.'/fulfillments/'.$fulfillmentId.'/events/'.$fulfillmentEvent->id.'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }

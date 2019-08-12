@@ -15,7 +15,7 @@ class CountryService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/countries.json';
+        $endpoint = 'countries.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Country::class, $response['countries']);
     }
@@ -28,7 +28,7 @@ class CountryService extends AbstractService
      */
     public function count()
     {
-        $endpoint = '/countries/count.json';
+        $endpoint = 'countries/count.json';
         $response = $this->request($endpoint, 'GET');
         return $response['count'];
     }
@@ -47,7 +47,7 @@ class CountryService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }
-        $endpoint = '/countries/'.$countryId.'.json';
+        $endpoint = 'countries/'.$countryId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Country::class, $response['country']);
     }
@@ -62,7 +62,7 @@ class CountryService extends AbstractService
     public function create(Country &$country)
     {
         $data = $country->exportData();
-        $endpoint = '/countries.json';
+        $endpoint = 'countries.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'country' => $data
@@ -81,7 +81,7 @@ class CountryService extends AbstractService
     public function update(Country &$country)
     {
         $data = $country->exportData();
-        $endpoint = '/countries/'.$country->id.'.json';
+        $endpoint = 'countries/'.$country->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'country' => $data
@@ -99,7 +99,7 @@ class CountryService extends AbstractService
      */
     public function delete(Country $country)
     {
-        $this->request('/countries/'.$country->id.'.json', 'DELETE');
+        $$this->request('countries/'.$country->id.'.json', 'DELETE');
         return;
     }
 }

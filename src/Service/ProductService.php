@@ -15,7 +15,7 @@ class ProductService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/products.json';
+        $endpoint = 'products.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Product::class, $response['products']);
     }
@@ -29,7 +29,7 @@ class ProductService extends AbstractService
      */
     public function count(array $params = [])
     {
-        $endpoint = '/products/count.json';
+        $endpoint = 'products/count.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
@@ -48,7 +48,7 @@ class ProductService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = $fields;
         }
-        $endpoint = '/products/'.$productId.'.json';
+        $endpoint = 'products/'.$productId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Product::class, $response['product']);
     }
@@ -63,7 +63,7 @@ class ProductService extends AbstractService
     public function create(Product &$product)
     {
         $data = $product->exportData();
-        $endpoint = '/products.json';
+        $endpoint = 'products.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'product' => $data
@@ -82,7 +82,7 @@ class ProductService extends AbstractService
     public function update(Product &$product)
     {
         $data = $product->exportData();
-        $endpoint = '/products/'.$product->id.'.json';
+        $endpoint = 'products/'.$product->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'product' => $data
@@ -100,7 +100,7 @@ class ProductService extends AbstractService
      */
     public function delete(Product &$product)
     {
-        $endpoint = '/products/'.$product->id.'.json';
+        $endpoint = 'products/'.$product->id.'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }

@@ -16,7 +16,7 @@ class MarketingEventService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/marketing_events.json';
+        $endpoint = 'marketing_events.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(MarketingEvent::class, $response['marketing_events']);
     }
@@ -29,7 +29,7 @@ class MarketingEventService extends AbstractService
      */
     public function count()
     {
-        $endpoint = '/marketing_events/count.json';
+        $endpoint = 'marketing_events/count.json';
         $response = $this->request($endpoint);
         return $response['count'];
     }
@@ -43,7 +43,7 @@ class MarketingEventService extends AbstractService
      */
     public function get($marketingEventId)
     {
-        $endpoint = '/marketing_events/'.$marketingEventId.'.json';
+        $endpoint = 'marketing_events/'.$marketingEventId.'.json';
         $response = $this->request($endpoint);
         return $this->createObject(MarketingEvent::class, $response['marketing_event']);
     }
@@ -58,7 +58,7 @@ class MarketingEventService extends AbstractService
     public function create(MarketingEvent &$marketingEvent)
     {
         $data = $marketingEvent->exportData();
-        $endpoint = '/marketing_events.json';
+        $endpoint = 'marketing_events.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'marketing_event' => $data
@@ -77,7 +77,7 @@ class MarketingEventService extends AbstractService
     public function update(MarketingEvent &$marketingEvent)
     {
         $data = $marketingEvent->exportData();
-        $endpoint = '/marketing_events/'.$marketingEvent->id.'.json';
+        $endpoint = 'marketing_events/'.$marketingEvent->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'marketing_event' => $data
@@ -95,7 +95,7 @@ class MarketingEventService extends AbstractService
      */
     public function delete(MarketingEvent &$marketingEvent)
     {
-        $endpoint = '/marketing_events/'.$marketingEvent->id.'.json';
+        $endpoint = 'marketing_events/'.$marketingEvent->id.'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }

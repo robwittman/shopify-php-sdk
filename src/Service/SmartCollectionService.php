@@ -15,7 +15,7 @@ class SmartCollectionService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/smart_collections.json';
+        $endpoint = 'smart_collections.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(SmartCollection::class, $response['smart_collections']);
     }
@@ -28,7 +28,7 @@ class SmartCollectionService extends AbstractService
      */
     public function count()
     {
-        $endpoint = '/smart_collections/count.json';
+        $endpoint = 'smart_collections/count.json';
         $response = $this->request($endpoint);
         return $response['count'];
     }
@@ -43,7 +43,7 @@ class SmartCollectionService extends AbstractService
      */
     public function get($smartCollectionId, array $params = [])
     {
-        $endpoint = '/smart_collections/'.$smartCollectionId.'.json';
+        $endpoint = 'smart_collections/'.$smartCollectionId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(SmartCollection::class, $response['smart_collection']);
     }
@@ -58,7 +58,7 @@ class SmartCollectionService extends AbstractService
     public function create(SmartCollection &$smartCollection)
     {
         $data = $smartCollection->exportData();
-        $endpoint = '/smart_collections.json';
+        $endpoint = 'smart_collections.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'smart_collection' => $data
@@ -77,7 +77,7 @@ class SmartCollectionService extends AbstractService
     public function update(SmartCollection &$smartCollection)
     {
         $data = $smartCollection->exportData();
-        $endpoint = '/smart_collections/'.$smartCollection->getId().'.json';
+        $endpoint = 'smart_collections/'.$smartCollection->getId().'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'smart_collection' => $data

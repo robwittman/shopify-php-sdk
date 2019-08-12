@@ -15,7 +15,7 @@ class CustomCollectionService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $endpoint = '/custom_collections.json';
+        $endpoint = 'custom_collections.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(CustomCollection::class, $response['custom_collections']);
     }
@@ -29,7 +29,7 @@ class CustomCollectionService extends AbstractService
      */
     public function count(array $params = array())
     {
-        $endpoint = '/custom_collections/count.json';
+        $endpoint = 'custom_collections/count.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
@@ -48,7 +48,7 @@ class CustomCollectionService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = $fields;
         }
-        $endpoint = '/custom_collections/'.$customCollectionId.'.json';
+        $endpoint = 'custom_collections/'.$customCollectionId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(CustomCollection::class, $response['custom_collection']);
     }
@@ -63,7 +63,7 @@ class CustomCollectionService extends AbstractService
     public function create(CustomCollection &$customCollection)
     {
         $data = $customCollection->exportData();
-        $endpoint = '/custom_collections.json';
+        $endpoint = 'custom_collections.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'custom_collection' => $data
@@ -82,7 +82,7 @@ class CustomCollectionService extends AbstractService
     public function update(CustomCollection &$customCollection)
     {
         $data = $customCollection->exportData();
-        $endpoint = '/custom_collections/'.$customCollection->id.'.json';
+        $endpoint = 'custom_collections/'.$customCollection->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'custom_collection' => $data
@@ -100,7 +100,7 @@ class CustomCollectionService extends AbstractService
      */
     public function delete(CustomCollection &$customCollection)
     {
-        $endpoint = '/custom_collections/'.$customCollection->getId().'.json';
+        $endpoint = 'custom_collections/'.$customCollection->getId().'.json';
         $this->request($endpoint, static::REQUEST_METHOD_DELETE);
         return;
     }

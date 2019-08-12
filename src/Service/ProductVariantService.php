@@ -16,7 +16,7 @@ class ProductVariantService extends AbstractService
      */
     public function all($productId, array $params = [])
     {
-        $endpoint = '/products/'.$productId.'/variants.json';
+        $endpoint = 'products/'.$productId.'/variants.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(ProductVariant::class, $response['variants']);
     }
@@ -30,7 +30,7 @@ class ProductVariantService extends AbstractService
      */
     public function count($productId)
     {
-        $response = $this->request('/products/'.$productId.'/count.json', 'GET');
+        $response = $$this->request('products/'.$productId.'/count.json', 'GET');
         return $response['count'];
     }
 
@@ -48,7 +48,7 @@ class ProductVariantService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = $fields;
         }
-        $endpoint = '/variants/'.$productVariantId.'.json';
+        $endpoint = 'variants/'.$productVariantId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(ProductVariant::class, $response['variant']);
     }
@@ -64,7 +64,7 @@ class ProductVariantService extends AbstractService
     public function create($productId, ProductVariant &$productVariant)
     {
         $data = $productVariant->exportData();
-        $endpoint = '/products/'.$productId.'/variants.json';
+        $endpoint = 'products/'.$productId.'/variants.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'variant' => $data
@@ -83,7 +83,7 @@ class ProductVariantService extends AbstractService
     public function update(ProductVariant &$productVariant)
     {
         $data = $productVariant->exportData();
-        $endpoint = '/variants/'.$productVariant->id.'.json';
+        $endpoint = 'variants/'.$productVariant->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'variant' => $data
@@ -102,7 +102,7 @@ class ProductVariantService extends AbstractService
      */
     public function delete($productId, ProductVariant &$productVariant)
     {
-        $endpoint = '/products/'.$productId.'/variants/'.$productVariant->id.'.json';
+        $endpoint = 'products/'.$productId.'/variants/'.$productVariant->id.'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }

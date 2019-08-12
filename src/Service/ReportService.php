@@ -15,7 +15,7 @@ class ReportService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/reports.json';
+        $endpoint = 'reports.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Report::class, $response['reports']);
     }
@@ -30,7 +30,7 @@ class ReportService extends AbstractService
      */
     public function get($reportId, array $params = [])
     {
-        $endpoint = '/reports/'.$reportId.'.json';
+        $endpoint = 'reports/'.$reportId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Report::class, $response['report']);
     }
@@ -45,7 +45,7 @@ class ReportService extends AbstractService
     public function create(Report &$report)
     {
         $data = $report->exportData();
-        $endpoint = '/reports.json';
+        $endpoint = 'reports.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'report' => $data
@@ -64,7 +64,7 @@ class ReportService extends AbstractService
     public function update(Report &$report)
     {
         $data = $report->exportData();
-        $endpoint = '/reports/'.$report->id.'.json';
+        $endpoint = 'reports/'.$report->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'report' => $data
@@ -82,7 +82,7 @@ class ReportService extends AbstractService
      */
     public function delete(Report $report)
     {
-         $this->request('/reports/'.$report->id.'.json', 'DELETE');
+         $$this->request('reports/'.$report->id.'.json', 'DELETE');
          return;
     }
 }

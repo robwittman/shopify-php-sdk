@@ -16,7 +16,7 @@ class ThemeService extends AbstractService
      */
     public function get($themeId, array $params = [])
     {
-        $endpoint = '/themes/'.$themeId.'.json';
+        $endpoint = 'themes/'.$themeId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Theme::class, $response['theme']);
     }
@@ -30,7 +30,7 @@ class ThemeService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/themes.json';
+        $endpoint = 'themes.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Theme::class, $response['themes']);
     }
@@ -45,7 +45,7 @@ class ThemeService extends AbstractService
     public function create(Theme &$theme)
     {
         $data = $theme->exportData();
-        $endpoint = '/themes.json';
+        $endpoint = 'themes.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'theme' => $data
@@ -64,7 +64,7 @@ class ThemeService extends AbstractService
     public function update(Theme &$theme)
     {
         $data = $theme->exportData();
-        $endpoint = '/themes/'.$theme->id.'.json';
+        $endpoint = 'themes/'.$theme->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'theme' => $data
@@ -82,7 +82,7 @@ class ThemeService extends AbstractService
      */
     public function delete(Theme $theme)
     {
-        $this->request('/themes/'.$theme->id.'.json', 'DELETE');
+        $$this->request('themes/'.$theme->id.'.json', 'DELETE');
         return;
     }
 }

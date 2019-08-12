@@ -15,7 +15,7 @@ class CustomerService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $endpoint = '/customers.json';
+        $endpoint = 'customers.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Customer::class, $response['customers']);
     }
@@ -29,7 +29,7 @@ class CustomerService extends AbstractService
      */
     public function search(array $params = array())
     {
-        $endpoint = '/customers/search.json';
+        $endpoint = 'customers/search.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Customer::class, $response['customers']);
     }
@@ -42,7 +42,7 @@ class CustomerService extends AbstractService
      */
     public function count()
     {
-        $endpoint = '/customers/count.json';
+        $endpoint = 'customers/count.json';
         $response = $this->request($endpoint);
         return $response['count'];
     }
@@ -57,7 +57,7 @@ class CustomerService extends AbstractService
      */
     public function get($customerId, array $params = array())
     {
-        $endpoint = '/customers/'.$customerId.'.json';;
+        $endpoint = 'customers/'.$customerId.'.json';;
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Customer::class, $response['customer']);
     }
@@ -72,7 +72,7 @@ class CustomerService extends AbstractService
     public function create(Customer &$customer)
     {
         $data = $customer->exportData();
-        $endpoint = '/customers.json';
+        $endpoint = 'customers.json';
         $response = $this->request(
             $endpoint, "POST", array(
             'customer' => $data
@@ -91,7 +91,7 @@ class CustomerService extends AbstractService
     public function update(Customer &$customer)
     {
         $data = $customer->exportData();
-        $endpoint = '/customers/'.$customer->id.'.json';
+        $endpoint = 'customers/'.$customer->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'customer' => $data
@@ -109,7 +109,7 @@ class CustomerService extends AbstractService
      */
     public function delete(Customer $customer)
     {
-        $endpoint = '/customers/'.$customer->id.'.json';
+        $endpoint = 'customers/'.$customer->id.'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }
@@ -123,7 +123,7 @@ class CustomerService extends AbstractService
      */
     public function accountActivationUrl($customerId)
     {
-        $endpoint = '/customers/'.$customerId.'/account_activation_url.json';
+        $endpoint = 'customers/'.$customerId.'/account_activation_url.json';
         $response = $this->request($endpoint, 'POST');
         return $response['account_activation_url'];
     }
@@ -140,7 +140,7 @@ class CustomerService extends AbstractService
     public function sendInvite($customerId, CustomerInvite $invite = null)
     {
         $data = is_null($invite) ? array() : $invite->exportData();
-        $endpoint = '/customers/'.$customerId.'/send_invite.json';
+        $endpoint = 'customers/'.$customerId.'/send_invite.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'custom_invite' => $data

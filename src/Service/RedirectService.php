@@ -15,7 +15,7 @@ class RedirectService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/redirects.json';
+        $endpoint = 'redirects.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Redirect::class, $response['redirects']);
     }
@@ -29,7 +29,7 @@ class RedirectService extends AbstractService
      */
     public function count(array $params = [])
     {
-        $endpoint = '/redirects/count.json';
+        $endpoint = 'redirects/count.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
@@ -44,7 +44,7 @@ class RedirectService extends AbstractService
      */
     public function get($redirectId, array $params = [])
     {
-        $endpoint = '/redirects/'.$redirectId.'.json';
+        $endpoint = 'redirects/'.$redirectId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Redirect::class, $response['redirect']);
     }
@@ -58,7 +58,7 @@ class RedirectService extends AbstractService
      */
     public function create(Redirect &$redirect)
     {
-        $endpoint = '/redirects.json';
+        $endpoint = 'redirects.json';
         $data = $redirect->exportData();
         $response = $this->request(
             $endpoint, "POST", array(
@@ -77,7 +77,7 @@ class RedirectService extends AbstractService
      */
     public function update(Redirect &$redirect)
     {
-        $endpoint = '/redirects/'.$redirect->id.'.json';
+        $endpoint = 'redirects/'.$redirect->id.'.json';
         $data = $redirect->exportData();
         $response = $this->request(
             $endpoint, "POST", array(
@@ -96,7 +96,7 @@ class RedirectService extends AbstractService
      */
     public function delete(Redirect $redirect)
     {
-        $endpoint = '/redirect/'.$redirect->id.'.json';
+        $endpoint = 'redirect/'.$redirect->id.'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }

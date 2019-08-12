@@ -15,7 +15,7 @@ class RecurringApplicationChargeService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/recurring_application_charges.json';
+        $endpoint = 'recurring_application_charges.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(RecurringApplicationCharge::class, $response['recurring_application_charges']);
     }
@@ -30,7 +30,7 @@ class RecurringApplicationChargeService extends AbstractService
      */
     public function get($recurringApplicationChargeId, array $params = [])
     {
-        $endpoint = '/recurring_application_charges/'.$recurringApplicationChargeId.'.json';
+        $endpoint = 'recurring_application_charges/'.$recurringApplicationChargeId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(RecurringApplicationCharge::class, $response['recurring_application_charge']);
     }
@@ -45,7 +45,7 @@ class RecurringApplicationChargeService extends AbstractService
     public function create(RecurringApplicationCharge &$recurringApplicationCharge)
     {
         $data = $recurringApplicationCharge->exportData();
-        $endpoint = '/recurring_application_charges.json';
+        $endpoint = 'recurring_application_charges.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'recurring_application_charge' => $data
@@ -77,7 +77,7 @@ class RecurringApplicationChargeService extends AbstractService
      */
     public function activate(RecurringApplicationCharge $recurringApplicationCharge)
     {
-        $endpoint = '/recurring_application_charges/'.$recurringApplicationCharge->id.'/activate.json';
+        $endpoint = 'recurring_application_charges/'.$recurringApplicationCharge->id.'/activate.json';
         $response = $this->request($endpoint, 'POST');
         $recurringApplicationCharge->setData($response['recurring_application_charge']);
     }

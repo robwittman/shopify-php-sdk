@@ -110,6 +110,11 @@ abstract class AbstractObject implements \JsonSerializable
         }
     }
 
+    public function getData()
+    {
+        return $this->data;
+    }
+
     public function castToType($value, $type)
     {
         if (is_null($value)) {

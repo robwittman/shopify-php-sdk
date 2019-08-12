@@ -124,7 +124,7 @@ class Api extends AbstractApi
         $args = array();
         if (!is_null($this->myshopify_domain)) {
             $args['base_uri'] = sprintf(
-                "https://%s/admin/api/%s",
+                "https://%s/admin/api/%s/",
                 $this->myshopify_domain,
                 $this->getApiVersion()
             );

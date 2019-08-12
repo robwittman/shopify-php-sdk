@@ -16,7 +16,7 @@ class ArticleService extends AbstractService
      */
     public function all($blogId, array $params = array())
     {
-        $endpoint = '/blogs/'.$blogId.'/articles.json';
+        $endpoint = 'blogs/'.$blogId.'/articles.json';
         $data = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Article::class, $data['articles']);
     }
@@ -31,7 +31,7 @@ class ArticleService extends AbstractService
      */
     public function count($blogId, array $params = array())
     {
-        $endpoint = '/blogs/'.$blogId.'/articles/count.json';
+        $endpoint = 'blogs/'.$blogId.'/articles/count.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
@@ -51,7 +51,7 @@ class ArticleService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }
-        $endpoint = '/blogs/'.$blogId.'/articles/'.$articleId.'.json';
+        $endpoint = 'blogs/'.$blogId.'/articles/'.$articleId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Article::class, $response['article']);
     }
@@ -67,7 +67,7 @@ class ArticleService extends AbstractService
     public function create($blogId, Article &$article)
     {
         $data = $article->exportData();
-        $endpoint = '/blogs/'.$blogId.'/articles.json';
+        $endpoint = 'blogs/'.$blogId.'/articles.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'article' => $data
@@ -87,7 +87,7 @@ class ArticleService extends AbstractService
     public function update($blogId, Article &$article)
     {
         $data = $article->exportData();
-        $endpoint = '/blogs/'.$blogId.'/articles/'.$article->id.'.json';
+        $endpoint = 'blogs/'.$blogId.'/articles/'.$article->id.'.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'article' => $data
@@ -107,7 +107,7 @@ class ArticleService extends AbstractService
     public function delete($blogId, Article &$article)
     {
         $articleId = $article->getId();
-        $endpoint = '/blogs/'.$blogId.'/articles/'.$articleId.'.json';
+        $endpoint = 'blogs/'.$blogId.'/articles/'.$articleId.'.json';
         $this->request($endpoint, 'DELETE');
     }
 
@@ -119,7 +119,7 @@ class ArticleService extends AbstractService
      */
     public function authors()
     {
-        $endpoint = '/articles/authors.json';
+        $endpoint = 'articles/authors.json';
         $response = $this->request($endpoint, 'GET');
         return $response['authors'];
     }
@@ -132,7 +132,7 @@ class ArticleService extends AbstractService
      */
     public function tags()
     {
-        $endpoint = '/articles/tags.json';
+        $endpoint = 'articles/tags.json';
         $response = $this->request($endpoint, 'GET');
         return $response['tags'];
     }

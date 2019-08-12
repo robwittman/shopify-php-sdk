@@ -8,7 +8,7 @@ class PriceRuleService extends AbstractService
 {
     public function all(array $params = array())
     {
-        $endpoint = '/price_rules.json';
+        $endpoint = 'price_rules.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(PriceRule::class, $response['price_rules']);
     }
@@ -19,7 +19,7 @@ class PriceRuleService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = $fields;
         }
-        $endpoint = '/price_rules/'.$priceRuleId.'.json';
+        $endpoint = 'price_rules/'.$priceRuleId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(PriceRule::class, $response['price_rule']);
     }
@@ -27,7 +27,7 @@ class PriceRuleService extends AbstractService
     public function create(PriceRule &$priceRule)
     {
         $data = $priceRule->exportData();
-        $endpoint = '/price_rules.json';
+        $endpoint = 'price_rules.json';
         $response = $this->request(
             $endpoint,
             'POST',
@@ -39,7 +39,7 @@ class PriceRuleService extends AbstractService
     public function update(PriceRule &$priceRule)
     {
         $data = $priceRule->exportData();
-        $endpoint = '/price_rules/'.$priceRule->id.'.json';
+        $endpoint = 'price_rules/'.$priceRule->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
                 'price_rule' => $data
@@ -50,7 +50,7 @@ class PriceRuleService extends AbstractService
 
     public function delete(PriceRule $priceRule)
     {
-        $endpoint = '/price_rules/'.$priceRule->id.'.json';
+        $endpoint = 'price_rules/'.$priceRule->id.'.json';
         $this->request($endpoint, 'DELETE');
     }
 }

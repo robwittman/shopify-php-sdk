@@ -15,7 +15,7 @@ class CommentService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/comments.json';
+        $endpoint = 'comments.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Comment::class, $response['comments']);
     }
@@ -29,7 +29,7 @@ class CommentService extends AbstractService
      */
     public function count(array $params = [])
     {
-        $endpoint = '/comments/count.json';
+        $endpoint = 'comments/count.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
@@ -44,7 +44,7 @@ class CommentService extends AbstractService
      */
     public function get($commentId, array $params = [])
     {
-        $endpoint = '/comments/'.$commentId.'.json';
+        $endpoint = 'comments/'.$commentId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Comment::class, $response['comment']);
     }
@@ -59,7 +59,7 @@ class CommentService extends AbstractService
     public function create(Comment &$comment)
     {
         $data = $comment->exportData();
-        $endpoint = '/comments.json';
+        $endpoint = 'comments.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'comment' => $data
@@ -78,7 +78,7 @@ class CommentService extends AbstractService
     public function update(Comment &$comment)
     {
         $data = $comment->exportData();
-        $endpoint = '/comments/'.$comment->id.'.json';
+        $endpoint = 'comments/'.$comment->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'comment' => $data
@@ -96,7 +96,7 @@ class CommentService extends AbstractService
      */
     public function spam(Comment &$comment)
     {
-        $endpoint = '/comments/'.$comment->id.'/spam.json';
+        $endpoint = 'comments/'.$comment->id.'/spam.json';
         $response = $this->request($endpoint, 'POST');
         $comment->setData($response['comment']);
     }
@@ -110,7 +110,7 @@ class CommentService extends AbstractService
      */
     public function notSpam(Comment &$comment)
     {
-        $endpoint = '/comments/'.$comment->id.'/not_spam.json';
+        $endpoint = 'comments/'.$comment->id.'/not_spam.json';
         $response = $this->request($endpoint, 'POST');
         $comment->setData($response['comment']);
     }
@@ -124,7 +124,7 @@ class CommentService extends AbstractService
      */
     public function approve(Comment &$comment)
     {
-        $endpoint = '/comments/'.$comment->id.'/approve.json';
+        $endpoint = 'comments/'.$comment->id.'/approve.json';
         $response = $this->request($endpoint, 'POST');
         $comment->setData($response['comment']);
     }
@@ -138,7 +138,7 @@ class CommentService extends AbstractService
      */
     public function remove(Comment &$comment)
     {
-        $endpoint = '/comments/'.$comment->id.'remove.json';
+        $endpoint = 'comments/'.$comment->id.'remove.json';
         $response = $this->request($endpoint, 'POST');
         $comment->setData($response['comment']);
     }
@@ -152,7 +152,7 @@ class CommentService extends AbstractService
      */
     public function restore(Comment &$comment)
     {
-        $endpoint = '/comments/'.$comment->id.'/restore.json';
+        $endpoint = 'comments/'.$comment->id.'/restore.json';
         $response = $this->request($endpoint, 'POST');
         $comment->setData($response['comment']);
     }

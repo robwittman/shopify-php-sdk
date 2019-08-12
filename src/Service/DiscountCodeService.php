@@ -16,7 +16,7 @@ class DiscountCodeService extends AbstractService
      */
     public function all($priceRuleId, array $params = [])
     {
-        $endpoint = '/price_rules/'.$priceRuleId.'/discount_codes.json';
+        $endpoint = 'price_rules/'.$priceRuleId.'/discount_codes.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(DiscountCode::class, $response['discount_codes']);
     }
@@ -31,7 +31,7 @@ class DiscountCodeService extends AbstractService
      */
     public function get($priceRuleId, $discountCodeId)
     {
-        $endpoint = '/price_rules/'.$priceRuleId.'/discount_codes/'.$discountCodeId.'.json';
+        $endpoint = 'price_rules/'.$priceRuleId.'/discount_codes/'.$discountCodeId.'.json';
         $response = $this->request($endpoint);
         return $this->createObject(DiscountCode::class, $response['discount_code']);
     }
@@ -47,7 +47,7 @@ class DiscountCodeService extends AbstractService
     public function create($priceRuleId, DiscountCode &$discountCode)
     {
         $data = $discountCode->exportData();
-        $endpoint = '/price_rules/'.$priceRuleId.'/discount_codes.json';
+        $endpoint = 'price_rules/'.$priceRuleId.'/discount_codes.json';
         $response = $this->request($endpoint, 'POST', array(
             'discount_code' => $data
         ));
@@ -64,7 +64,7 @@ class DiscountCodeService extends AbstractService
      */
     public function delete($priceRuleId, DiscountCode $discountCode)
     {
-        $endpoint = '/price_rules/'.$priceRuleId.'/discount_codes/'.$discountCode->id.'.json';
+        $endpoint = 'price_rules/'.$priceRuleId.'/discount_codes/'.$discountCode->id.'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }
@@ -78,7 +78,7 @@ class DiscountCodeService extends AbstractService
     public function update($priceRuleId, DiscountCode &$discountCode)
     {
         $data = $discountCode->exportData();
-        $endpoint = '/price_rules/'.$priceRuleId.'/discount_codes/'.$discountCode->id.'.json';
+        $endpoint = 'price_rules/'.$priceRuleId.'/discount_codes/'.$discountCode->id.'.json';
         $response = $this->request($endpoint, 'PUT', array(
             'discount_code' => $data
         ));

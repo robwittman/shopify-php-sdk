@@ -17,7 +17,7 @@ class UsageChargeService extends AbstractService
     public function create($recurringApplicationChargeId, UsageCharge $usageCharge)
     {
         $data = $usageCharge->exportData();
-        $endpoint = '/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json';
+        $endpoint = 'recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'usage_charge' => $data
@@ -37,7 +37,7 @@ class UsageChargeService extends AbstractService
      */
     public function get($recurringApplicationChargeId, $usageChargeId, array $params = array())
     {
-        $endpoint = '/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges/'.$usageChargeId.'.json';
+        $endpoint = 'recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges/'.$usageChargeId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(UsageCharge::class, $response['usage_charge']);
     }
@@ -52,7 +52,7 @@ class UsageChargeService extends AbstractService
      */
     public function all($recurringApplicationChargeId, array $params = array())
     {
-        $endpoint = '/recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json';
+        $endpoint = 'recurring_application_charges/'.$recurringApplicationChargeId.'/usage_charges.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(UsageCharge::class, $response['usage_charges']);
     }

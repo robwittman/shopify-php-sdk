@@ -17,7 +17,7 @@ class RefundService extends AbstractService
      */
     public function all($orderId, array $params = [])
     {
-        $endpoint = '/orders/'.$orderId.'/refunds.json';
+        $endpoint = 'orders/'.$orderId.'/refunds.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Refund::class, $response['refunds']);
     }
@@ -33,7 +33,7 @@ class RefundService extends AbstractService
      */
     public function get($orderId, $refundId, array $params = [])
     {
-        $endpoint = '/orders/'.$orderId.'/refunds/'.$refundId.'.json';
+        $endpoint = 'orders/'.$orderId.'/refunds/'.$refundId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Refund::class, $response['refund']);
     }
@@ -49,7 +49,7 @@ class RefundService extends AbstractService
     public function create($orderId, Refund &$refund)
     {
         $data = $refund->exportData();
-        $endpoint = '/orders/'.$orderId.'/refunds.json';
+        $endpoint = 'orders/'.$orderId.'/refunds.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'refund' => $data

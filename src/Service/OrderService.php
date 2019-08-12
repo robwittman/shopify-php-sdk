@@ -15,7 +15,7 @@ class OrderService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $endpoint = '/orders.json';
+        $endpoint = 'orders.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Order::class, $response['orders']);
     }
@@ -29,7 +29,7 @@ class OrderService extends AbstractService
      */
     public function count(array $params = [])
     {
-        $endpoint = '/orders/count.json';
+        $endpoint = 'orders/count.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $response['count'];
     }
@@ -44,7 +44,7 @@ class OrderService extends AbstractService
      */
     public function get($orderId, array $params = [])
     {
-        $endpoint = '/orders/'.$orderId.'.json';
+        $endpoint = 'orders/'.$orderId.'.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createObject(Order::class, $response['order']);
     }
@@ -59,7 +59,7 @@ class OrderService extends AbstractService
     public function create(Order &$order)
     {
         $data = $order->exportData();
-        $endpoint = '/orders.json';
+        $endpoint = 'orders.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'order' => $data

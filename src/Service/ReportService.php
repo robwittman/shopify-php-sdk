@@ -82,7 +82,7 @@ class ReportService extends AbstractService
      */
     public function delete(Report $report)
     {
-         $$this->request('reports/'.$report->id.'.json', 'DELETE');
+         $this->request('reports/'.$report->id.'.json', 'DELETE');
          return;
     }
 }

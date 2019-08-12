@@ -30,7 +30,7 @@ class ProductVariantService extends AbstractService
      */
     public function count($productId)
     {
-        $response = $$this->request('products/'.$productId.'/count.json', 'GET');
+        $response = $this->request('products/'.$productId.'/count.json', 'GET');
         return $response['count'];
     }
 

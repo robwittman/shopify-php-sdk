@@ -82,7 +82,7 @@ class ThemeService extends AbstractService
      */
     public function delete(Theme $theme)
     {
-        $$this->request('themes/'.$theme->id.'.json', 'DELETE');
+        $this->request('themes/'.$theme->id.'.json', 'DELETE');
         return;
     }
 }

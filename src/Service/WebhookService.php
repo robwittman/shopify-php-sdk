@@ -15,7 +15,7 @@ class WebhookService extends AbstractService
      */
     public function all(array $params = [])
     {
-        $response = $$this->request('webhooks.json', 'GET', $params);
+        $response = $this->request('webhooks.json', 'GET', $params);
         return $this->createCollection(Webhook::class, $response['webhooks']);
     }
 
@@ -28,7 +28,7 @@ class WebhookService extends AbstractService
      */
     public function count(array $params = [])
     {
-        $response = $$this->request('webhooks/count.json', $params);
+        $response = $this->request('webhooks/count.json', $params);
         return $response['count'];
     }
 
@@ -46,7 +46,7 @@ class WebhookService extends AbstractService
         if (!empty($fields)) {
             $params['fields'] = implode(',', $fields);
         }
-        $response = $$this->request('webhooks/'.$webhookId.'.json', 'GET', $params);
+        $response = $this->request('webhooks/'.$webhookId.'.json', 'GET', $params);
         return $this->createObject(Webhook::class, $response['webhook']);
     }
 
@@ -95,6 +95,6 @@ class WebhookService extends AbstractService
      */
     public function delete(Webhook $webhook)
     {
-        $$this->request('webhooks/'.$webhook->id.'.json', 'DELETE');
+        $this->request('webhooks/'.$webhook->id.'.json', 'DELETE');
     }
 }

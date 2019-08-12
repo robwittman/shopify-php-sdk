@@ -99,7 +99,7 @@ class CountryService extends AbstractService
      */
     public function delete(Country $country)
     {
-        $$this->request('countries/'.$country->id.'.json', 'DELETE');
+        $this->request('countries/'.$country->id.'.json', 'DELETE');
         return;
     }
 }

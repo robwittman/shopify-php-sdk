@@ -15,7 +15,7 @@ class ApplicationCreditService extends AbstractService
      */
     public function all(array $params = array())
     {
-        $data = $$this->request('application_credits.json', 'GET', $params);
+        $data = $this->request('application_credits.json', 'GET', $params);
         return $this->createCollection(ApplicationCredit::class, $data['application_credits']);
     }
 

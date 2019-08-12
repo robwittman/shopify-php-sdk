@@ -14,7 +14,7 @@ class ShopService extends AbstractService
      */
     public function get()
     {
-        $request = $this->createRequest('/shop.json');
+        $request = $this->createRequest('shop.json');
         $response = $this->send($request);
         return $this->createObject(Shop::class, $response['shop']);
     }

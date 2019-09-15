@@ -4,6 +4,7 @@ namespace Shopify\Enum\Fields;
 
 class ProductImageFields extends AbstractObjectEnum
 {
+    const ATTACHMENT = 'attachment';
     const CREATED_AT = 'created_at';
     const ID = 'id';
     const POSITION = 'position';
@@ -16,7 +17,8 @@ class ProductImageFields extends AbstractObjectEnum
 
     public function getFieldTypes()
     {
-        return array(
+	return array(
+            'attachment' => 'string',
             'created_at' => 'DateTime',
             'id' => 'integer',
             'position' => 'integer',

@@ -14,7 +14,7 @@ class GraphQLService extends AbstractService
     }
 
     // Create the request, pass the access token and optional parameters
-    $endpoint = '/admin/api/graphql.json';
+    $endpoint = 'graphql.json';
     $response = $this->request(
         $endpoint,
         'POST',

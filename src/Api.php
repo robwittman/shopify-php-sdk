@@ -2,12 +2,10 @@
 
 namespace Shopify;
 
-use Shopify\Service\AbstractService;
 use Shopify\Storage\PersistentStorageInterface;
 use Shopify\Storage\SessionStorage;
 use Shopify\Helper\OAuthHelper;
 use GuzzleHttp\Client;
-use Psr\Log\LoggerInterface;
 
 class Api extends AbstractApi
 {
@@ -144,17 +142,6 @@ class Api extends AbstractApi
     public function getOAuthHelper()
     {
         return new OAuthHelper($this, $this->getStorageInterface());
-    }
-
-    /**
-     * Helper function to create new service instances
-     *
-     * @param $serviceClass Fully Qualified Service className
-     * @return AbstractService
-     */
-    public function createService($serviceClass)
-    {
-        return new $serviceClass($this);
     }
 
     public function loadApiKeyFromEnv()

@@ -4,6 +4,7 @@ namespace Shopify;
 
 use GuzzleHttp\Client;
 use Psr\Log\LoggerInterface;
+use Shopify\Service\AbstractService;
 
 abstract class AbstractApi implements ApiInterface
 {
@@ -144,6 +145,17 @@ abstract class AbstractApi implements ApiInterface
     public function getApiVersion()
     {
         return $this->api_version;
+    }
+
+    /**
+     * Helper function to create new service instances
+     *
+     * @param $serviceClass Fully Qualified Service className
+     * @return AbstractService
+     */
+    public function createService($serviceClass)
+    {
+        return new $serviceClass($this);
     }
 
     /**

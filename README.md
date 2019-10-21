@@ -79,6 +79,40 @@ $service = new Shopify\Service\ProductService($client);
 $service->delete($productId);
 ```
 
+### GraphQL
+
+#### Query
+```php
+$service = new Shopify\Service\GraphQLService($client);
+$service->graph(
+  '{
+    products(query: "created_at:<2019", first: 5) {
+      edges {
+        node {
+          title
+          description
+        }
+      }
+    }
+  }'
+);
+```
+
+#### Mutation
+```php
+$service = new Shopify\Service\GraphQLService($client);
+$service->graph(
+  'mutation productCreate($input: ProductInput!){
+    productCreate(input: $input) {
+      product {
+        id
+      }
+    }
+  }',
+  ['input' => ['title' => 'Sweet new product','productType' => 'Snowboard','vendor' => 'JadedPixel']]
+);
+```
+
 ## Authentication
 
 Authentication to Shopify's API is done through access tokens, which are obtained through OAuth. To get a

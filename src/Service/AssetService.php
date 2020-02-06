@@ -17,7 +17,7 @@ class AssetService extends AbstractService
      */
     public function all($themeId, array $params = array())
     {
-        $endpoint = '/themes/'.$themeId.'/assets.json';
+        $endpoint = 'themes/'.$themeId.'/assets.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(Asset::class, $response['assets']);
     }
@@ -32,7 +32,7 @@ class AssetService extends AbstractService
      */
     public function get($themeId, $assetKey)
     {
-        $endpoint = '/themes/'.$themeId.'/assets.json';
+        $endpoint = 'themes/'.$themeId.'/assets.json';
         $response = $this->request($endpoint, 'GET', [
             'asset[key]' => $assetKey,
             'theme_id' => $themeId,
@@ -51,7 +51,7 @@ class AssetService extends AbstractService
     public function put($themeId, Asset $asset)
     {
         $data = $asset->exportData();
-        $endpoint = '/themes/'.$themeId.'/assets.json';
+        $endpoint = 'themes/'.$themeId.'/assets.json';
         $response = $this->request($endpoint, 'PUT', ['asset' => $data]);
         $asset->setData($response['asset']);
     }

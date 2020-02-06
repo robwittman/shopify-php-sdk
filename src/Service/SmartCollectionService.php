@@ -95,7 +95,7 @@ class SmartCollectionService extends AbstractService
      */
     public function delete(SmartCollection $smartCollection)
     {
-        $request = $this->createRequest('/smart_collections/'.$smartCollection->getId().'.json', static::REQUEST_METHOD_DELETE);
+        $request = $this->createRequest('smart_collections/'.$smartCollection->getId().'.json', static::REQUEST_METHOD_DELETE);
         $this->send($request);
     }
 

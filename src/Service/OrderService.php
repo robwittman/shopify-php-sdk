@@ -77,7 +77,7 @@ class OrderService extends AbstractService
      */
     public function close(Order &$order)
     {
-        $endpoint= '/orders/'.$order->id.'/close.json';
+        $endpoint= 'orders/'.$order->id.'/close.json';
         $response = $this->request($endpoint, 'POST');
         $order->setData($response['order']);
     }
@@ -91,7 +91,7 @@ class OrderService extends AbstractService
      */
     public function open(Order &$order)
     {
-        $endpoint= '/orders/'.$order->id.'/open.json';
+        $endpoint= 'orders/'.$order->id.'/open.json';
         $response = $this->request($endpoint, 'POST');
         $order->setData($response['order']);
     }
@@ -105,7 +105,7 @@ class OrderService extends AbstractService
      */
     public function cancel(Order &$order)
     {
-        $endpoint= '/orders/'.$order->id.'/cancel.json';
+        $endpoint= 'orders/'.$order->id.'/cancel.json';
         $response = $this->request($endpoint, 'POST');
         $order->setData($response['order']);
     }
@@ -120,7 +120,7 @@ class OrderService extends AbstractService
     public function update(Order &$order)
     {
         $data = $order->exportData();
-        $endpoint= '/orders/'.$order->id.'.json';
+        $endpoint= 'orders/'.$order->id.'.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'order' => $data
@@ -138,7 +138,7 @@ class OrderService extends AbstractService
      */
     public function delete(Order &$order)
     {
-        $endpoint= '/orders/'.$order->id.'.json';
+        $endpoint= 'orders/'.$order->id.'.json';
         $this->request($endpoint, 'DELETE');
         return;
     }

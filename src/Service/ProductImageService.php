@@ -16,7 +16,7 @@ class ProductImageService extends AbstractService
      */
     public function all($productId, array $params = [])
     {
-        $endpoint=  '/products/'.$productId.'/images.json';
+        $endpoint = 'products/'.$productId.'/images.json';
         $response = $this->request($endpoint, 'GET', $params);
         return $this->createCollection(ProductImage::class, $response['images']);
     }

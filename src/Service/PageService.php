@@ -59,7 +59,7 @@ class PageService extends AbstractService
     public function create(Page &$page)
     {
         $data = $page->exportData();
-        $endpoint= '/pages.json';
+        $endpoint = 'pages.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'page' => $data
@@ -78,7 +78,7 @@ class PageService extends AbstractService
     public function update(Page &$page)
     {
         $data = $page->exportData();
-        $endpoint= '/pages/'.$page->id.'.json';
+        $endpoint = 'pages/'.$page->id.'.json';
         $response = $this->request(
             $endpoint, 'PUT', array(
             'page' => $data

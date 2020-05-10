@@ -61,7 +61,7 @@ class ScriptTagService extends AbstractService
     {
         $data = $scriptTag->exportData();
         $response = $this->request(
-            '/script_tags.json', 'POST', array(
+            'script_tags.json', 'POST', array(
             'script_tag' => $data
             )
         );
@@ -79,7 +79,7 @@ class ScriptTagService extends AbstractService
     {
         $data = $scriptTag->exportData();
         $response = $this->request(
-            '/script_tags/'.$scriptTag->id.'.json', 'PUT', array(
+            'script_tags/'.$scriptTag->id.'.json', 'PUT', array(
             'script_tag' => $data
             )
         );

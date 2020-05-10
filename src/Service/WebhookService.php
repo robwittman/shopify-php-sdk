@@ -61,7 +61,7 @@ class WebhookService extends AbstractService
     {
         $data = $webhook->exportData();
         $response = $this->request(
-            '/webhooks.json', 'POST', array(
+            'webhooks.json', 'POST', array(
             'webhook' => $data
             )
         );
@@ -79,7 +79,7 @@ class WebhookService extends AbstractService
     {
         $data = $webhook->exportData();
         $response = $this->request(
-            '/webhooks/'.$webhook->id.'.json', 'PUT', array(
+            'webhooks/'.$webhook->id.'.json', 'PUT', array(
             'webhook' => $data
             )
         );

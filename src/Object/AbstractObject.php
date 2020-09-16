@@ -73,7 +73,7 @@ abstract class AbstractObject implements \JsonSerializable
         }
         if (!is_null($value) && !$this->isValidValue($key, $value)) {
             throw new \InvalidArgumentException(
-                "Invalid type for property '{$key}'"
+                "Invalid type for property '{$key}', should be a ".$this->types[$key]." received ".print_r($value,1)
             );
         }
         $this->data[$key] = $value;

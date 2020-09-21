@@ -5,7 +5,7 @@ namespace Shopify\Service;
 use InvalidArgumentException;
 use Shopify\Object\InventoryLevel;
 
-class InventroyLevelService extends AbstractService
+class InventoryLevelService extends AbstractService
 {
     /**
      * Retrieves a list of inventory levels.

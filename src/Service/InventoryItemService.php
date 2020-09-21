@@ -4,7 +4,7 @@ namespace Shopify\Service;
 
 use Shopify\Object\InventoryItem;
 
-class InventroyItemService extends AbstractService
+class InventoryItemService extends AbstractService
 {
     /**
      * Retrieves a list of inventory items.

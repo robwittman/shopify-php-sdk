@@ -19,7 +19,7 @@ class InventoryItemFields extends AbstractObjectEnum
         return array(
             'cost'                              => 'integer',
             'country_code_of_origin'            => 'string',
-            'country_harmonized_system_codes'   => 'string',
+            'country_harmonized_system_codes'   => 'array',
             'harmonized_system_code'            => 'integer',
             'id'                                => 'integer',
             'province_code_of_origin'           => 'string',

@@ -101,11 +101,10 @@ abstract class AbstractService
             $bodyContents,
             true
         );
-        var_dump(json_last_error(), json_last_error_msg());
-        $json_error = json_last_error();
-        var_dump($return);
 
+        $json_error = json_last_error();
         if($json_error === JSON_ERROR_NONE){
+            var_dump($return);
             if(is_null($return)){
                 return $bodyContents;
             }

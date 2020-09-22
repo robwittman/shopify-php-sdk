@@ -81,6 +81,7 @@ abstract class AbstractService
         $args = [];
         if ($request->getMethod() === 'GET') {
             $args['query'] = $params;
+            var_dump($args);
             $this->lastResponse = $this->client->get($request->getUri(), ['query' => $params]);
         }
         else {

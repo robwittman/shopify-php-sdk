@@ -103,6 +103,7 @@ abstract class AbstractService
         );
         var_dump(json_last_error(), json_last_error_msg());
         $json_error = json_last_error();
+        var_dump($return);
 
         if($json_error === JSON_ERROR_NONE){
             if(is_null($return)){

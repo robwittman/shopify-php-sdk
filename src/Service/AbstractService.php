@@ -2,6 +2,7 @@
 
 namespace Shopify\Service;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -78,25 +79,35 @@ abstract class AbstractService
 
     public function send(Request $request, array $params = array())
     {
+        //Set the empty args array
         $args = [];
+
+        //If the method is get we need to send the args as a query other wise the args need to be send as json
         if ($request->getMethod() === 'GET') {
             $args['query'] = $params;
-            var_dump($args);
-            $this->lastResponse = $this->client->get($request->getUri(), ['query' => $params]);
         }
         else {
-            $args['json'] = $params;
-            $this->lastResponse = $this->client->send($request, $args);
-        }      
+            $args['json'] = $params;            
+        }
+
+        //Load the response in a variable
+        $this->lastResponse = $this->client->send($request, $args);
         
-        print('The request URI is: '. $request->getUri() .PHP_EOL);
-        $last_response_body_contents = $this->lastResponse->getBody()->getContents();
-        var_dump($last_response_body_contents);
-        
-        return json_decode(
-            $last_response_body_contents,
+        //Decode the json string and save to a varibale.
+        //We do need return this derict so we can check for an json error.
+        $return = json_decode(
+            $this->lastResponse->getBody()->getContents(),
             true
         );
+        
+        $json_error = json_last_error();
+
+        if($json_error === JSON_ERROR_NONE){
+            return $return;
+        }
+        else{
+            throw new Exception($json_error);
+        }
     }
 
     public function createObject($className, $data)

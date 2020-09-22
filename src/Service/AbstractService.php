@@ -90,6 +90,7 @@ abstract class AbstractService
         }      
         
         print('The request URI is: '. $request->getUri() .PHP_EOL);
+        var_dump($this->lastResponse->getBody());
         
         return json_decode(
             $this->lastResponse->getBody()->getContents(),

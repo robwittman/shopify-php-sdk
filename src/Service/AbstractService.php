@@ -90,10 +90,11 @@ abstract class AbstractService
         }      
         
         print('The request URI is: '. $request->getUri() .PHP_EOL);
-        var_dump($this->lastResponse->getBody()->getContents());
+        $last_response_body_contents = $this->lastResponse->getBody()->getContents();
+        var_dump($last_response_body_contents);
         
         return json_decode(
-            $this->lastResponse->getBody()->getContents(),
+            $last_response_body_contents,
             true
         );
     }

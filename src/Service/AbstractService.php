@@ -89,7 +89,7 @@ abstract class AbstractService
         
         $this->lastResponse = $this->client->send($request, $args);
         
-        print('The request URI is: '. $request->getUri() .PHP_EOL);
+        print('The request URI is: '. $request->getUri()->getQuery() .PHP_EOL);
         
         return json_decode(
             $this->lastResponse->getBody()->getContents(),

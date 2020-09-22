@@ -82,11 +82,16 @@ abstract class AbstractService
         if ($request->getMethod() === 'GET') {
             $args['query'] = $params;
             var_dump($args['query']);
-        } else {
+        }
+        else {
             $args['json'] = $params;
         }
+        
         $this->lastResponse = $this->client->send($request, $args);
+        var_dump($this->lastResponse->getBody());
+        
         print('The request URI is: '. $request->getUri() .PHP_EOL);
+        
         return json_decode(
             $this->lastResponse->getBody()->getContents(),
             true

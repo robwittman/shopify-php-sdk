@@ -88,7 +88,7 @@ abstract class AbstractService
         }
         
         $this->lastResponse = $this->client->send($request, $args);
-        var_dump($this->lastResponse->getBody());
+        var_dump($this->lastResponse->getHeaders());
         
         print('The request URI is: '. $request->getUri() .PHP_EOL);
         

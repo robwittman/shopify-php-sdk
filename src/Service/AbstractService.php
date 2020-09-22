@@ -95,19 +95,16 @@ abstract class AbstractService
         
         //Decode the json string and save to a varibale.
         //We do need return this derict so we can check for an json error.
-        $bodyContents = $this->lastResponse->getBody()->getContents();
-
         $return = json_decode(
-            $bodyContents,
+            $this->lastResponse->getBody()->getContents(),
             true
         );
 
+        //Check if there are any json error.
+        //if there is an error throw an exeption
+        //TOD: make costum exeption.
         $json_error = json_last_error();
         if($json_error === JSON_ERROR_NONE){
-            var_dump($return);
-            if(is_null($return)){
-                return $bodyContents;
-            }
             return $return;
         }
         else{

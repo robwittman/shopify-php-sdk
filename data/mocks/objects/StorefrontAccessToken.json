@@ -1,0 +1,10 @@
+{
+  "storefront_access_token":{
+    "access_token":"5ba5eadd69da851d9d8a3dbdff70ac9a",
+    "access_scope":"unauthenticated_read_content,unauthenticated_read_product_listings,unauthenticated_write_checkouts,unauthenticated_read_checkouts,unauthenticated_write_customers,unauthenticated_read_customers",
+    "created_at":"2020-10-02T09:34:31-04:00",
+    "id":12345678901,
+    "admin_graphql_api_id":"gid:\/\/shopify\/StorefrontAccessToken\/12345678901",
+    "title":"New Token"
+  }
+}

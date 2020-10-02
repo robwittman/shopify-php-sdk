@@ -1,0 +1,20 @@
+{
+  "storefront_access_tokens":[
+    {
+      "access_token":"5ba5eadd69da851d9d8a3dbdff700000",
+      "access_scope":"unauthenticated_read_content,unauthenticated_read_product_listings,unauthenticated_write_checkouts,unauthenticated_read_checkouts,unauthenticated_write_customers,unauthenticated_read_customers",
+      "created_at":"2020-07-15T13:28:36-04:00",
+      "id":12345678901,
+      "admin_graphql_api_id":"gid:\/\/shopify\/StorefrontAccessToken\/12345678901",
+      "title":"Access Token for Test 1"
+    },
+    {
+      "access_token":"5ba5eadd69da851d9d8a3dbdff701111",
+      "access_scope":"unauthenticated_read_content,unauthenticated_read_product_listings,unauthenticated_write_checkouts,unauthenticated_read_checkouts,unauthenticated_write_customers,unauthenticated_read_customers",
+      "created_at":"2020-07-15T13:28:36-04:00",
+      "id":12345678902,
+      "admin_graphql_api_id":"gid:\/\/shopify\/StorefrontAccessToken\/12345678902",
+      "title":"Access Token for Test 2"
+    }
+  ]
+}

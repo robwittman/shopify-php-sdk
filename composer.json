@@ -11,7 +11,7 @@
     "license": "MIT",
     "authors": [],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.5.0",
         "ext-curl": "*",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.2",

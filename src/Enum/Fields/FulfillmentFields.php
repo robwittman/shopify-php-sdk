@@ -6,6 +6,7 @@ class FulfillmentFields extends AbstractObjectEnum
 {
     const CREATED_AT = 'created_at';
     const ID = 'id';
+    const LOCATION_ID = 'location_id';
     const LINE_ITEMS = 'line_items';
     const NOTIFY_CUSTOMER = 'notify_customer';
     const ORDER_ID = 'order_id';
@@ -22,6 +23,7 @@ class FulfillmentFields extends AbstractObjectEnum
         return array(
             'created_at' => 'DateTime',
             'id' => 'integer',
+            'location_id' => 'integer',
             'line_items' => 'LineItem[]',
             'notify_customer' => 'boolean',
             'order_id' => 'integer',

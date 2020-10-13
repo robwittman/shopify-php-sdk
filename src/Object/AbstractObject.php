@@ -51,7 +51,7 @@ abstract class AbstractObject implements \JsonSerializable
         $this->data = array_fill_keys($enum->getFields(), null);
     }
 
-    public function __get($key)
+    public function &__get($key)
     {
         if (!array_key_exists($key, $this->data)) {
             throw new \InvalidArgumentException(
@@ -61,7 +61,7 @@ abstract class AbstractObject implements \JsonSerializable
         return $this->data[$key];
     }
 
-    public function __set($key, $value)
+    public function &__set($key, $value)
     {
         if (!array_key_exists($key, $this->data)) {
             return $this;

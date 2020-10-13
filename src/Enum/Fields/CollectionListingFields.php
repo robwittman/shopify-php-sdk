@@ -2,7 +2,7 @@
 
 namespace Shopify\Enum\Fields;
 
-class CollectionListingFields extends AbstractObject
+class CollectionListingFields extends AbstractObjectEnum
 {
     const COLLECTION_ID = 'collection_id';
     const BODY_HTML = 'body_html';

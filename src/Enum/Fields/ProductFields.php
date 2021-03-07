@@ -13,6 +13,7 @@ class ProductFields extends AbstractObjectEnum
     const PRODUCT_TYPE = 'product_type';
     const PUBLISHED_AT = 'published_at';
     const PUBLISHED_SCOPE = 'published_scope';
+    const STATUS = 'status';
     const TAGS = 'tags';
     const TEMPLATE_SUFFIX = 'template_suffix';
     const TITLE = 'title';
@@ -35,6 +36,7 @@ class ProductFields extends AbstractObjectEnum
             'product_type' => 'string',
             'published_at' => 'DateTime',
             'published_scope' => 'string',
+            'status' => 'string',
             'tags' => 'string',
             'template_suffix' => 'string',
             'title' => 'string',

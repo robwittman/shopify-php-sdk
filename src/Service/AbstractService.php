@@ -2,6 +2,7 @@
 
 namespace Shopify\Service;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -21,9 +22,9 @@ abstract class AbstractService
      */
     private $lastResponse;
 
-    const REQUEST_METHOD_GET = 'GET';
-    const REQUEST_METHOD_POST = 'POST';
-    const REQUEST_METHOD_PUT = 'PUT';
+    const REQUEST_METHOD_GET    = 'GET';
+    const REQUEST_METHOD_POST   = 'POST';
+    const REQUEST_METHOD_PUT    = 'PUT';
     const REQUEST_METHOD_DELETE = 'DELETE';
 
     public static function factory(ApiInterface $api)
@@ -78,17 +79,37 @@ abstract class AbstractService
 
     public function send(Request $request, array $params = array())
     {
-        $args = array();
+        //Set the empty args array
+        $args = [];
+
+        //If the method is get we need to send the args as a query other wise the args need to be send as json
         if ($request->getMethod() === 'GET') {
             $args['query'] = $params;
-        } else {
-            $args['json'] = $params;
         }
+        else {
+            $args['json'] = $params;            
+        }
+
+        //Load the response in a variable
         $this->lastResponse = $this->client->send($request, $args);
-        return json_decode(
+        
+        //Decode the json string and save to a varibale.
+        //We do need return this derict so we can check for an json error.
+        $return = json_decode(
             $this->lastResponse->getBody()->getContents(),
             true
         );
+
+        //Check if there are any json error.
+        //if there is an error throw an exeption
+        //TOD: make costum exeption.
+        $json_error = json_last_error();
+        if($json_error === JSON_ERROR_NONE){
+            return $return;
+        }
+        else{
+            throw new Exception($json_error);
+        }
     }
 
     public function createObject($className, $data)

@@ -79,10 +79,12 @@ abstract class AbstractService
     public function send(Request $request, array $params = array())
     {
         $args = array();
-        if ($request->getMethod() === 'GET') {
-            $args['query'] = $params;
-        } else {
-            $args['json'] = $params;
+        if (!empty($params)) {
+            if ($request->getMethod() === 'GET') {
+                $args['query'] = $params;
+            } else {
+                $args['json'] = $params;
+            }
         }
         $this->lastResponse = $this->client->send($request, $args);
         return json_decode(

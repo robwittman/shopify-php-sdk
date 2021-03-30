@@ -106,4 +106,21 @@ abstract class AbstractService
             }, $data
         );
     }
+
+    /** [fetch links(next|previous) from Shopify Link headers]
+     *  supported only in api version 2019-07 of the API and above
+     * @return array
+     */
+    public function getResponsePaginationLinks(): array
+    {
+        $links = ['next' => '', 'previous' => ''];
+        if ($linkHeader = $this->getLastResponse()->getHeaderLine('Link')) {
+            foreach (explode(',', $linkHeader) as $item) {
+                if (preg_match('/<([\s\S]+?)>; rel=\"(next|previous)\"/', $item, $match)) {
+                    $links[$match[2]] = $match[1];
+                }
+            }
+        }
+        return $links;
+    }
 }

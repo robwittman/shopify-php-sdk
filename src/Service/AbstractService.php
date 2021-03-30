@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Shopify\ApiInterface;
+use Shopify\Object\PaginationLink;
 
 abstract class AbstractService
 {
@@ -107,20 +108,12 @@ abstract class AbstractService
         );
     }
 
-    /** [fetch links(next|previous) from Shopify Link headers]
+    /** [fetch pagination link from Shopify Link headers]
      *  supported only in api version 2019-07 of the API and above
-     * @return array
+     * @return PaginationLink
      */
-    public function getResponsePaginationLinks(): array
+    public function getPaginationLink(): PaginationLink
     {
-        $links = ['next' => '', 'previous' => ''];
-        if ($linkHeader = $this->getLastResponse()->getHeaderLine('Link')) {
-            foreach (explode(',', $linkHeader) as $item) {
-                if (preg_match('/<([\s\S]+?)>; rel=\"(next|previous)\"/', $item, $match)) {
-                    $links[$match[2]] = $match[1];
-                }
-            }
-        }
-        return $links;
+        return new PaginationLink($this->getLastResponse()->getHeaderLine('Link'));
     }
 }

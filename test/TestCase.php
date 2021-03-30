@@ -20,7 +20,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         return $api;
     }
 
-    public function getApiMock($file)
+    public function getApiMock($file, array $headers = ['X-Foo' => 'Bar'])
     {
         $json = null;
         if (is_array($file)) {
@@ -33,7 +33,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
             }
             $json = file_get_contents($path);
         }
-        $mock = new MockHandler([new Response(200, ['X-Foo' => 'Bar'], $json)]);
+        $mock = new MockHandler([new Response(200, $headers, $json)]);
 
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);

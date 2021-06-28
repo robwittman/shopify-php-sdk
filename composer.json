@@ -11,10 +11,10 @@
     "license": "MIT",
     "authors": [],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=7.2",
         "ext-curl": "*",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.2",
+        "guzzlehttp/guzzle": "^6.2 | ^7.2",
         "psr/log": "^1.0"
     },
     "autoload": {

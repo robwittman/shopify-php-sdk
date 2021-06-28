@@ -20,10 +20,15 @@ class LineItemFields extends AbstractObjectEnum
     const VENDOR = 'vendor';
     const NAME = 'name';
     const GIFT_CARD = 'gift_card';
+    const PRICE_SET = 'price_set';
     const PROPERTIES = 'properties';
     const TAXABLE = 'taxable';
     const TAX_LINES = 'tax_lines';
     const TOTAL_DISCOUNT = 'total_discount';
+    const TOTAL_DISCOUNT_SET = 'total_discount_set';
+    const DISCOUNT_ALLOCATIONS = 'discount_allocations';
+    const ORIGIN_LOCATION = 'origin_location';
+    const DUTIES = 'duties';
 
     public function getFieldTypes()
     {
@@ -44,10 +49,14 @@ class LineItemFields extends AbstractObjectEnum
             'vendor' => 'string',
             'name' => 'string',
             'gift_card' => 'object',
+            'price_set' => 'object',
             'properties' => 'array',
             'taxable' => 'boolean',
             'tax_lines' => 'TaxLine[]',
-            'total_discount' => 'string'
+            'total_discount' => 'string',
+            'total_discount_set' => 'array',
+            'discount_allocations' => 'array',
+            'duties' => 'array',
         );
     }
 }

@@ -29,7 +29,7 @@ class PrivateApi extends AbstractApi
     {
         $args = array(
             'base_uri' => sprintf(
-                "https://%s/admin/api/%s",
+                "https://%s/admin/api/%s/",
                 $this->myshopify_domain,
                 $this->getApiVersion()
             ),

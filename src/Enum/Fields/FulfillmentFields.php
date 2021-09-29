@@ -32,7 +32,6 @@ class FulfillmentFields extends AbstractObjectEnum
             'tracking_company' => 'string',
             'tracking_numbers' => 'array',
             'tracking_urls' => 'array',
-            'location_id' => 'integer',
             'updated_at' => 'DateTime',
             'variant_inventory_management' => 'string'
         );

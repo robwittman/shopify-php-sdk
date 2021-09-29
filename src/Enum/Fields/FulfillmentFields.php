@@ -15,7 +15,6 @@ class FulfillmentFields extends AbstractObjectEnum
     const TRACKING_COMPANY = 'tracking_company';
     const TRACKING_NUMBERS = 'tracking_numbers';
     const TRACKING_URLS = 'tracking_urls';
-    const LOCATION_ID = 'location_id';
     const UPDATED_AT = 'updated_at';
     const VARIANT_INVENTORY_MANAGEMENT = 'variant_inventory_management';
 

@@ -42,7 +42,7 @@ class FulfillmentService extends AbstractService
     public function update($orderId, Fulfillment &$fulfillment)
     {
         $data = $fulfillment->exportData();
-        $endpoint = 'orders/'.$orderId.'/fulfillments/'.$fulfillment->gtId().'.json';
+        $endpoint = 'orders/'.$orderId.'/fulfillments/'.$fulfillment->getId().'.json';
         $response = $this->request(
             $endpoint, 'POST', array(
             'fulfillment' => $data

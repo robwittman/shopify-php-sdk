@@ -52,7 +52,7 @@ class Order extends AbstractObject
      */
     public function getUsdRate()
     {
-        if (!$this->total_price) {
+        if (!(float) $this->total_price) {
             return 0;
         }
 

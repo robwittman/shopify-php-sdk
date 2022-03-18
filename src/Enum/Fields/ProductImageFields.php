@@ -14,6 +14,7 @@ class ProductImageFields extends AbstractObjectEnum
     const WIDTH = 'width';
     const HEIGHT = 'height';
     const UPDATED_AT = 'updated_at';
+    const ADMIN_GRAPHQL_API_ID = 'admin_graphql_api_id';
 
     public function getFieldTypes()
     {
@@ -27,7 +28,8 @@ class ProductImageFields extends AbstractObjectEnum
             'src' => 'string',
             'height' => 'integer',
             'width' => 'integer',
-            'updated_at' => 'DateTime'
+            'updated_at' => 'DateTime',
+	    'admin_graphql_api_id' => 'string'
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace Shopify\Service;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Shopify\ApiInterface;
@@ -84,11 +85,21 @@ abstract class AbstractService
         } else {
             $args['json'] = $params;
         }
-        $this->lastResponse = $this->client->send($request, $args);
-        return json_decode(
-            $this->lastResponse->getBody()->getContents(),
-            true
-        );
+
+        while (true) {
+            try {
+                $this->lastResponse = $this->client->send($request, $args);
+
+                return json_decode(
+                    $this->lastResponse->getBody()->getContents(),
+                    true
+                );
+            } catch (ClientException $e) {
+                if ($e->getCode() !== 429) {
+                    throw $e;
+                }
+            }
+        }
     }
 
     public function createObject($className, $data)

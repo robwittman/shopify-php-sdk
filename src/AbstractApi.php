@@ -8,7 +8,7 @@ use Shopify\Service\AbstractService;
 
 abstract class AbstractApi implements ApiInterface
 {
-    const DEFAULT_API_VERSION = '2022-01';
+    const DEFAULT_API_VERSION = '2022-04';
 
     /**
      * Domain of the Shopify store
